@@ -1,3 +1,3 @@
 Wiki
 =================
-随手记
+Visit [Solarex's Wiki](https://solarex.github.io/wiki/)
