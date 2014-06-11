@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <title>adb - Wiki.Solarex</title>
+        <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
+        <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <!--
+        <div id="nav">
+            <ul>
+                <li><a href="http://tankywoo.com"></a></li>
+                <li><a href="">Github</a></li>
+                <li><a href="">Simiki</a></li>
+            </ul>
+        </div>
+        -->
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="/">Home</a> » <a href="/#android">android</a> » adb
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">adb</div>
+    <div id="content">
+        <h2 id="android-adb-tools-help">android adb tools help</h2>
+<ul>
+<li><code>adb devices</code></li>
+<li><code>adb install test.apk</code></li>
+<li><code>adb uninstall org.solarex.test</code></li>
+</ul>
+<h2 id="adb-shell-am-activitymanager">adb shell am (ActivityManager)</h2>
+<div class="hlcode"><pre><span class="c"># am help</span>
+usage: am <span class="o">[</span>subcommand<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span>
+usage: am start <span class="o">[</span>-D<span class="o">]</span> <span class="o">[</span>-W<span class="o">]</span> <span class="o">[</span>-P &lt;FILE&gt;<span class="o">]</span> <span class="o">[</span>--start-profiler &lt;FILE&gt;<span class="o">]</span> <span class="o">[</span>-S<span class="o">]</span> &lt;INTENT&gt;
+am startservice &lt;INTENT&gt;
+am force-stop &lt;PACKAGE&gt;
+am broadcast &lt;INTENT&gt;
+am instrument <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-e &lt;NAME&gt; &lt;VALUE&gt;<span class="o">]</span> <span class="o">[</span>-p &lt;FILE&gt;<span class="o">]</span> <span class="o">[</span>-w<span class="o">]</span>
+<span class="o">[</span>--no-window-animation<span class="o">]</span> &lt;COMPONENT&gt;
+am profile <span class="o">[</span>looper<span class="o">]</span> start &lt;PROCESS&gt; &lt;FILE&gt;
+am profile <span class="o">[</span>looper<span class="o">]</span> stop <span class="o">[</span>&lt;PROCESS&gt;<span class="o">]</span>
+am dumpheap <span class="o">[</span>flags<span class="o">]</span> &lt;PROCESS&gt; &lt;FILE&gt;
+am monitor <span class="o">[</span>--gdb &lt;port&gt;<span class="o">]</span>
+am screen-compat <span class="o">[</span>on|off<span class="o">]</span> &lt;PACKAGE&gt;
+am display-size <span class="o">[</span>reset|MxN<span class="o">]</span>
+
+am start: start an Activity.  Options are:
+-D: <span class="nb">enable </span>debugging
+-W: <span class="nb">wait </span><span class="k">for </span>launch to <span class="nb">complete</span>
+--start-profiler &lt;FILE&gt;: start profiler and send results to &lt;FILE&gt;
+-P &lt;FILE&gt;: like above, but profiling stops when app goes idle
+-S: force stop the target app before starting the activity
+
+am startservice: start a Service.
+
+am force-stop: force stop everything associated with &lt;PACKAGE&gt;.
+
+am broadcast: send a broadcast Intent.
+
+am instrument: start an Instrumentation.  Typically this target &lt;COMPONENT&gt;
+is the form &lt;TEST_PACKAGE&gt;/&lt;RUNNER_CLASS&gt;.  Options are:
+-r: print raw results <span class="o">(</span>otherwise decode REPORT_KEY_STREAMRESULT<span class="o">)</span>.  Use with
+<span class="o">[</span>-e perf <span class="nb">true</span><span class="o">]</span> to generate raw output <span class="k">for </span>performance measurements.
+-e &lt;NAME&gt; &lt;VALUE&gt;: <span class="nb">set </span>argument &lt;NAME&gt; to &lt;VALUE&gt;.  For <span class="nb">test </span>runners a
+common form is <span class="o">[</span>-e &lt;testrunner_flag&gt; &lt;value&gt;<span class="o">[</span>,&lt;value&gt;...<span class="o">]]</span>.
+-p &lt;FILE&gt;: write profiling data to &lt;FILE&gt;
+-w: <span class="nb">wait </span><span class="k">for </span>instrumentation to finish before returning.  Required <span class="k">for</span>
+<span class="nb">test </span>runners.
+--no-window-animation: turn off window animations will running.
+
+am profile: start and stop profiler on a process.
+
+am dumpheap: dump the heap of a process.  Options are:
+-n: dump native heap instead of managed heap
+
+am monitor: start monitoring <span class="k">for </span>crashes or ANRs.
+--gdb: start gdbserv on the given port at crash/ANR
+
+am screen-compat: control screen compatibility mode of &lt;PACKAGE&gt;.
+
+am display-size: override display size.
+
+&lt;INTENT&gt; specifications include these flags and arguments:
+<span class="o">[</span>-a &lt;ACTION&gt;<span class="o">]</span> <span class="o">[</span>-d &lt;DATA_URI&gt;<span class="o">]</span> <span class="o">[</span>-t &lt;MIME_TYPE&gt;<span class="o">]</span>
+<span class="o">[</span>-c &lt;CATEGORY&gt; <span class="o">[</span>-c &lt;CATEGORY&gt;<span class="o">]</span> ...<span class="o">]</span>
+<span class="o">[</span>-e|--es &lt;EXTRA_KEY&gt; &lt;EXTRA_STRING_VALUE&gt; ...<span class="o">]</span>
+<span class="o">[</span>--esn &lt;EXTRA_KEY&gt; ...<span class="o">]</span>
+<span class="o">[</span>--ez &lt;EXTRA_KEY&gt; &lt;EXTRA_BOOLEAN_VALUE&gt; ...<span class="o">]</span>
+<span class="o">[</span>--ei &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt; ...<span class="o">]</span>
+<span class="o">[</span>--el &lt;EXTRA_KEY&gt; &lt;EXTRA_LONG_VALUE&gt; ...<span class="o">]</span>
+<span class="o">[</span>--eu &lt;EXTRA_KEY&gt; &lt;EXTRA_URI_VALUE&gt; ...<span class="o">]</span>
+<span class="o">[</span>--eia &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt;<span class="o">[</span>,&lt;EXTRA_INT_VALUE...<span class="o">]]</span>
+<span class="o">[</span>--ela &lt;EXTRA_KEY&gt; &lt;EXTRA_LONG_VALUE&gt;<span class="o">[</span>,&lt;EXTRA_LONG_VALUE...<span class="o">]]</span>
+<span class="o">[</span>-n &lt;COMPONENT&gt;<span class="o">]</span> <span class="o">[</span>-f &lt;FLAGS&gt;<span class="o">]</span>
+<span class="o">[</span>--grant-read-uri-permission<span class="o">]</span> <span class="o">[</span>--grant-write-uri-permission<span class="o">]</span>
+<span class="o">[</span>--debug-log-resolution<span class="o">]</span> <span class="o">[</span>--exclude-stopped-packages<span class="o">]</span>
+<span class="o">[</span>--include-stopped-packages<span class="o">]</span>
+<span class="o">[</span>--activity-brought-to-front<span class="o">]</span> <span class="o">[</span>--activity-clear-top<span class="o">]</span>
+<span class="o">[</span>--activity-clear-when-task-reset<span class="o">]</span> <span class="o">[</span>--activity-exclude-from-recents<span class="o">]</span>
+<span class="o">[</span>--activity-launched-from-history<span class="o">]</span> <span class="o">[</span>--activity-multiple-task<span class="o">]</span>
+<span class="o">[</span>--activity-no-animation<span class="o">]</span> <span class="o">[</span>--activity-no-history<span class="o">]</span>
+<span class="o">[</span>--activity-no-user-action<span class="o">]</span> <span class="o">[</span>--activity-previous-is-top<span class="o">]</span>
+<span class="o">[</span>--activity-reorder-to-front<span class="o">]</span> <span class="o">[</span>--activity-reset-task-if-needed<span class="o">]</span>
+<span class="o">[</span>--activity-single-top<span class="o">]</span> <span class="o">[</span>--activity-clear-task<span class="o">]</span>
+<span class="o">[</span>--activity-task-on-home<span class="o">]</span>
+<span class="o">[</span>--receiver-registered-only<span class="o">]</span> <span class="o">[</span>--receiver-replace-pending<span class="o">]</span>
+<span class="o">[</span>&lt;URI&gt; | &lt;PACKAGE&gt; | &lt;COMPONENT&gt;<span class="o">]</span>
+
+Error: Unknown <span class="nb">command</span>: <span class="nb">help</span>
+</pre></div>
+
+
+<h2 id="adb-shell-pm-packagemanager">adb shell pm (PackageManager)</h2>
+<div class="hlcode"><pre><span class="c"># pm help</span>
+Error: unknown <span class="nb">command</span> <span class="s1">&#39;help&#39;</span>
+usage: pm list packages <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-e<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="o">[</span>-e<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>FILTER<span class="o">]</span>
+pm list permission-groups
+pm list permissions <span class="o">[</span>-g<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>GROUP<span class="o">]</span>
+pm list instrumentation <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>TARGET-PACKAGE<span class="o">]</span>
+pm list features
+pm list libraries
+pm path PACKAGE
+pm install <span class="o">[</span>-l<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-t<span class="o">]</span> <span class="o">[</span>-i INSTALLER_PACKAGE_NAME<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span> PATH
+pm uninstall <span class="o">[</span>-k<span class="o">]</span> PACKAGE
+pm clear PACKAGE
+pm <span class="nb">enable </span>PACKAGE_OR_COMPONENT
+pm disable PACKAGE_OR_COMPONENT
+pm disable-user PACKAGE_OR_COMPONENT
+pm <span class="nb">set</span>-install-location <span class="o">[</span>0/auto<span class="o">]</span> <span class="o">[</span>1/internal<span class="o">]</span> <span class="o">[</span>2/external<span class="o">]</span>
+pm get-install-location
+pm createUser USER_NAME
+pm removeUser USER_ID
+
+pm list packages: prints all packages, optionally only
+those whose package name contains the text in FILTER.  Options:
+-f: see their associated file.
+-d: filter to only show disbled packages.
+-e: filter to only show enabled packages.
+-s: filter to only show system packages.
+-3: filter to only show third party packages.
+-u: also include uninstalled packages.
+
+pm list permission-groups: prints all known permission groups.
+
+pm list permissions: prints all known permissions, optionally only
+those in GROUP.  Options:
+-g: organize by group.
+-f: print all information.
+-s: short summary.
+-d: only list dangerous permissions.
+-u: list only the permissions users will see.
+
+pm list instrumentation: use to list all <span class="nb">test </span>packages; optionally
+supply &lt;TARGET-PACKAGE&gt; to list the <span class="nb">test </span>packages <span class="k">for </span>a particular
+application.  Options:
+-f: list the .apk file <span class="k">for </span>the <span class="nb">test </span>package.
+
+pm list features: prints all features of the system.
+
+pm path: print the path to the .apk of the given PACKAGE.
+
+pm install: installs a package to the system.  Options:
+-l: install the package with FORWARD_LOCK.
+-r: reinstall an exisiting app, keeping its data.
+-t: allow <span class="nb">test</span> .apks to be installed.
+-i: specify the installer package name.
+-s: install package on sdcard.
+-f: install package on internal flash.
+
+pm uninstall: removes a package from the system. Options:
+-k: keep the data and cache directories around after package removal.
+
+pm clear: deletes all data associated with a package.
+
+pm <span class="nb">enable</span>, disable, disable-user: these commands change the enabled state
+of a given package or component <span class="o">(</span>written as <span class="s2">&quot;package/class&quot;</span><span class="o">)</span>.
+
+pm get-install-location: returns the current install location.
+0 <span class="o">[</span>auto<span class="o">]</span>: Let system decide the best location
+1 <span class="o">[</span>internal<span class="o">]</span>: Install on internal device storage
+2 <span class="o">[</span>external<span class="o">]</span>: Install on external media
+
+pm <span class="nb">set</span>-install-location: changes the default install location.
+NOTE: this is only intended <span class="k">for </span>debugging; using this can cause
+applications to <span class="nb">break </span>and other undersireable behavior.
+0 <span class="o">[</span>auto<span class="o">]</span>: Let system decide the best location
+1 <span class="o">[</span>internal<span class="o">]</span>: Install on internal device storage
+2 <span class="o">[</span>external<span class="o">]</span>: Install on external media
+</pre></div>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2014 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F754de327571c0ba7ff50a61fc964e196' type='text/javascript'%3E%3C/script%3E"));
+</script>
+    </body>
+</html>

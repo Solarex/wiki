@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <title>git - Wiki.Solarex</title>
+        <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
+        <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <!--
+        <div id="nav">
+            <ul>
+                <li><a href="http://tankywoo.com"></a></li>
+                <li><a href="">Github</a></li>
+                <li><a href="">Simiki</a></li>
+            </ul>
+        </div>
+        -->
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="/">Home</a> » <a href="/#git">git</a> » git
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">git</div>
+    <div id="content">
+        <h1 id="git">git</h1>
+<ul>
+<li><code>git help &lt;verb&gt;</code>,<code>git &lt;verb&gt; --help</code>,<code>man git-&lt;verb&gt;</code></li>
+</ul>
+<h2 id="git-configetcgitconfighomegitconfiggitconfig"><code>git config</code>,<code>/etc/gitconfig</code>,<code>$HOME/.gitconfig</code>,<code>.git/config</code></h2>
+<div class="hlcode"><pre><span class="o">[</span>color<span class="o">]</span>
+    <span class="nv">ui</span> <span class="o">=</span> auto
+<span class="o">[</span>color <span class="s2">&quot;branch&quot;</span><span class="o">]</span>
+    <span class="nv">current</span> <span class="o">=</span> yellow reverse
+    <span class="nb">local</span> <span class="o">=</span> yellow
+    <span class="nv">remote</span> <span class="o">=</span> green
+<span class="o">[</span>color <span class="s2">&quot;diff&quot;</span><span class="o">]</span>
+    <span class="nv">meta</span> <span class="o">=</span> yellow bold
+    <span class="nv">frag</span> <span class="o">=</span> magenta bold
+    <span class="nv">old</span> <span class="o">=</span> red bold
+    <span class="nv">new</span> <span class="o">=</span> green bold
+<span class="o">[</span>color <span class="s2">&quot;status&quot;</span><span class="o">]</span>
+    <span class="nv">added</span> <span class="o">=</span> yellow
+    <span class="nv">changed</span> <span class="o">=</span> green
+    <span class="nv">untracked</span> <span class="o">=</span> cyan
+</pre></div>
+
+
+<ul>
+<li>工作目录下面的所有文件都不外乎这两种状态：已跟踪或未跟踪。已跟踪的文件是指本来就被纳入版本控制管理的文件，在上次快照中有它们的记录，工作一段时间后，它们的状态可能是未更新，已修改或者已放入暂存区。而所有其他文件都属于未跟踪文件。它们既没有上次更新时的快照，也不在当前的暂存区域。初次克隆某个仓库时，工作目录中的所有文件都属于已跟踪文件，且状态为未修改。</li>
+<li>git add 的潜台词就是把目标文件快照放入暂存区域，也就是 add file into staged area，同时未曾跟踪过的文件标记为需要跟踪。</li>
+<li><code>benchmarks.rb</code> 文件出现了两次！一次算未暂存，一次算已暂存，这怎么可能呢？好吧，实际上 Git 只不过暂存了你运行 <code>git add</code>命令时的版本，如果现在提交，那么提交的是此次修改前的版本，而非当前工作目录中的版本。所以，运行了<code>git add</code> 之后又作了修订的文件，需要重新运行<code>git add</code> 把最新版本重新暂存起来。</li>
+<li>文件<code>.gitignore</code>的格式规范如下：</li>
+<li>所有空行或者以注释符号 ＃ 开头的行都会被 Git 忽略。</li>
+<li>可以使用标准的 glob 模式匹配。</li>
+<li>匹配模式最后跟反斜杠（/）说明要忽略的是目录。</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
+</ul>
+<div class="hlcode"><pre><span class="c"># 此为注释 – 将被 Git 忽略</span>
+<span class="c"># 忽略所有 .a 结尾的文件</span>
+*.a
+<span class="c"># 但 lib.a 除外</span>
+!lib.a
+<span class="c"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span>
+/TODO
+<span class="c"># 忽略 build/ 目录下的所有文件</span>
+build/
+<span class="c"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span>
+doc/*.txt
+</pre></div>
+
+
+<ul>
+<li><code>git diff</code>比较的是工作目录中当前文件和暂存区域快照之间的差异，也就是修改之后还没有暂存起来的变化内容。要看已经暂存起来的文件和上次提交时的快照之间的差异，可以用 <code>git diff --staged</code>.单单 <code>git diff</code> 不过是显示还没有暂存起来的改动，而不是这次工作和上次提交之间的差异。所以有时候你一下子暂存了所有更新过的文件后，运行 <code>git diff</code> 后却什么也没有，就是这个原因。</li>
+<li>尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。Git 提供了一个跳过使用暂存区域的方式，只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤。</li>
+<li>要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。可以用 git rm 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。最后提交的时候，该文件就不再纳入版本管理了。如果删除之前修改过并且没有把修改放到暂存区域的话，则必须要用强制删除选项 <code>-f</code>。</li>
+</ul>
+<div class="hlcode"><pre>hrh@Solarex:tmp<span class="nv">$ </span>git status
+<span class="c"># On branch master</span>
+<span class="c"># Changes to be committed:</span>
+<span class="c">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span>
+<span class="c">#</span>
+<span class="c">#   new file:   test.test</span>
+<span class="c">#</span>
+<span class="c"># Changes not staged for commit:</span>
+<span class="c">#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span>
+<span class="c">#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span>
+<span class="c">#</span>
+<span class="c">#   modified:   test.test</span>
+<span class="c">#</span>
+hrh@Solarex:tmp<span class="nv">$ </span>git rm test.test
+error: <span class="s1">&#39;tmp/test.test&#39;</span> has staged content different from both the file and the HEAD
+<span class="o">(</span>use -f to force removal<span class="o">)</span>                                                      <span class="sb">```</span>
+</pre></div>
+
+
+<p>我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除。比如一些大型日志文件或者一堆 .a 编译文件，不小心纳入仓库后，要移除跟踪但不删除文件，以便稍后在 <code>.gitignore</code> 文件中补上，用 --cached 选项即可。<code>git rm --cached readme.txt</code>
++ 运行<code>git mv</code> 就相当于运行了下面三条命令：<code>mv readme.txt readme;git rm readme.txt; git add readme</code>
++ <code>git log</code>，<code>-p</code>展开显示每次提交的内容差异，<code>-2</code> 则仅显示最近的两次更新。此外，还有许多摘要选项可以用，比如 <code>--stat</code>，仅显示简要的增改行数统计。<code>git log --pretty=online|short|full|fuller</code>，<code>git log --pretty=format:"%h - %an, %ar : %s"</code>。</p>
+<div class="hlcode"><pre>%H 提交对象（commit）的完整哈希字串
+%h 提交对象的简短哈希字串
+%T 树对象（tree）的完整哈希字串
+%t 树对象的简短哈希字串
+%P 父对象（parent）的完整哈希字串
+%p 父对象的简短哈希字串
+%an 作者（author）的名字
+%ae 作者的电子邮件地址
+%ad 作者修订日期（可以用 -date<span class="o">=</span> 选项定制格式）
+%ar 作者修订日期，按多久以前的方式显示
+%cn 提交者<span class="o">(</span>committer<span class="o">)</span>的名字
+%ce 提交者的电子邮件地址
+%cd 提交日期
+%cr 提交日期，按多久以前的方式显示
+%s 提交说明
+</pre></div>
+
+
+<p>用 <code>oneline</code> 或 <code>format</code> 时结合 <code>--graph</code> 选项，可以看到开头多出一些 ASCII 字符串表示的简单图形。</p>
+<div class="hlcode"><pre>-p 按补丁格式显示每个更新之间的差异。
+--stat 显示每次更新的文件修改统计信息。
+--shortstat 只显示 --stat 中最后的行数修改添加移除统计。
+--name-only 仅在提交信息后显示已修改的文件清单。
+--name-status 显示新增、修改、删除的文件清单。
+--abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+--relative-date 使用较短的相对时间显示（比如，“2 weeks ago”）。
+--graph 显示 ASCII 图形表示的分支合并历史。
+--pretty 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
+</pre></div>
+
+
+<p>还有按照时间作限制的选项，比如 <code>--since</code> 和 <code>--until</code>。还可以给出若干搜索条件，列出符合的提交。用 <code>--author</code> 选项显示指定作者的提交，用 <code>--grep</code> 选项搜索提交说明中的关键字。（请注意，如果要得到同时满足这两个选项搜索条件的提交，就必须用 <code>--all-match</code> 选项。否则，满足任意一个条件的提交都会被匹配出来）</p>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2014 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F754de327571c0ba7ff50a61fc964e196' type='text/javascript'%3E%3C/script%3E"));
+</script>
+    </body>
+</html>
