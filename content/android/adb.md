@@ -2,10 +2,17 @@
 title: "adb"
 date: 2014-06-11 23:31
 ---
-## android adb tools help ##
+## adb ##
+Android Debug Bridge (adb) is a versatile command line tool that lets you communicate with an emulator instance or connected Android-powered device. It is a client-server program that includes three components:
+  - A client, which runs on your development machine. You can invoke a client from a shell by issuing an adb command. Other Android tools such as the ADT plugin and DDMS also create adb clients.
+  - A server, which runs as a background process on your development machine. The server manages communication between the client and the adb daemon running on an emulator or device.
+  - A daemon, which runs as a background process on each emulator or device instance.
+
+
 + ``adb devices``
 + ``adb install test.apk``
 + ``adb uninstall org.solarex.test``
++ ``adb emu -s emulator-5554 kill``
 
 ## adb shell am (ActivityManager) ##
 
