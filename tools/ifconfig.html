@@ -3,7 +3,7 @@
     <head>
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
-        <title>virtualenv - Wiki.Solarex</title>
+        <title>network interface - Wiki.Solarex</title>
         <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
         <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,34 +16,18 @@
     <div id="header">
         <div id="post-nav">
             
-            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#python">python</a> » virtualenv
+            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#tools">tools</a> » network interface
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">virtualenv</div>
+    <div id="title">network interface</div>
     <div id="content">
-        <h2 id="virtualenv-virtualenvwrapper">virtualenv &amp; virtualenvwrapper</h2>
-<h3 id="set-up-virtualenv">set up virtualenv</h3>
+        <h2 id="linux-network-interface">linux network interface</h2>
 <ul>
-<li><code>virtualenv</code>用于创建独立的Python环境，多个Python相互独立，互不影响</li>
-<li><code>virtualenvwrapper</code>是<code>virtualenv</code>的扩展包，方便管理虚拟环境</li>
-<li><code>sudo apt-get install python-virtualenv</code></li>
-</ul>
-<h3 id="virtualenv">virtualenv</h3>
-<ul>
-<li><code>virtualenv [--no-site-packages]  env_name</code></li>
-<li><code>cd env_name &amp;&amp; source ./bin/activate</code></li>
-<li><code>deactivate</code></li>
-</ul>
-<h3 id="virtualenvwrapper">virtualenvwrapper</h3>
-<ul>
-<li><code>mkdir $HOME/.virtualenvs &amp;&amp; echo 'export WORKON_HOME=$HOME/.virtualenvs' &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc</code></li>
-<li><code>lsvirtualenv</code></li>
-<li><code>mkvirtualenv env_name</code></li>
-<li><code>workon env_name</code></li>
-<li><code>rmvirtualenv env_name</code></li>
-<li><code>deactivate</code></li>
+<li><code>ifconfig</code>,<code>/sbin/ifconfig -a</code></li>
+<li><code>ifup eth0</code>,<code>ifdown eth0</code></li>
+<li><code>/etc/init.d/networking restart</code></li>
 </ul>
     </div>
 
