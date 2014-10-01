@@ -24,6 +24,25 @@
     <div id="title">shell</div>
     <div id="content">
         <h2 id="bash-commands">Bash Commands</h2>
+<ul>
+<li><code>tar xvjfm scripts.tar.bz2</code>, <code>-m, --touch don't extract file modified time</code>, using time in host machine</li>
+<li><code>curl -H "Content-Type: application/json" -d '{"object_kind":"merge_request","object_attributes":{"id":22,"target_branch":"master","source_branch":"master","source_project_id":57,"author_id":9,"assignee_id":null,"title":"Master Title","created_at":"2014-07-02T02:31:20.000Z","updated_at":"2014-07-02T02:36:33.008Z","milestone_id":null,"state":"closed","merge_status":"unchecked","target_project_id":55,"iid":7,"descrinption":"description_content"}}' http://10.0.6.122:9002/merge_request</code> curl post</li>
+<li><code>apt-get update/upgrade/dist-upgrade/autoclean/autoremove/clean/remove/purge</code></li>
+<li><code>dpkg-reconfigure foo</code>重新配置</li>
+<li><code>echo "foo hold" | sudo dpkg --set-selections</code></li>
+<li><code>echo "foo install" | sudo dpkg --set-selections</code></li>
+<li><code>apt-cache search foo, dpkg -l foo*</code>, <code>apt-cache show foo , dpkg --print-avail foo</code></li>
+<li><code>`dpkg -L foo</code></li>
+<li><code>dpkg --get-selections</code></li>
+<li><code>dlocate foo, dpkg -S foo</code> foo文件来自哪个包</li>
+<li><code>apt-file search foo</code> 哪些安装包提供foo文件,不仅仅包含系统中已经安装的</li>
+<li><code>dpkg -c foo.deb</code> foo.deb 包含哪些文件</li>
+<li><code>apt-cache dumpavail</code>显示所有可用安装包,以及他们各自的详细信息</li>
+<li><code>apt-cache pkgnames</code> 快速列出已安装软件包名称</li>
+<li>apt使用代理</li>
+<li>echo "export http_proxy=http://127.0.0.1:8087" &gt;&gt; ~/.bashrc</li>
+<li>echo 'Acquire::http::proxy http://127.0.0.1:8087' &gt;&gt; /etc/apt/apt.conf </li>
+</ul>
     </div>
 
         </div>

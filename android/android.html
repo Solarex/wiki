@@ -3,7 +3,7 @@
     <head>
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
-        <title>wget - Wiki.Solarex</title>
+        <title>android - Wiki.Solarex</title>
         <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
         <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,21 +16,24 @@
     <div id="header">
         <div id="post-nav">
             
-            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#tools">tools</a> » wget
+            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#android">android</a> » android
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">wget</div>
+    <div id="title">android</div>
     <div id="content">
-        <ul>
-<li><code>wget -m -k -x http://examples.com</code></li>
-<li><code>wget -c http://examples.com/package.iso</code> 断点续传</li>
-<li><code>wget -i download.lst</code> 批量下载</li>
-<li><code>wget -m -k -H http://examples.com</code> 镜像一个网站,若图片资源在别的站点,可以使用<code>-H</code>选项</li>
-<li><code>wget -r -np -nd  http://example.com/ubuntu/packages</code> 下载制定目录中所有文件,<code>-np</code>不遍历父目录,<code>-nd</code>不在本机重新创建目录结构</li>
-<li><code>wget -r -np -nd --accept=iso,zip http://example.com/ubuntu/packages</code>仅下载制定目录下制定扩展名的文件,可以制定多个扩展名,用逗号分开即可</li>
+        <h2 id="android">android</h2>
+<ul>
+<li><code>android list target</code></li>
+<li><code>android create avd -n &lt;name&gt; -t &lt;targetID&gt; -p path/to/my/avd -c &lt;size&gt;[K|M] [-&lt;option&gt; &lt;value&gt;] ...</code></li>
+<li><code>mksdcard -l &lt;label&gt; &lt;size&gt; &lt;file&gt;</code></li>
+<li><code>android move avd -n &lt;name&gt; [-&lt;option&gt; &lt;value&gt;] ...</code>,move or rename an AVD</li>
+<li><code>android update avd -n &lt;name&gt;</code></li>
+<li><code>android delete avd -n &lt;name&gt;</code></li>
+<li><code>emulator -avd &lt;avd_name&gt; [&lt;options&gt;]</code>,eg,<code>emulator -avd WVGA800 -scale 96dpi -dpi-device 160</code>,<code>emulator -avd &lt;avd_name&gt;  -wipe-data</code></li>
 </ul>
+<h3 id="using-emulator">Using Emulator</h3>
     </div>
 
         </div>
