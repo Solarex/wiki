@@ -1,5 +1,5 @@
 ---
-title: "useful_tools"
+title: "Useful tools"
 date: 2014-06-15 10:05
 ---
 ## Windows ##
@@ -76,4 +76,4 @@ date: 2014-06-15 10:05
 
 
 
-## Firefox Extensions ( most as Chrome ) ##
+## Firefox Extensions ( mostly as Chrome ) ##
