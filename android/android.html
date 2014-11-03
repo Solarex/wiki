@@ -26,6 +26,10 @@
         <h2 id="android">android</h2>
 <ul>
 <li><code>android list target</code></li>
+<li><code>android create project --target &lt;target-id&gt; --name MyFirstApp 
+--path &lt;path-to-workspace&gt;/MyFirstApp --activity MainActivity 
+--package com.example.myfirstapp</code></li>
+<li><code>ant debug</code>,<code>adb install bin/MyFirstApp-debug.apk</code></li>
 <li><code>android create avd -n &lt;name&gt; -t &lt;targetID&gt; -p path/to/my/avd -c &lt;size&gt;[K|M] [-&lt;option&gt; &lt;value&gt;] ...</code></li>
 <li><code>mksdcard -l &lt;label&gt; &lt;size&gt; &lt;file&gt;</code></li>
 <li><code>android move avd -n &lt;name&gt; [-&lt;option&gt; &lt;value&gt;] ...</code>,move or rename an AVD</li>
