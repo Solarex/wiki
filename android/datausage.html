@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <title>DataUsage - Wiki.Solarex</title>
+        <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
+        <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+                <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#android">android</a> » DataUsage
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">DataUsage</div>
+    <div id="content">
+        <h1 id="android">Android流量监控模块学习</h1>
+<p><a href="http://source.android.com/devices/tech/datausage/index.html">REF</a></p>
+<p>Android 4.0 (Ice Cream Sandwich) introduces new features that help users understand and control how their device uses network data.  It monitors overall data usage, and supports warning or limit thresholds which will trigger notifications or disable mobile data when usage exceeds a specific quota.Android 4.0开始引入流量监控的特性。他可以监控所有的数据流量，支持警告和限制流量使用。当超过特定quota值时，会触发notification或者禁止移动网络。Data usage is also tracked on a per-application basis, enabling users to visually explore historical usage in the Settings app. Users can also restrict how specific applications are allowed to use data when running in the background.流量监控可以追追踪每个应用的历史数据。用户可以限制特定的应用在后台运行时是否可以联网。</p>
+<p>Mobile operators typically measure data usage at the Internet layer (IP). To match this approach in Android 4.0, we rely on the fact that for the kernel devices we care about the <code>rx_bytes</code> and <code>tx_bytes</code> values returned by <code>dev_get_stats()</code> return exactly the Internet layer (IP) bytes transferred.  But we understand that for other devices it might not be the case. For now, the feature relies on this peculiarity. New drivers should have that property also, and the <code>dev_get_stats()</code> values must not include any encapsulation overhead of lower network layers (such as Ethernet headers), and should preferably not include other traffic (such as ARP) unless it is negligible.通过设备<code>dev_get_stats()</code>返回的<code>rx_bytes</code>和<code>tx_bytes</code>来统计数据流量。新加入的device应该有这样的特性，在<code>dev_get_stats()</code>中返回值不应包括底层的数据。</p>
+<p>The Android framework only collects statistics from network interfaces associated with a <code>NetworkStateTracker</code> in <code>ConnectivityService</code>. This enables the framework to concretely identify each network interface, including its type (such as <code>TYPE_MOBILE</code> or <code>TYPE_WIFI</code>) and subscriber identity (such as IMSI).  All network interfaces used to route data should be represented by a <code>NetworkStateTracker</code> so that statistics can be accounted correctly.Android Framework从<code>ConnectivityService</code>中的<code>NetworkStateTracker</code>来为每个network interface统计数据。这样就保证了framework可以具体的分辨每个network interface，包括type和sim卡身份证等。</p>
+<p>Tethering involves forwarding of traffic from one network interface to another using <code>iptables</code> forwarding rules.  The framework periodically records tethering statistics between any interface pairs returned by <code>ConnectivityService.getTetheredIfacePairs()</code>.共享网络</p>
+<p>Users can specify a day of month upon which their data usage resets. Internally, cycle boundaries are defined to end at midnight (00:00) UTC on the requested day. When a month is shorter than the requested day, the cycle resets on the first day of the subsequent month. For example, a cycle reset day of the 30th would cause a reset on January 30 at 00:00 UTC and March 1 at 00:00 UTC.流量重置的日期设置，一般是在设定日期的end at midnight UTC。当一个月日期不到设定日期时，从下个月1日开始重置，比如2月份没有30日，则从3月1日重新算流量。</p>
+<p>Tags represent one of the metrics the data usage counters will be tracked against. By default, and implicitly, a tag is just based on the UID. The UID is used as the base for policing, and cannot be ignored. So a tag will always at least represent a UID (uid_tag). A tag can be explicitly augmented with an "accounting tag" which is associated with a UID. User space can use <code>TrafficStats.setThreadStatsTag()</code> to set the acct_tag portion of the tag which is then used  with sockets: all data belonging to that socket will be counted against the tag. The policing is then based on the tag's <code>uid_tag</code> portion, and stats are collected for the <code>acct_tag</code> portion separately.DataUsage Tag 是流量监控的一个维度，默认based on the UID。</p>
+<h1 id="_1">流量监控主要用到的类</h1>
+<ul>
+<li><code>INetworkStatsSession</code>:Return network layer usage summary(historical network layer stats) for traffic that matches template.Return network layer usage summary per UID for traffic that matches template.Return historical network layer stats for specific UID traffic that matches template.</li>
+<li><code>NetworkTemplate</code>:Template definition used to generically match <code>NetworkIdentity</code>,usually when collecting statistics.</li>
+<li><code>NetworkStatsHistory</code>:Collection of historical network statistics, recorded into equally-sized "buckets" in time. Internally it stores data in <code>long</code> series for more efficient persistence.Each bucket is defined by a <code>bucketStart</code> timestamp, and lasts for <code>bucketDuration</code>. Internally assumes that <code>bucketStart</code> is sorted at all times.</li>
+<li><code>NetworkPolicyEditor</code>:Utility class to modify list of <code>NetworkPolicy</code>. Specifically knows about which policies can coexist. This editor offers thread safety when talking with <code>NetworkPolicyManager</code>.</li>
+<li><code>NetworkPolicy</code>:Policy for networks matching a <code>NetworkTemplate</code>, including usage cycle and limits to be enforced.</li>
+<li><code>NetworkStatsService</code>:Collect and persist detailed network statistics, and provide this data to other system services.</li>
+<li><code>android.net.TrafficStats.UID_REMOVED</code>,<code>android.net.TrafficStats.UID_TETHERING</code>.</li>
+<li>
+<p><code>NetworkStats</code>:Collection of active network statistics. Can contain summary details across all interfaces, or details with per-UID granularity. Internally stores data as a large table, closely matching <code>/proc/</code> data format. This structure optimizes for rapid in-memory comparison, but consider using <code>NetworkStatsHistory</code> when persisting.所有活动网络分析的收集，包括了所有网络接口的总结细节，也可以从单个UID的粒度上来分析。在内部将这些分析数据作为一个大表存储，格式和<code>/proc</code>中的数据格式很接近，这种格式特地为内存内的比较进行了优化，持久化存储的时候可以考虑使用<code>NetworkStatsHistory</code>。前台数据，后台数据</p>
+</li>
+<li>
+<p><a href="https://github.com/android/platform_frameworks_base/blob/master/core/java/android/net/NetworkStats.java">NetworkStats</a></p>
+</li>
+<li><a href="https://github.com/android/platform_frameworks_base/blob/master/services/java/com/android/server/net/NetworkStatsCollection.java">NetworkStatsCollection</a></li>
+<li><a href="https://android.googlesource.com/platform/frameworks/base.git/+/android-4.3_r3/core/java/android/net/NetworkTemplate.java">NetworkTemplate</a></li>
+<li>NetworkStatsFactory:Creates <code>NetworkStats</code> instances by parsing various <code>/proc/</code> files as needed.</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2014 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+   </body>
+</html>

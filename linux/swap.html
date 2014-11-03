@@ -3,7 +3,7 @@
     <head>
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
-        <title>Android开源库 - Wiki.Solarex</title>
+        <title>swap - Wiki.Solarex</title>
         <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
         <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,19 +16,19 @@
     <div id="header">
         <div id="post-nav">
             
-            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#android">android</a> » Android开源库
+            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#linux">linux</a> » swap
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">Android开源库</div>
+    <div id="title">swap</div>
     <div id="content">
         <ul>
-<li><a href="https://github.com/commonsguy/cwac-loaderex">cwac-loaderex</a>.Since Android’s <code>CursorLoader</code> is only for Cursors returned by content providers we need another <code>Loader</code> implementation if we want to use SQLite directly.This library also contains a <code>SQLiteCursorLoader</code>.</li>
-<li>切分dex文件,<a href="https://github.com/creativepsyco/secondary-dex-gradle">Secondary DEX file generation using Gradle.</a></li>
-<li><a href="https://github.com/etsy/AndroidStaggeredGrid">类似Pinterest瀑布流布局</a></li>
-<li><a href="https://github.com/Trinea/android-open-project">AndroidOpenProject</a></li>
-<li><a href="http://blog.daimajia.com/android-library-collection/">AndroidLibraryCollection</a></li>
+<li><code>dd if=/dev/zero of=/tmp/swapfile bs=1024k count=10</code> <code>mkswap -f /tmp/swapfile</code> <code>swapon /tmp/swapfile</code></li>
+<li><code>swapon -s</code>显示fstab中交换分区信息</li>
+<li><code>swapon -a</code>将<code>/etc/fstab</code>文件中所有设置为swap的设备开启，标记noauto参数的设备除外</li>
+<li><code>swapoff -a</code>将<code>/etc/fstab</code>文件中所有设置为swap的设备关闭</li>
+<li><code>swapoff /tmp/swapfile</code></li>
 </ul>
     </div>
 
