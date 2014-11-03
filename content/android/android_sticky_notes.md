@@ -1,5 +1,5 @@
 ---
-title: "android_sticky_notes"
+title: "Sticky Notes"
 date: 2014-11-03 10:16
 ---
 + Activity ``getIntent()`` Return the intent that started this activity.
