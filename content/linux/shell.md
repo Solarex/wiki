@@ -18,6 +18,5 @@ date: 2014-06-11 23:31
 + ``dpkg -c foo.deb`` foo.deb 包含哪些文件
 + ``apt-cache dumpavail``显示所有可用安装包,以及他们各自的详细信息
 + ``apt-cache pkgnames`` 快速列出已安装软件包名称
-+ apt使用代理
-  + echo "export http_proxy=http://127.0.0.1:8087" >> ~/.bashrc
-  + echo 'Acquire::http::proxy http://127.0.0.1:8087' >> /etc/apt/apt.conf 
++ apt使用代理:``echo "export http_proxy=http://127.0.0.1:8087" >> ~/.bashrc``,``echo 'Acquire::http::proxy http://127.0.0.1:8087' >> /etc/apt/apt.conf ``
++ Win:``tasklist /svc``,``taskkill /pid 1965``,``taskkill /f /im QQ.exe``
