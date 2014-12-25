@@ -53,3 +53,12 @@ $ git merge work
 提交到远程主干
 $ git push
 ```
+
+# git 恢复备份
+
+```
+git clone --mirror $(url}/{repo}
+pushd ${repo}
+git remote update
+popd
+```
