@@ -7,3 +7,4 @@ date: 2014-10-24 11:25
 + [类似Pinterest瀑布流布局](https://github.com/etsy/AndroidStaggeredGrid)
 + [AndroidOpenProject](https://github.com/Trinea/android-open-project)
 + [AndroidLibraryCollection](http://blog.daimajia.com/android-library-collection/)
++ [AndroidStaggeredGrid](https://github.com/etsy/AndroidStaggeredGrid)Android瀑布流
