@@ -69,6 +69,8 @@ date: 2014-06-15 10:05
 - Vimium
 - Vocabulary in Context
 - Yahei
+- Rss Subscription Extension
+- Feedly Mini
 - 有道词典
 - 眼不见心不烦
 - 豆瓣FM-Hacker
