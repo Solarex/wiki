@@ -62,3 +62,12 @@ pushd ${repo}
 git remote update
 popd
 ```
+
+# git 命令
+
++ ``git remote show origin``，查看远程分支
++ ``git remote prune origin``，删除远程已经不存在的分支，stale状态
++ ``git commit --amend``，修改最近的一次提交
++ ``git log --follow -p file``，查看文件历史版本
++ ``git cherry-pick commit-id``，"复制"一个提交节点并在当前分支做一次完全一样的新提交。
++ [visual-git-guide](https://marklodato.github.io/visual-git-guide/index-zh-cn.html)
