@@ -4,34 +4,100 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <title>git - Wiki.Solarex</title>
-        <meta name="keywords" content="wiki, markdown, linux, python, git, vim and so on"/>
-        <meta name="description" content="Solarex's wiki, powered by simiki, focus on linux, python and other stuff"/>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
 
     <body>
         <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
-                <div id="container">
+        <div id="container">
             
     <div id="header">
         <div id="post-nav">
             
-            <a href="https://solarex.github.io/wiki">Home</a> » <a href="https://solarex.github.io/wiki#tools">tools</a> » git
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#tools">tools</a> » git
             
         </div>
     </div>
     <div class="clearfix"></div>
     <div id="title">git</div>
     <div id="content">
-        
+        <h2 id="git-config">git config</h2>
+<div class="hlcode"><pre><span class="k">[user]</span>
+    <span class="na">name</span> <span class="o">=</span> <span class="s">Solarex</span>
+<span class="s">    email = rh.hou.work@gmail.com</span>
+<span class="k">[core]</span>
+    <span class="na">editor</span> <span class="o">=</span> <span class="s">vim</span>
+<span class="k">[color]</span>
+    <span class="na">ui</span> <span class="o">=</span> <span class="s">auto</span>
+<span class="k">[alias]</span>
+    <span class="na">lg</span> <span class="o">=</span> <span class="s">log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --</span>
+<span class="k">[commit]</span>
+    <span class="na">template</span> <span class="o">=</span> <span class="s">~/.git_commit.template</span>
+</pre></div>
+
+
+<h2 id="git-flow">git flow</h2>
+<div class="hlcode"><pre><span class="err">远程创建一个主分支，本地每人创建功能分支，日常工作流程如下：</span>
+
+<span class="err">去自己的工作分支</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">work</span>
+
+<span class="err">工作</span>
+<span class="p">....</span>
+
+<span class="err">提交工作分支的修改</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="err">回到主分支</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
+
+<span class="err">获取远程最新的修改，此时不会产生冲突</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">pull</span>
+
+<span class="err">回到工作分支</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">work</span>
+
+<span class="err">用</span><span class="n">rebase</span><span class="err">合并主干的修改，如果有冲突在此时解决</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span>
+
+<span class="err">回到主分支</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
+
+<span class="err">合并工作分支的修改，此时不会产生冲突。</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="n">work</span>
+
+<span class="err">提交到远程主干</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span>
+</pre></div>
+
+
+<h1 id="git">git 恢复备份</h1>
+<div class="hlcode"><pre>git clone --mirror $(url}/{repo}
+pushd <span class="cp">${</span><span class="n">repo</span><span class="cp">}</span>
+git remote update
+popd
+</pre></div>
+
+
+<h1 id="git_1">git 命令</h1>
+<ul>
+<li><code>git remote show origin</code>，查看远程分支</li>
+<li><code>git remote prune origin</code>，删除远程已经不存在的分支，stale状态</li>
+<li><code>git commit --amend</code>，修改最近的一次提交</li>
+<li><code>git log --follow -p file</code>，查看文件历史版本</li>
+<li><code>git cherry-pick commit-id</code>，"复制"一个提交节点并在当前分支做一次完全一样的新提交。</li>
+<li><a href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html">visual-git-guide</a></li>
+</ul>
     </div>
 
         </div>
         <div id="footer">
             <span>
-                Copyright © 2012-2014 Solarex.
+                Copyright © 2012-2015 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
             </span>
         </div>
-   </body>
+    </body>
 </html>
