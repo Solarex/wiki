@@ -1,5 +1,6 @@
 #!/bin/bash
 echo $PWD
+simiki=/Users/Solarex/Workspace/Solarex/simiki
 git branch -a
 git checkout md
-rsync -rvt /home/hrh/Workspace/Solarex/Wiki/content .
+rsync -rvt ${simiki}/content .
