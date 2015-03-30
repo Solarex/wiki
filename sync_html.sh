@@ -3,6 +3,7 @@ echo $PWD
 simiki=/Users/Solarex/Workspace/Solarex/simiki
 git branch -a 
 git checkout gh-pages
+find . -depth -name "*.html" -delete
 rsync -rvt ${simiki}/output/* .
 echo "sync successed"
 read -p "Press any key to continue......" key
