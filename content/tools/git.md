@@ -79,3 +79,12 @@ popd
 #!/bin/bash
 meld "$2" "$5" >/dev/null >2&1
 ```
+
++ ``git config --global diff.external /path/to/opendiff.sh``,``git config --global --unset diff.external``
+
+```bash
+#!/bin/bash
+/usr/bin/opendiff "$2" "$5" -merge "$1"
+```
+
+
