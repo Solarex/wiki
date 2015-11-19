@@ -1,6 +1,6 @@
 #!/bin/bash
 echo $PWD
-simiki=/Users/Solarex/Workspace/Solarex/simiki
+simiki=/Users/houruhou/Workspace/OpenSource/Blog+Wiki/simiki
 git branch -a
 git checkout md
 rsync -rvt ${simiki}/content .
