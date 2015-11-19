@@ -23,7 +23,10 @@
     <div class="clearfix"></div>
     <div id="title">grep</div>
     <div id="content">
-        
+        <ul>
+<li><code>grep -e "class" -e "vitural" file</code>,匹配多个模式</li>
+<li>工程目录中utf-8格式和gb2312格式两种文件，要查找字的是中文,查找到中文的utf-8编码和gb2312编码分别是E4B8ADE69687和D6D0CEC4，<code>grep -rnP "\xE4\xB8\xAD\xE6\x96\x87|\xD6\xD0\xCE\xC4" *</code>,汉字编码查询：http://bm.kdd.cc/</li>
+</ul>
     </div>
 
         </div>

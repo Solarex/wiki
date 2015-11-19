@@ -3,7 +3,7 @@
     <head>
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
-        <title>wget - Wiki.Solarex</title>
+        <title>disk - Wiki.Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,21 +16,25 @@
     <div id="header">
         <div id="post-nav">
             
-            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#tools">tools</a> » wget
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#tools">tools</a> » disk
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">wget</div>
+    <div id="title">disk</div>
     <div id="content">
         <ul>
-<li><code>wget -m -k -x http://examples.com</code></li>
-<li><code>wget -c http://examples.com/package.iso</code> 断点续传</li>
-<li><code>wget -i download.lst</code> 批量下载</li>
-<li><code>wget -m -k -H http://examples.com</code> 镜像一个网站,若图片资源在别的站点,可以使用<code>-H</code>选项</li>
-<li><code>wget -r -np -nd  http://example.com/ubuntu/packages</code> 下载制定目录中所有文件,<code>-np</code>不遍历父目录,<code>-nd</code>不在本机重新创建目录结构</li>
-<li><code>wget -r -np -nd --accept=iso,zip http://example.com/ubuntu/packages</code>仅下载制定目录下制定扩展名的文件,可以制定多个扩展名,用逗号分开即可</li>
-<li><code>ffmpeg -t &lt;视频时长&gt; -ss  -i &lt;视频文件&gt;  demo.gif</code>,<code>ffmpeg -t 10 -ss 00:00:00 -i demo.mp4 demo.gif</code></li>
+<li>查看磁盘空间利用大小:<code>df -h</code>,-h: human缩写，以易读的方式显示结果（即带单位：比如M/G，如果不加这个参数，显示的数字以B为单位）</li>
+<li>查看当前目录所占空间大小:<code>du -sh</code></li>
+<li>查看当前目录下所有子文件夹排序后的大小</li>
+</ul>
+<div class="hlcode"><pre><span class="k">for </span>i in <span class="sb">`</span>ls<span class="sb">`</span>;<span class="k">do </span>du -sh <span class="nv">$i</span> ; <span class="k">done</span> | sort
+du -sh <span class="sb">`</span>ls<span class="sb">`</span> | sort
+</pre></div>
+
+
+<ul>
+<li>用tar实现文件夹同步，排除部分文件不同步:<code>tar --exclude '*.svn' -cvf - /path/to/source | ( cd /path/to/target; tar -xf -)</code></li>
 </ul>
     </div>
 

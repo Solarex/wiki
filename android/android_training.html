@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <title>android_training - Wiki.Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#android">android</a> » android_training
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">android_training</div>
+    <div id="content">
+        <h1 id="android-traininggetting-started">Android Training(Getting Started)</h1>
+<h2 id="build-your-first-app">Build Your First App</h2>
+<h3 id="starting-another-activity">Starting Another Activity</h3>
+<div class="hlcode"><pre><span class="o">&lt;</span><span class="n">activity</span>
+    <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;com.mycompany.myfirstapp.DisplayMessageActivity&quot;</span>
+    <span class="nl">android:</span><span class="n">label</span><span class="o">=</span><span class="s">&quot;@string/title_activity_display_message&quot;</span>
+    <span class="nl">android:</span><span class="n">parentActivityName</span><span class="o">=</span><span class="s">&quot;com.mycompany.myfirstapp.MyActivity&quot;</span> <span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">meta</span><span class="o">-</span><span class="n">data</span>
+        <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.support.PARENT_ACTIVITY&quot;</span>
+        <span class="nl">android:</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;com.mycompany.myfirstapp.MyActivity&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>The <code>android:parentActivityName</code> attribute declares the name of this activity's parent activity within the app's logical hierarchy. The system uses this value to implement default navigation behaviors, such as Up navigation on Android 4.1 (API level 16) and higher. You can provide the same navigation behaviors for older versions of Android by using the Support Library and adding the <code>&lt;meta-data&gt;</code> element as shown here.</p>
+<h2 id="adding-the-action-bar">Adding the Action Bar</h2>
+<h3 id="adding-action-buttons">Adding Action Buttons</h3>
+<div class="hlcode"><pre><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+      <span class="na">xmlns:yourapp=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span> <span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Search, should appear as action button --&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/action_search&quot;</span>
+          <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_action_search&quot;</span>
+          <span class="na">android:title=</span><span class="s">&quot;@string/action_search&quot;</span>
+          <span class="na">yourapp:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span>  <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/menu&gt;</span>
+</pre></div>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2015 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+    </body>
+</html>

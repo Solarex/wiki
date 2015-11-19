@@ -45,6 +45,16 @@
 <li><code>adb get-state</code></li>
 <li><code>adb wait-for-device</code></li>
 <li>adb shell,Adb provides a Unix shell that you can use to run a variety of commands on an emulator or connected device. The command binaries are stored in the file system of the emulator or device, at <code>/system/bin/</code>.</li>
+<li><code>adb shell am start PACKAGE_NAME/ACTIVITY_IN_PACKAGE</code>,<code>adb shell am start -n com.meizu.voiceassistant/.MainActivity</code></li>
+<li><code>adb shell screencap -p /sdcard/sc.png &amp;&amp; adb pull /sdcard/sc.png .</code>,<code>adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' &gt; sc.png</code>,<a href="http://blog.shvetsov.com/2013/02/grab-android-screenshot-to-computer-via.html">ref</a></li>
+<li><code>adb shell input keyevent 26</code>,sends the power button event to turn the device on or off</li>
+<li><code>adb shell input keyevent 82</code>,sends the event that unlocks the lockscreen on the device,can be combine with the power button event to turn on the device and unlock the screen</li>
+<li><code>adb shell pm list packages -f</code>,list all installed packages</li>
+<li><code>adb shell pm clear PACKAGENAME</code>,clear application data,<code>adb shell pm clear com.meizu.voiceassistant</code></li>
+<li><code>adb logcat -v threadtime -s TAG1 TAG2</code></li>
+<li><code>adb logcat "*:PRIORITY"</code>,<code>adb logcat "*:W"</code>,<code>V,D,I,W,E,F,S</code>,verbose,debug,info,warning,error,fatal,silent</li>
+<li><code>adb logcat -s TAG1:PRIORITY TAG2:PRIORITY</code></li>
+<li><code>adb logcat -c</code></li>
 </ul>
 <h2 id="adb-shell-am-activitymanager">adb shell am (ActivityManager)</h2>
 <div class="hlcode"><pre><span class="c"># am help</span>
@@ -204,6 +214,13 @@ applications to <span class="nb">break </span>and other undersireable behavior.
 0 <span class="o">[</span>auto<span class="o">]</span>: Let system decide the best location
 1 <span class="o">[</span>internal<span class="o">]</span>: Install on internal device storage
 2 <span class="o">[</span>external<span class="o">]</span>: Install on external media
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="nb">pm</span> <span class="nb">list</span> <span class="nx">packages</span> <span class="na">-e</span> <span class="c1">//only list enabled packages</span>
+<span class="nb">pm</span> <span class="nb">list</span> <span class="nx">packages</span> <span class="na">-d</span> <span class="c1">//list disabled packages</span>
+<span class="nb">pm</span> <span class="nx">disable</span> <span class="o">&lt;</span><span class="nx">packagename</span><span class="o">&gt;</span> <span class="c1">//disable package</span>
+<span class="nb">pm</span> <span class="nx">enable</span> <span class="nx">PACKAGE_OR_COMPONENT</span><span class="p">;</span><span class="nb">pm</span> <span class="nx">enable</span> <span class="o">&lt;</span><span class="nx">packagename</span><span class="o">&gt;</span> <span class="c1">//enable package</span>
 </pre></div>
     </div>
 

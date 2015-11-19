@@ -65,7 +65,910 @@ To use this class, simply create a single instance along with your service, and 
 <li><code>NetworkTemplate</code> Template definition used to generically match <code>NetworkIdentity</code>,usually when collecting statistics.<code>NetworkTemplate</code>主要用来收集统计信息。</li>
 <li><code>Loader</code> An abstract class that performs asynchronous loading of data. While Loaders are active they should monitor the source of their data and deliver new results when the contents change.</li>
 <li><code>ContentResolver</code> <code>public final void registerContentObserver (Uri uri, boolean notifyForDescendents, ContentObserver observer)</code> Register an observer class that gets callbacks when data identified by a given content URI changes.注册一个observer类，当给定的URI所指向的内容发生变化时，用来回调。</li>
+<li><code>UEventObserver</code>,UEventObserver is an abstract class that receives UEvent's from the kernel.Subclass UEventObserver, implementing <code>onUEvent(UEvent event)</code>, then call <code>startObserving()</code> with a match string. The UEvent thread will then call your <code>onUEvent()</code> method when a UEvent occurs that contains your match string.Call <code>stopObserving()</code> to stop receiving UEvent's.</li>
+<li><code>PreferenceFragment</code>,Shows a hierarchy of Preference objects as lists. These preferences will automatically save to <code>SharedPreferences</code> as the user interacts with them. To retrieve an instance of <code>SharedPreferences</code> that the preference hierarchy in this fragment will use, call <code>getDefaultSharedPreferences(android.content.Context)</code> with a context in the same package as this fragment.Furthermore, the preferences shown will follow the visual style of system preferences. It is easy to create a hierarchy of preferences (that can be shown on multiple screens) via XML. For these reasons, it is recommended to use this fragment (as a superclass) to deal with preferences in applications.</li>
+<li><code>FragmentManager.BackStackEntry</code>,Representation of an entry on the fragment back stack, as created with <code>FragmentTransaction.addToBackStack()</code>. Entries can later be retrieved with <code>FragmentManager.getBackStackEntry()</code>.</li>
+<li>The best way to add a share action item to an <code>ActionBar</code> is to use <code>ShareActionProvider</code>, which became available in API level 14.</li>
+<li><code>per-URI permissions</code>:when starting an activity or returning a result to an activity, the caller can set <code>Intent.FLAG_GRANT_READ_URI_PERMISSION</code> and/or <code>Intent.FLAG_GRANT_WRITE_URI_PERMISSION</code>. This grants the receiving activity permission access the specific data URI in the Intent, regardless of whether it has any permission to access data in the content provider corresponding to the Intent.</li>
+<li>handles receiving a single image of any type,or multiple images of any type</li>
 </ul>
+<div class="hlcode"><pre><span class="nt">&lt;intent-filter&gt;</span>
+    <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.SEND&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.DEFAULT&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&quot;image/*&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;intent-filter&gt;</span>
+    <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.SEND_MULTIPLE&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.DEFAULT&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&quot;image/*&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/intent-filter&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>An <code>ActionProvider</code>, once attached to a menu item in the action bar, handles both the appearance and behavior of that item. In the case of <code>ShareActionProvider</code>, you provide a share intent and it does the rest.</li>
+<li><code>ShareActionProvider</code></li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/menu_item_share&quot;</span>
+            <span class="na">android:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;Share&quot;</span>
+            <span class="na">android:actionProviderClass=</span>
+                <span class="s">&quot;android.widget.ShareActionProvider&quot;</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/menu&gt;</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="kd">private</span> <span class="n">ShareActionProvider</span> <span class="n">mShareActionProvider</span><span class="o">;</span>
+<span class="o">...</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Inflate menu resource file.</span>
+    <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">share_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+
+    <span class="c1">// Locate MenuItem with ShareActionProvider</span>
+    <span class="n">MenuItem</span> <span class="n">item</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_item_share</span><span class="o">);</span>
+
+    <span class="c1">// Fetch and store ShareActionProvider</span>
+    <span class="n">mShareActionProvider</span> <span class="o">=</span> <span class="o">(</span><span class="n">ShareActionProvider</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getActionProvider</span><span class="o">();</span>
+
+    <span class="c1">// Return true to display menu</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// Call to update the share intent</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setShareIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">shareIntent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mShareActionProvider</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mShareActionProvider</span><span class="o">.</span><span class="na">setShareIntent</span><span class="o">(</span><span class="n">shareIntent</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>Sharing Files:In all cases, the only secure way to offer a file from your app to another app is to send the receiving app the file's content URI and grant temporary access permissions to that URI. Content URIs with temporary URI access permissions are secure because they apply only to the app that receives the URI, and they expire automatically. The Android <code>FileProvider</code> component provides the method <code>getUriForFile()</code> for generating a file's content URI.</p>
+</li>
+<li>
+<p>Defining a <code>FileProvider</code> for your app requires an entry in your manifest. This entry specifies the authority to use in generating content URIs, as well as the name of an XML file that specifies the directories your app can share.</p>
+</li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;com.example.myapp&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;application</span>
+        <span class="err">...</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;provider</span>
+            <span class="na">android:name=</span><span class="s">&quot;android.support.v4.content.FileProvider&quot;</span>
+            <span class="na">android:authorities=</span><span class="s">&quot;com.example.myapp.fileprovider&quot;</span>
+            <span class="na">android:grantUriPermissions=</span><span class="s">&quot;true&quot;</span>
+            <span class="na">android:exported=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;meta-data</span>
+                <span class="na">android:name=</span><span class="s">&quot;android.support.FILE_PROVIDER_PATHS&quot;</span>
+                <span class="na">android:resource=</span><span class="s">&quot;@xml/filepaths&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/provider&gt;</span>
+        ...
+    <span class="nt">&lt;/application&gt;</span>
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+
+
+<p>Once you have added the <code>FileProvider</code> to your app manifest, you need to specify the directories that contain the files you want to share. To specify the directories, start by creating the file <code>filepaths.xml</code> in the <code>res/xml/</code> subdirectory of your project. In this file, specify the directories by adding an XML element for each directory.</p>
+<p>The snippet also demonstrates how to share a subdirectory of the files/ directory in your internal storage area:</p>
+<div class="hlcode"><pre><span class="nt">&lt;paths&gt;</span>
+    <span class="nt">&lt;files-path</span> <span class="na">path=</span><span class="s">&quot;images/&quot;</span> <span class="na">name=</span><span class="s">&quot;myimages&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/paths&gt;</span>
+</pre></div>
+
+
+<p>In this example, the <code>&lt;files-path&gt;</code> tag shares directories within the <code>files/</code> directory of your app's internal storage. The path attribute shares the <code>images/</code> subdirectory of <code>files/</code>. The name attribute tells the <code>FileProvider</code> to add the path segment <code>myimages</code> to content URIs for files in the <code>files/images/</code> subdirectory.The <code>&lt;paths&gt;</code> element can have multiple children, each specifying a different directory to share. In addition to the <code>&lt;files-path&gt;</code> element, you can use the <code>&lt;external-path&gt;</code> element to share directories in external storage, and the <code>&lt;cache-path&gt;</code> element to share directories in your internal cache directory.</p>
+<p>You now have a complete specification of a <code>FileProvider</code> that generates content URIs for files in the <code>files/</code> directory of your app's internal storage or for files in subdirectories of <code>files/</code>. When your app generates a content URI for a file, it contains the authority specified in the <code>&lt;provider&gt;</code> element (<code>com.example.myapp.fileprovider</code>), the path <code>myimages/</code>, and the name of the file. <code>content://com.example.myapp.fileprovider/myimages/default_image.jpg</code></p>
+<p>To receive requests for files from client apps and respond with a content URI, your app should provide a file selection Activity. Client apps start this Activity by calling <code>startActivityForResult()</code> with an Intent containing the action <code>ACTION_PICK</code>. When the client app calls <code>startActivityForResult()</code>, your app can return a result to the client app, in the form of a content URI for the file the user selected.</p>
+<p>To set up the file selection Activity, start by specifying the Activity in your manifest, along with an intent filter that matches the action <code>ACTION_PICK</code> and the categories <code>CATEGORY_DEFAULT</code> and <code>CATEGORY_OPENABLE</code>. Also add MIME type filters for the files your app serves to other apps.</p>
+<div class="hlcode"><pre><span class="o">&lt;</span><span class="n">activity</span>
+    <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;.FileSelectActivity&quot;</span>
+    <span class="nl">android:</span><span class="n">label</span><span class="o">=</span><span class="s">&quot;@&quot;</span><span class="n">File</span> <span class="n">Selector</span><span class="s">&quot; &gt;</span>
+    <span class="o">&lt;</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">action</span>
+            <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.intent.action.PICK&quot;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">category</span>
+            <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.intent.category.DEFAULT&quot;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">category</span>
+            <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.intent.category.OPENABLE&quot;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">data</span> <span class="n">android</span><span class="o">:</span><span class="n">mimeType</span><span class="o">=</span><span class="s">&quot;text/plain&quot;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">data</span> <span class="n">android</span><span class="o">:</span><span class="n">mimeType</span><span class="o">=</span><span class="s">&quot;image/*&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="n">intent</span><span class="o">-</span><span class="n">filter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="kr">public</span> <span class="kr">class</span> <span class="nx">MainActivity</span> <span class="kr">extends</span> <span class="nx">Activity</span> <span class="p">{</span>
+    <span class="c1">// The path to the root of this app&#39;s internal storage</span>
+    <span class="kr">private</span> <span class="nx">File</span> <span class="nx">mPrivateRootDir</span><span class="p">;</span>
+    <span class="c1">// The path to the &quot;images&quot; subdirectory</span>
+    <span class="kr">private</span> <span class="nx">File</span> <span class="nx">mImagesDir</span><span class="p">;</span>
+    <span class="c1">// Array of files in the images subdirectory</span>
+    <span class="nx">File</span><span class="p">[]</span> <span class="nx">mImageFiles</span><span class="p">;</span>
+    <span class="c1">// Array of filenames corresponding to mImageFiles</span>
+    <span class="nb">String</span><span class="p">[]</span> <span class="nx">mImageFilenames</span><span class="p">;</span>
+    <span class="c1">// Initialize the Activity</span>
+    <span class="err">@</span><span class="nx">Override</span>
+    <span class="kr">protected</span> <span class="k">void</span> <span class="nx">onCreate</span><span class="p">(</span><span class="nx">Bundle</span> <span class="nx">savedInstanceState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1">// Set up an Intent to send back to apps that request a file</span>
+        <span class="nx">mResultIntent</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nx">Intent</span><span class="p">(</span><span class="s2">&quot;com.example.myapp.ACTION_RETURN_FILE&quot;</span><span class="p">);</span>
+        <span class="c1">// Get the files/ subdirectory of internal storage</span>
+        <span class="nx">mPrivateRootDir</span> <span class="o">=</span> <span class="nx">getFilesDir</span><span class="p">();</span>
+        <span class="c1">// Get the files/images subdirectory;</span>
+        <span class="nx">mImagesDir</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">File</span><span class="p">(</span><span class="nx">mPrivateRootDir</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">);</span>
+        <span class="c1">// Get the files in the images subdirectory</span>
+        <span class="nx">mImageFiles</span> <span class="o">=</span> <span class="nx">mImagesDir</span><span class="p">.</span><span class="nx">listFiles</span><span class="p">();</span>
+        <span class="c1">// Set the Activity&#39;s result to null to begin with</span>
+        <span class="nx">setResult</span><span class="p">(</span><span class="nx">Activity</span><span class="p">.</span><span class="nx">RESULT_CANCELED</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+        <span class="cm">/*</span>
+<span class="cm">         * Display the file names in the ListView mFileListView.</span>
+<span class="cm">         * Back the ListView with the array mImageFilenames, which</span>
+<span class="cm">         * you can create by iterating through mImageFiles and</span>
+<span class="cm">         * calling File.getAbsolutePath() for each File</span>
+<span class="cm">         */</span>
+         <span class="p">...</span>
+
+        <span class="c1">// Define a listener that responds to clicks on a file in the ListView</span>
+        <span class="nx">mFileListView</span><span class="p">.</span><span class="nx">setOnItemClickListener</span><span class="p">(</span>
+                <span class="k">new</span> <span class="nx">AdapterView</span><span class="p">.</span><span class="nx">OnItemClickListener</span><span class="p">()</span> <span class="p">{</span>
+            <span class="err">@</span><span class="nx">Override</span>
+            <span class="cm">/*</span>
+<span class="cm">             * When a filename in the ListView is clicked, get its</span>
+<span class="cm">             * content URI and send it to the requesting app</span>
+<span class="cm">             */</span>
+            <span class="kr">public</span> <span class="k">void</span> <span class="nx">onItemClick</span><span class="p">(</span><span class="nx">AdapterView</span><span class="cp">&lt;?</span><span class="o">&gt;</span> <span class="nx">adapterView</span><span class="p">,</span>
+                    <span class="nx">View</span> <span class="nx">view</span><span class="p">,</span>
+                    <span class="nx">int</span> <span class="nx">position</span><span class="p">,</span>
+                    <span class="nx">long</span> <span class="nx">rowId</span><span class="p">)</span> <span class="p">{</span>
+                <span class="cm">/*</span>
+<span class="cm">                 * Get a File for the selected file name.</span>
+<span class="cm">                 * Assume that the file names are in the</span>
+<span class="cm">                 * mImageFilename array.</span>
+<span class="cm">                 */</span>
+                <span class="nx">File</span> <span class="nx">requestFile</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">File</span><span class="p">(</span><span class="nx">mImageFilename</span><span class="p">[</span><span class="nx">position</span><span class="p">]);</span>
+                <span class="cm">/*</span>
+<span class="cm">                 * Most file-related method calls need to be in</span>
+<span class="cm">                 * try-catch blocks.</span>
+<span class="cm">                 */</span>
+                <span class="c1">// Use the FileProvider to get a content URI</span>
+                <span class="k">try</span> <span class="p">{</span>
+                    <span class="nx">fileUri</span> <span class="o">=</span> <span class="nx">FileProvider</span><span class="o">.</span><span class="nx">getUriForFile</span><span class="p">(</span>
+                            <span class="nx">MainActivity</span><span class="o">.</span><span class="k">this</span><span class="p">,</span>
+                            <span class="s2">&quot;com.example.myapp.fileprovider&quot;</span><span class="p">,</span>
+                            <span class="nx">requestFile</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">IllegalArgumentException</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">Log</span><span class="o">.</span><span class="nx">e</span><span class="p">(</span><span class="s2">&quot;File Selector&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;The selected file can&#39;t be shared: &quot;</span> <span class="o">+</span>
+                          <span class="nx">clickedFilename</span><span class="p">);</span>
+                <span class="p">}</span>
+
+
+                <span class="k">if</span> <span class="p">(</span><span class="nx">fileUri</span> <span class="o">!=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Grant temporary read permission to the content URI</span>
+                    <span class="nx">mResultIntent</span><span class="o">.</span><span class="nx">addFlags</span><span class="p">(</span>
+                        <span class="nx">Intent</span><span class="o">.</span><span class="nx">FLAG_GRANT_READ_URI_PERMISSION</span><span class="p">);</span>
+                    <span class="c1">// Put the Uri and MIME type in the result Intent</span>
+                    <span class="nx">mResultIntent</span><span class="o">.</span><span class="nx">setDataAndType</span><span class="p">(</span>
+                            <span class="nx">fileUri</span><span class="p">,</span>
+                            <span class="nx">getContentResolver</span><span class="p">()</span><span class="o">.</span><span class="nx">getType</span><span class="p">(</span><span class="nx">fileUri</span><span class="p">));</span>
+                    <span class="c1">// Set the result</span>
+                    <span class="nx">MainActivity</span><span class="o">.</span><span class="k">this</span><span class="o">.</span><span class="nx">setResult</span><span class="p">(</span><span class="nx">Activity</span><span class="o">.</span><span class="nx">RESULT_OK</span><span class="p">,</span>
+                            <span class="nx">mResultIntent</span><span class="p">);</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nx">mResultIntent</span><span class="o">.</span><span class="nx">setDataAndType</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+                        <span class="nx">MainActivity</span><span class="o">.</span><span class="k">this</span><span class="o">.</span><span class="nx">setResult</span><span class="p">(</span><span class="nx">RESULT_CANCELED</span><span class="p">,</span>
+                                <span class="nx">mResultIntent</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="hlcode"><pre>    <span class="cm">/*</span>
+<span class="cm">     * When the Activity of the app that hosts files sets a result and calls</span>
+<span class="cm">     * finish(), this method is invoked. The returned Intent contains the</span>
+<span class="cm">     * content URI of a selected file. The result code indicates if the</span>
+<span class="cm">     * selection worked or not.</span>
+<span class="cm">     */</span>
+    <span class="err">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="n">onActivityResult</span><span class="p">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">resultCode</span><span class="p">,</span>
+            <span class="n">Intent</span> <span class="n">returnIntent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// If the selection didn&#39;t work</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">resultCode</span> <span class="o">!=</span> <span class="n">RESULT_OK</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Exit without doing anything else</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Get the file&#39;s content URI from the incoming Intent</span>
+            <span class="n">Uri</span> <span class="n">returnUri</span> <span class="o">=</span> <span class="n">returnIntent</span><span class="p">.</span><span class="n">getData</span><span class="p">();</span>
+            <span class="cm">/*</span>
+<span class="cm">             * Try to open the file for &quot;read&quot; access using the</span>
+<span class="cm">             * returned URI. If the file isn&#39;t found, write to the</span>
+<span class="cm">             * error log and return.</span>
+<span class="cm">             */</span>
+            <span class="n">try</span> <span class="p">{</span>
+                <span class="cm">/*</span>
+<span class="cm">                 * Get the content resolver instance for this context, and use it</span>
+<span class="cm">                 * to get a ParcelFileDescriptor for the file.</span>
+<span class="cm">                 */</span>
+                <span class="n">mInputPFD</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="p">().</span><span class="n">openFileDescriptor</span><span class="p">(</span><span class="n">returnUri</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+            <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+                <span class="n">Log</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="s">&quot;MainActivity&quot;</span><span class="p">,</span> <span class="s">&quot;File not found.&quot;</span><span class="p">);</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// Get a regular file descriptor for the file</span>
+            <span class="n">FileDescriptor</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">mInputPFD</span><span class="p">.</span><span class="n">getFileDescriptor</span><span class="p">();</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>The method <code>openFileDescriptor()</code> returns a <code>ParcelFileDescriptor</code> forthe file. From this object, the client app gets a <code>FileDescriptor</code> object, which it can then use to read the file.</p>
+<div class="hlcode"><pre>    <span class="p">...</span>
+    <span class="cm">/*</span>
+<span class="cm">     * Get the file&#39;s content URI from the incoming Intent, then</span>
+<span class="cm">     * get the file&#39;s MIME type</span>
+<span class="cm">     */</span>
+    <span class="n">Uri</span> <span class="n">returnUri</span> <span class="o">=</span> <span class="n">returnIntent</span><span class="p">.</span><span class="n">getData</span><span class="p">();</span>
+    <span class="n">String</span> <span class="n">mimeType</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="p">().</span><span class="n">getType</span><span class="p">(</span><span class="n">returnUri</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="cm">/*</span>
+<span class="cm">     * Get the file&#39;s content URI from the incoming Intent,</span>
+<span class="cm">     * then query the server app to get the file&#39;s display name</span>
+<span class="cm">     * and size.</span>
+<span class="cm">     */</span>
+    <span class="n">Uri</span> <span class="n">returnUri</span> <span class="o">=</span> <span class="n">returnIntent</span><span class="p">.</span><span class="n">getData</span><span class="p">();</span>
+    <span class="n">Cursor</span> <span class="n">returnCursor</span> <span class="o">=</span>
+            <span class="n">getContentResolver</span><span class="p">().</span><span class="n">query</span><span class="p">(</span><span class="n">returnUri</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="n">null</span><span class="p">);</span>
+    <span class="cm">/*</span>
+<span class="cm">     * Get the column indexes of the data in the Cursor,</span>
+<span class="cm">     * move to the first row in the Cursor, get the data,</span>
+<span class="cm">     * and display it.</span>
+<span class="cm">     */</span>
+    <span class="kt">int</span> <span class="n">nameIndex</span> <span class="o">=</span> <span class="n">returnCursor</span><span class="p">.</span><span class="n">getColumnIndex</span><span class="p">(</span><span class="n">OpenableColumns</span><span class="p">.</span><span class="n">DISPLAY_NAME</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">sizeIndex</span> <span class="o">=</span> <span class="n">returnCursor</span><span class="p">.</span><span class="n">getColumnIndex</span><span class="p">(</span><span class="n">OpenableColumns</span><span class="p">.</span><span class="n">SIZE</span><span class="p">);</span>
+    <span class="n">returnCursor</span><span class="p">.</span><span class="n">moveToFirst</span><span class="p">();</span>
+    <span class="n">TextView</span> <span class="n">nameView</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextView</span><span class="p">)</span> <span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">filename_text</span><span class="p">);</span>
+    <span class="n">TextView</span> <span class="n">sizeView</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextView</span><span class="p">)</span> <span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">filesize_text</span><span class="p">);</span>
+    <span class="n">nameView</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="n">returnCursor</span><span class="p">.</span><span class="n">getString</span><span class="p">(</span><span class="n">nameIndex</span><span class="p">));</span>
+    <span class="n">sizeView</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="n">Long</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">returnCursor</span><span class="p">.</span><span class="n">getLong</span><span class="p">(</span><span class="n">sizeIndex</span><span class="p">)));</span>
+    <span class="p">...</span>
+</pre></div>
+
+
+<ul>
+<li>Sharing with NFC</li>
+</ul>
+<div class="hlcode"><pre><span class="o">&lt;</span><span class="n">uses</span><span class="o">-</span><span class="n">permission</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.permission.NFC&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">uses</span><span class="o">-</span><span class="n">permission</span>
+            <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">uses</span><span class="o">-</span><span class="n">feature</span>
+    <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;android.hardware.nfc&quot;</span>
+    <span class="nl">android:</span><span class="n">required</span><span class="o">=</span><span class="s">&quot;true&quot;</span> <span class="o">/&gt;</span>
+
+        <span class="c1">// NFC isn&#39;t available on the device</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PackageManager</span><span class="p">.</span><span class="n">hasSystemFeature</span><span class="p">(</span><span class="n">PackageManager</span><span class="p">.</span><span class="n">FEATURE_NFC</span><span class="p">))</span> <span class="p">{</span>
+            <span class="cm">/*</span>
+<span class="cm">             * Disable NFC features here.</span>
+<span class="cm">             * For example, disable menu items or buttons that activate</span>
+<span class="cm">             * NFC-related features</span>
+<span class="cm">             */</span>
+            <span class="p">...</span>
+        <span class="c1">// Android Beam file transfer isn&#39;t supported</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Build</span><span class="p">.</span><span class="n">VERSION</span><span class="p">.</span><span class="n">SDK_INT</span> <span class="o">&lt;</span>
+                <span class="n">Build</span><span class="p">.</span><span class="n">VERSION_CODES</span><span class="p">.</span><span class="n">JELLY_BEAN_MR1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// If Android Beam isn&#39;t available, don&#39;t continue.</span>
+            <span class="n">mAndroidBeamAvailable</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="cm">/*</span>
+<span class="cm">             * Disable Android Beam file transfer features here.</span>
+<span class="cm">             */</span>
+            <span class="p">...</span>
+        <span class="c1">// Android Beam file transfer is available, continue</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">mNfcAdapter</span> <span class="o">=</span> <span class="n">NfcAdapter</span><span class="p">.</span><span class="n">getDefaultAdapter</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="p">...</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<p>Once you've verified that the device supports Android Beam file transfer, add a callback method that the system invokes when Android Beam file transfer detects that the user wants to send files to another NFC-enabled device. In this callback method, return an array of <code>Uri</code> objects. Android Beam file transfer copies the files represented by these URIs to the receiving device.To add the callback method, implement the <code>NfcAdapter.CreateBeamUrisCallback</code> interface and its method <code>createBeamUris()</code>.</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">class</span> <span class="n">MainActivity</span> <span class="n">extends</span> <span class="n">Activity</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="c1">// List of URIs to provide to Android Beam</span>
+    <span class="n">private</span> <span class="n">Uri</span><span class="p">[]</span> <span class="n">mFileUris</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Uri</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="p">...</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Callback that Android Beam file transfer calls to get</span>
+<span class="cm">     * files to share</span>
+<span class="cm">     */</span>
+    <span class="n">private</span> <span class="n">class</span> <span class="n">FileUriCallback</span> <span class="n">implements</span>
+            <span class="n">NfcAdapter</span><span class="p">.</span><span class="n">CreateBeamUrisCallback</span> <span class="p">{</span>
+        <span class="n">public</span> <span class="n">FileUriCallback</span><span class="p">()</span> <span class="p">{</span>
+        <span class="p">}</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Create content URIs as needed to share with another device</span>
+<span class="cm">         */</span>
+        <span class="err">@</span><span class="n">Override</span>
+        <span class="n">public</span> <span class="n">Uri</span><span class="p">[]</span> <span class="n">createBeamUris</span><span class="p">(</span><span class="n">NfcEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">mFileUris</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="c1">// Instance that returns available files from this app</span>
+    <span class="n">private</span> <span class="n">FileUriCallback</span> <span class="n">mFileUriCallback</span><span class="p">;</span>
+    <span class="p">...</span>
+    <span class="err">@</span><span class="n">Override</span>
+    <span class="n">protected</span> <span class="kt">void</span> <span class="n">onCreate</span><span class="p">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1">// Android Beam file transfer is available, continue</span>
+        <span class="p">...</span>
+        <span class="n">mNfcAdapter</span> <span class="o">=</span> <span class="n">NfcAdapter</span><span class="p">.</span><span class="n">getDefaultAdapter</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="cm">/*</span>
+<span class="cm">         * Instantiate a new FileUriCallback to handle requests for</span>
+<span class="cm">         * URIs</span>
+<span class="cm">         */</span>
+        <span class="n">mFileUriCallback</span> <span class="o">=</span> <span class="n">new</span> <span class="n">FileUriCallback</span><span class="p">();</span>
+        <span class="c1">// Set the dynamic callback for URI requests.</span>
+        <span class="n">mNfcAdapter</span><span class="p">.</span><span class="n">setBeamPushUrisCallback</span><span class="p">(</span><span class="n">mFileUriCallback</span><span class="p">,</span><span class="n">this</span><span class="p">);</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>You can also provide the array of Uri objects directly to the NFC framework through your app's NfcAdapter instance. Choose this approach if you can define the URIs to transfer before the NFC touch event occurs. <code>NfcAdapter.setBeamPushUris()</code></p>
+<p>To transfer one or more files to another NFC-enabled device, get a file URI (a URI with a file scheme) for each file and then add the URI to an array of Uri objects. To transfer a file, you must also have permanent read access for the file.</p>
+<div class="hlcode"><pre>        <span class="cm">/*</span>
+<span class="cm">         * Create a list of URIs, get a File,</span>
+<span class="cm">         * and set its permissions</span>
+<span class="cm">         */</span>
+        <span class="n">private</span> <span class="n">Uri</span><span class="p">[]</span> <span class="n">mFileUris</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Uri</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+        <span class="n">String</span> <span class="n">transferFile</span> <span class="o">=</span> <span class="s">&quot;transferimage.jpg&quot;</span><span class="p">;</span>
+        <span class="n">File</span> <span class="n">extDir</span> <span class="o">=</span> <span class="n">getExternalFilesDir</span><span class="p">(</span><span class="n">null</span><span class="p">);</span>
+        <span class="n">File</span> <span class="n">requestFile</span> <span class="o">=</span> <span class="n">new</span> <span class="n">File</span><span class="p">(</span><span class="n">extDir</span><span class="p">,</span> <span class="n">transferFile</span><span class="p">);</span>
+        <span class="n">requestFile</span><span class="p">.</span><span class="n">setReadable</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="c1">// Get a URI for the File and add it to the list of URIs</span>
+        <span class="n">fileUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">fromFile</span><span class="p">(</span><span class="n">requestFile</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fileUri</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">mFileUris</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fileUri</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">Log</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="s">&quot;My Activity&quot;</span><span class="p">,</span> <span class="s">&quot;No File URI available for file.&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Managing Audio Playback</li>
+</ul>
+<p>You may be tempted to try and listen for volume key presses and modify the volume of your audio stream that way. Resist the urge. Android provides the handy <code>setVolumeControlStream()</code> method to direct volume key presses to the audio stream you specify.Having identified the audio stream your application will be using, you should set it as the volume stream target. You should make this call early in your app’s lifecycle—because you only need to call it once during the activity lifecycle, you should typically call it within the <code>onCreate()</code> method (of the <code>Activity</code> or <code>Fragment</code> that controls your media). This ensures that whenever your app is visible, the volume controls function as the user expects.</p>
+<p>Media playback buttons such as play, pause, stop, skip, and previous are available on some handsets and many connected or wireless headsets. Whenever a user presses one of these hardware keys, the system broadcasts an intent with the <code>ACTION_MEDIA_BUTTON</code> action.</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">class</span> <span class="n">RemoteControlReceiver</span> <span class="n">extends</span> <span class="n">BroadcastReceiver</span> <span class="p">{</span>
+    <span class="err">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="n">onReceive</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Intent</span><span class="p">.</span><span class="n">ACTION_MEDIA_BUTTON</span><span class="p">.</span><span class="n">equals</span><span class="p">(</span><span class="n">intent</span><span class="p">.</span><span class="n">getAction</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="n">KeyEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">KeyEvent</span><span class="p">)</span><span class="n">intent</span><span class="p">.</span><span class="n">getParcelableExtra</span><span class="p">(</span><span class="n">Intent</span><span class="p">.</span><span class="n">EXTRA_KEY_EVENT</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">KeyEvent</span><span class="p">.</span><span class="n">KEYCODE_MEDIA_PLAY</span> <span class="o">==</span> <span class="n">event</span><span class="p">.</span><span class="n">getKeyCode</span><span class="p">())</span> <span class="p">{</span>
+                <span class="c1">// Handle key press.</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">AudioManager</span> <span class="n">am</span> <span class="o">=</span> <span class="n">mContext</span><span class="p">.</span><span class="n">getSystemService</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="n">AUDIO_SERVICE</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="c1">// Start listening for button presses</span>
+<span class="n">am</span><span class="p">.</span><span class="n">registerMediaButtonEventReceiver</span><span class="p">(</span><span class="n">RemoteControlReceiver</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="c1">// Stop listening for button presses</span>
+<span class="n">am</span><span class="p">.</span><span class="n">unregisterMediaButtonEventReceiver</span><span class="p">(</span><span class="n">RemoteControlReceiver</span><span class="p">);</span>
+</pre></div>
+
+
+<ul>
+<li>With multiple apps potentially playing audio it's important to think about how they should interact. To avoid every music app playing at the same time, Android uses audio focus to moderate audio playback—only apps that hold the audio focus should play audio.Before your app starts playing any audio, it should hold the audio focus for the stream it will be using. This is done with a call to <code>requestAudioFocus()</code> which returns <code>AUDIOFOCUS_REQUEST_GRANTED</code> if your request is successful.</li>
+</ul>
+<div class="hlcode"><pre><span class="n">AudioManager</span> <span class="n">am</span> <span class="o">=</span> <span class="n">mContext</span><span class="p">.</span><span class="n">getSystemService</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="n">AUDIO_SERVICE</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="c1">// Request audio focus for playback</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">am</span><span class="p">.</span><span class="n">requestAudioFocus</span><span class="p">(</span><span class="n">afChangeListener</span><span class="p">,</span>
+                                 <span class="c1">// Use the music stream.</span>
+                                 <span class="n">AudioManager</span><span class="p">.</span><span class="n">STREAM_MUSIC</span><span class="p">,</span>
+                                 <span class="c1">// Request permanent focus.</span>
+                                 <span class="n">AudioManager</span><span class="p">.</span><span class="n">AUDIOFOCUS_GAIN</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AudioManager</span><span class="p">.</span><span class="n">AUDIOFOCUS_REQUEST_GRANTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">am</span><span class="p">.</span><span class="n">registerMediaButtonEventReceiver</span><span class="p">(</span><span class="n">RemoteControlReceiver</span><span class="p">);</span>
+    <span class="c1">// Start playback.</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Once you've finished playback be sure to call <code>abandonAudioFocus()</code>. This notifies the system that you no longer require focus and unregisters the associated <code>AudioManager.OnAudioFocusChangeListener</code>.</p>
+<div class="hlcode"><pre><span class="c1">// Abandon audio focus when playback complete    </span>
+<span class="n">am</span><span class="p">.</span><span class="n">abandonAudioFocus</span><span class="p">(</span><span class="n">afChangeListener</span><span class="p">);</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="n">OnAudioFocusChangeListener</span> <span class="n">afChangeListener</span> <span class="o">=</span> <span class="n">new</span> <span class="n">OnAudioFocusChangeListener</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="n">onAudioFocusChange</span><span class="p">(</span><span class="kt">int</span> <span class="n">focusChange</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">focusChange</span> <span class="o">==</span> <span class="n">AUDIOFOCUS_LOSS_TRANSIENT</span>
+            <span class="c1">// Pause playback</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">focusChange</span> <span class="o">==</span> <span class="n">AudioManager</span><span class="p">.</span><span class="n">AUDIOFOCUS_GAIN</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Resume playback </span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">focusChange</span> <span class="o">==</span> <span class="n">AudioManager</span><span class="p">.</span><span class="n">AUDIOFOCUS_LOSS</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">am</span><span class="p">.</span><span class="n">unregisterMediaButtonEventReceiver</span><span class="p">(</span><span class="n">RemoteControlReceiver</span><span class="p">);</span>
+            <span class="n">am</span><span class="p">.</span><span class="n">abandonAudioFocus</span><span class="p">(</span><span class="n">afChangeListener</span><span class="p">);</span>
+            <span class="c1">// Stop playback</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>Ducking is the process of lowering your audio stream output volume to make transient audio from another app easier to hear without totally disrupting the audio from your own application.</p>
+<div class="hlcode"><pre><span class="n">OnAudioFocusChangeListener</span> <span class="n">afChangeListener</span> <span class="o">=</span> <span class="n">new</span> <span class="n">OnAudioFocusChangeListener</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="n">onAudioFocusChange</span><span class="p">(</span><span class="kt">int</span> <span class="n">focusChange</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">focusChange</span> <span class="o">==</span> <span class="n">AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Lower the volume</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">focusChange</span> <span class="o">==</span> <span class="n">AudioManager</span><span class="p">.</span><span class="n">AUDIOFOCUS_GAIN</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Raise it back to normal</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<ul>
+<li>Save the Full-size Photo</li>
+</ul>
+<div class="hlcode"><pre><span class="n">String</span> <span class="n">mCurrentPhotoPath</span><span class="p">;</span>
+
+<span class="n">private</span> <span class="n">File</span> <span class="nf">createImageFile</span><span class="p">()</span> <span class="n">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+    <span class="c1">// Create an image file name</span>
+    <span class="n">String</span> <span class="n">timeStamp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SimpleDateFormat</span><span class="p">(</span><span class="s">&quot;yyyyMMdd_HHmmss&quot;</span><span class="p">).</span><span class="n">format</span><span class="p">(</span><span class="n">new</span> <span class="n">Date</span><span class="p">());</span>
+    <span class="n">String</span> <span class="n">imageFileName</span> <span class="o">=</span> <span class="s">&quot;JPEG_&quot;</span> <span class="o">+</span> <span class="n">timeStamp</span> <span class="o">+</span> <span class="s">&quot;_&quot;</span><span class="p">;</span>
+    <span class="n">File</span> <span class="n">storageDir</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">getExternalStoragePublicDirectory</span><span class="p">(</span>
+            <span class="n">Environment</span><span class="p">.</span><span class="n">DIRECTORY_PICTURES</span><span class="p">);</span>
+    <span class="n">File</span> <span class="n">image</span> <span class="o">=</span> <span class="n">File</span><span class="p">.</span><span class="n">createTempFile</span><span class="p">(</span>
+        <span class="n">imageFileName</span><span class="p">,</span>  <span class="cm">/* prefix */</span>
+        <span class="s">&quot;.jpg&quot;</span><span class="p">,</span>         <span class="cm">/* suffix */</span>
+        <span class="n">storageDir</span>      <span class="cm">/* directory */</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Save a file: path for use with ACTION_VIEW intents</span>
+    <span class="n">mCurrentPhotoPath</span> <span class="o">=</span> <span class="s">&quot;file:&quot;</span> <span class="o">+</span> <span class="n">image</span><span class="p">.</span><span class="n">getAbsolutePath</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">final</span> <span class="kt">int</span> <span class="n">REQUEST_TAKE_PHOTO</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">dispatchTakePictureIntent</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Intent</span> <span class="n">takePictureIntent</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Intent</span><span class="p">(</span><span class="n">MediaStore</span><span class="p">.</span><span class="n">ACTION_IMAGE_CAPTURE</span><span class="p">);</span>
+    <span class="c1">// Ensure that there&#39;s a camera activity to handle the intent</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">takePictureIntent</span><span class="p">.</span><span class="n">resolveActivity</span><span class="p">(</span><span class="n">getPackageManager</span><span class="p">())</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Create the File where the photo should go</span>
+        <span class="n">File</span> <span class="n">photoFile</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+        <span class="n">try</span> <span class="p">{</span>
+            <span class="n">photoFile</span> <span class="o">=</span> <span class="n">createImageFile</span><span class="p">();</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Error occurred while creating the File</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+        <span class="c1">// Continue only if the File was successfully created</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">photoFile</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">takePictureIntent</span><span class="p">.</span><span class="n">putExtra</span><span class="p">(</span><span class="n">MediaStore</span><span class="p">.</span><span class="n">EXTRA_OUTPUT</span><span class="p">,</span>
+                    <span class="n">Uri</span><span class="p">.</span><span class="n">fromFile</span><span class="p">(</span><span class="n">photoFile</span><span class="p">));</span>
+            <span class="n">startActivityForResult</span><span class="p">(</span><span class="n">takePictureIntent</span><span class="p">,</span> <span class="n">REQUEST_TAKE_PHOTO</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">galleryAddPic</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Intent</span> <span class="n">mediaScanIntent</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Intent</span><span class="p">(</span><span class="n">Intent</span><span class="p">.</span><span class="n">ACTION_MEDIA_SCANNER_SCAN_FILE</span><span class="p">);</span>
+    <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="n">new</span> <span class="n">File</span><span class="p">(</span><span class="n">mCurrentPhotoPath</span><span class="p">);</span>
+    <span class="n">Uri</span> <span class="n">contentUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">fromFile</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+    <span class="n">mediaScanIntent</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">contentUri</span><span class="p">);</span>
+    <span class="n">this</span><span class="p">.</span><span class="n">sendBroadcast</span><span class="p">(</span><span class="n">mediaScanIntent</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">setPic</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Get the dimensions of the View</span>
+    <span class="kt">int</span> <span class="n">targetW</span> <span class="o">=</span> <span class="n">mImageView</span><span class="p">.</span><span class="n">getWidth</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">targetH</span> <span class="o">=</span> <span class="n">mImageView</span><span class="p">.</span><span class="n">getHeight</span><span class="p">();</span>
+
+    <span class="c1">// Get the dimensions of the bitmap</span>
+    <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span> <span class="n">bmOptions</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span><span class="p">();</span>
+    <span class="n">bmOptions</span><span class="p">.</span><span class="n">inJustDecodeBounds</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">decodeFile</span><span class="p">(</span><span class="n">mCurrentPhotoPath</span><span class="p">,</span> <span class="n">bmOptions</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">photoW</span> <span class="o">=</span> <span class="n">bmOptions</span><span class="p">.</span><span class="n">outWidth</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">photoH</span> <span class="o">=</span> <span class="n">bmOptions</span><span class="p">.</span><span class="n">outHeight</span><span class="p">;</span>
+
+    <span class="c1">// Determine how much to scale down the image</span>
+    <span class="kt">int</span> <span class="n">scaleFactor</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="n">min</span><span class="p">(</span><span class="n">photoW</span><span class="o">/</span><span class="n">targetW</span><span class="p">,</span> <span class="n">photoH</span><span class="o">/</span><span class="n">targetH</span><span class="p">);</span>
+
+    <span class="c1">// Decode the image file into a Bitmap sized to fill the View</span>
+    <span class="n">bmOptions</span><span class="p">.</span><span class="n">inJustDecodeBounds</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">bmOptions</span><span class="p">.</span><span class="n">inSampleSize</span> <span class="o">=</span> <span class="n">scaleFactor</span><span class="p">;</span>
+    <span class="n">bmOptions</span><span class="p">.</span><span class="n">inPurgeable</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+    <span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">decodeFile</span><span class="p">(</span><span class="n">mCurrentPhotoPath</span><span class="p">,</span> <span class="n">bmOptions</span><span class="p">);</span>
+    <span class="n">mImageView</span><span class="p">.</span><span class="n">setImageBitmap</span><span class="p">(</span><span class="n">bitmap</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Controlling the Camera:Getting an instance of the <code>Camera</code> object is the first step in the process of directly controlling the camera. As Android's own <code>Camera</code> application does, the recommended way to access the camera is to open <code>Camera</code> on a separate thread that's launched from <code>onCreate()</code>. This approach is a good idea since it can take a while and might bog down the UI thread. In a more basic implementation, opening the camera can be deferred to the <code>onResume()</code> method to facilitate code reuse and keep the flow of control simple.在<code>onCreate</code>或者<code>onResume</code>中起一个线程<code>Camera.open()</code></li>
+</ul>
+<div class="hlcode"><pre><span class="n">private</span> <span class="n">boolean</span> <span class="nf">safeCameraOpen</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">boolean</span> <span class="n">qOpened</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="n">try</span> <span class="p">{</span>
+        <span class="n">releaseCameraAndPreview</span><span class="p">();</span>
+        <span class="n">mCamera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="n">qOpened</span> <span class="o">=</span> <span class="p">(</span><span class="n">mCamera</span> <span class="o">!=</span> <span class="n">null</span><span class="p">);</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Log</span><span class="p">.</span><span class="n">e</span><span class="p">(</span><span class="n">getString</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">string</span><span class="p">.</span><span class="n">app_name</span><span class="p">),</span> <span class="s">&quot;failed to open Camera&quot;</span><span class="p">);</span>
+        <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">qOpened</span><span class="p">;</span>    
+<span class="p">}</span>
+
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">releaseCameraAndPreview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">mPreview</span><span class="p">.</span><span class="n">setCamera</span><span class="p">(</span><span class="n">null</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mCamera</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">mCamera</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>
+        <span class="n">mCamera</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>To get started with displaying a preview, you need preview class. The preview requires an implementation of the <code>android.view.SurfaceHolder.Callback</code> interface, which is used to pass image data from the camera hardware to the application.</li>
+</ul>
+<div class="hlcode"><pre><span class="n">class</span> <span class="n">Preview</span> <span class="n">extends</span> <span class="n">ViewGroup</span> <span class="n">implements</span> <span class="n">SurfaceHolder</span><span class="p">.</span><span class="n">Callback</span> <span class="p">{</span>
+
+    <span class="n">SurfaceView</span> <span class="n">mSurfaceView</span><span class="p">;</span>
+    <span class="n">SurfaceHolder</span> <span class="n">mHolder</span><span class="p">;</span>
+
+    <span class="n">Preview</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">super</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+
+        <span class="n">mSurfaceView</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SurfaceView</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+        <span class="n">addView</span><span class="p">(</span><span class="n">mSurfaceView</span><span class="p">);</span>
+
+        <span class="c1">// Install a SurfaceHolder.Callback so we get notified when the</span>
+        <span class="c1">// underlying surface is created and destroyed.</span>
+        <span class="n">mHolder</span> <span class="o">=</span> <span class="n">mSurfaceView</span><span class="p">.</span><span class="n">getHolder</span><span class="p">();</span>
+        <span class="n">mHolder</span><span class="p">.</span><span class="n">addCallback</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="n">mHolder</span><span class="p">.</span><span class="n">setType</span><span class="p">(</span><span class="n">SurfaceHolder</span><span class="p">.</span><span class="n">SURFACE_TYPE_PUSH_BUFFERS</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>A camera instance and its related preview must be created in a specific order, with the camera object being first. In the snippet below, the process of initializing the camera is encapsulated so that <code>Camera.startPreview()</code> is called by the <code>setCamera()</code> method, whenever the user does something to change the camera. The preview must also be restarted in the preview class <code>surfaceChanged()</code> callback method.</p>
+<div class="hlcode"><pre><span class="k">public</span> <span class="nf">void</span> <span class="nx">setCamera</span><span class="p">(</span><span class="nx">Camera</span> <span class="nx">camera</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mCamera</span> <span class="o">==</span> <span class="nx">camera</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="nx">stopPreviewAndFreeCamera</span><span class="p">();</span>
+
+    <span class="n">mCamera</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mCamera</span> <span class="o">!=</span> <span class="kt">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">List</span><span class="o">&lt;</span><span class="nb">Size</span><span class="o">&gt;</span> <span class="n">localSizes</span> <span class="o">=</span> <span class="nx">mCamera.getParameters</span><span class="p">()</span><span class="bp">.</span><span class="nx">getSupportedPreviewSizes</span><span class="p">();</span>
+        <span class="n">mSupportedPreviewSizes</span> <span class="o">=</span> <span class="nx">localSizes</span><span class="p">;</span>
+        <span class="nx">requestLayout</span><span class="p">();</span>
+
+        <span class="nx">try</span> <span class="p">{</span>
+            <span class="nx">mCamera.setPreviewDisplay</span><span class="p">(</span><span class="nx">mHolder</span><span class="p">);</span>
+        <span class="p">}</span> <span class="nx">catch</span> <span class="p">(</span><span class="nx">IOException</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">e.printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Important: Call startPreview() to start updating the preview</span>
+        <span class="c1">// surface. Preview must be started before you can take a picture.</span>
+        <span class="nx">mCamera.startPreview</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Modify Camera Settings</li>
+</ul>
+<div class="hlcode"><pre><span class="n">public</span> <span class="kt">void</span> <span class="nf">surfaceChanged</span><span class="p">(</span><span class="n">SurfaceHolder</span> <span class="n">holder</span><span class="p">,</span> <span class="kt">int</span> <span class="n">format</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Now that the size is known, set up the camera parameters and begin</span>
+    <span class="c1">// the preview.</span>
+    <span class="n">Camera</span><span class="p">.</span><span class="n">Parameters</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">mCamera</span><span class="p">.</span><span class="n">getParameters</span><span class="p">();</span>
+    <span class="n">parameters</span><span class="p">.</span><span class="n">setPreviewSize</span><span class="p">(</span><span class="n">mPreviewSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">mPreviewSize</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="n">requestLayout</span><span class="p">();</span>
+    <span class="n">mCamera</span><span class="p">.</span><span class="n">setParameters</span><span class="p">(</span><span class="n">parameters</span><span class="p">);</span>
+
+    <span class="c1">// Important: Call startPreview() to start updating the preview surface.</span>
+    <span class="c1">// Preview must be started before you can take a picture.</span>
+    <span class="n">mCamera</span><span class="p">.</span><span class="n">startPreview</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>The <code>setCameraDisplayOrientation()</code> method lets you change how the preview is displayed without affecting how the image is recorded. </p>
+</li>
+<li>
+<p>Take Picture:Use the <code>Camera.takePicture()</code> method to take a picture once the preview is started. You can create <code>Camera.PictureCallback</code> and <code>Camera.ShutterCallback</code> objects and pass them into <code>Camera.takePicture()</code>.If you want to grab images continously, you can create a <code>Camera.PreviewCallback</code> that implements <code>onPreviewFrame()</code>. For something in between, you can capture only selected preview frames, or set up a delayed action to call <code>takePicture()</code>.</p>
+</li>
+<li>
+<p>Restart the Preview:After a picture is taken, you must restart the preview before the user can take another picture. In this example, the restart is done by overloading the shutter button.</p>
+</li>
+</ul>
+<div class="hlcode"><pre><span class="err">@</span><span class="n">Override</span>
+<span class="n">public</span> <span class="kt">void</span> <span class="n">onClick</span><span class="p">(</span><span class="n">View</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">mPreviewState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">K_STATE_FROZEN</span>:
+        <span class="n">mCamera</span><span class="p">.</span><span class="n">startPreview</span><span class="p">();</span>
+        <span class="n">mPreviewState</span> <span class="o">=</span> <span class="n">K_STATE_PREVIEW</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="nl">default:</span>
+        <span class="n">mCamera</span><span class="p">.</span><span class="n">takePicture</span><span class="p">(</span> <span class="n">null</span><span class="p">,</span> <span class="n">rawCallback</span><span class="p">,</span> <span class="n">null</span><span class="p">);</span>
+        <span class="n">mPreviewState</span> <span class="o">=</span> <span class="n">K_STATE_BUSY</span><span class="p">;</span>
+    <span class="p">}</span> <span class="c1">// switch</span>
+    <span class="n">shutterBtnConfig</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Stop the Preview and Release the Camera</li>
+</ul>
+<div class="hlcode"><pre><span class="kr">public</span> <span class="k">void</span> <span class="nx">surfaceDestroyed</span><span class="p">(</span><span class="nx">SurfaceHolder</span> <span class="nx">holder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Surface will be destroyed when we return, so stop the preview.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mCamera</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Call stopPreview() to stop updating the preview surface.</span>
+        <span class="nx">mCamera</span><span class="p">.</span><span class="nx">stopPreview</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * When this function returns, mCamera will be null.</span>
+<span class="cm"> */</span>
+<span class="kr">private</span> <span class="k">void</span> <span class="nx">stopPreviewAndFreeCamera</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mCamera</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Call stopPreview() to stop updating the preview surface.</span>
+        <span class="nx">mCamera</span><span class="p">.</span><span class="nx">stopPreview</span><span class="p">();</span>
+
+        <span class="c1">// Important: Call release() to release the camera for use by other</span>
+        <span class="c1">// applications. Applications should release the camera immediately</span>
+        <span class="c1">// during onPause() and re-open() it during onResume()).</span>
+        <span class="nx">mCamera</span><span class="p">.</span><span class="nx">release</span><span class="p">();</span>
+
+        <span class="nx">mCamera</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Display Bitmap</li>
+</ul>
+<div class="hlcode"><pre><span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span><span class="p">();</span>
+<span class="n">options</span><span class="p">.</span><span class="n">inJustDecodeBounds</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="n">BitmapFactory</span><span class="p">.</span><span class="n">decodeResource</span><span class="p">(</span><span class="n">getResources</span><span class="p">(),</span> <span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">myimage</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">imageHeight</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">outHeight</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">imageWidth</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">outWidth</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">imageType</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">outMimeType</span><span class="p">;</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="n">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">calculateInSampleSize</span><span class="p">(</span>
+            <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span> <span class="n">options</span><span class="p">,</span> <span class="kt">int</span> <span class="n">reqWidth</span><span class="p">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Raw height and width of image</span>
+    <span class="n">final</span> <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">outHeight</span><span class="p">;</span>
+    <span class="n">final</span> <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">outWidth</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">inSampleSize</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">reqHeight</span> <span class="o">||</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="n">reqWidth</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">final</span> <span class="kt">int</span> <span class="n">halfHeight</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="n">final</span> <span class="kt">int</span> <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="c1">// Calculate the largest inSampleSize value that is a power of 2 and keeps both</span>
+        <span class="c1">// height and width larger than the requested height and width.</span>
+        <span class="k">while</span> <span class="p">((</span><span class="n">halfHeight</span> <span class="o">/</span> <span class="n">inSampleSize</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reqHeight</span>
+                <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">halfWidth</span> <span class="o">/</span> <span class="n">inSampleSize</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reqWidth</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">inSampleSize</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">inSampleSize</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="n">public</span> <span class="k">static</span> <span class="n">Bitmap</span> <span class="nf">decodeSampledBitmapFromResource</span><span class="p">(</span><span class="n">Resources</span> <span class="n">res</span><span class="p">,</span> <span class="kt">int</span> <span class="n">resId</span><span class="p">,</span>
+        <span class="kt">int</span> <span class="n">reqWidth</span><span class="p">,</span> <span class="kt">int</span> <span class="n">reqHeight</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// First decode with inJustDecodeBounds=true to check dimensions</span>
+    <span class="n">final</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">Options</span><span class="p">();</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">inJustDecodeBounds</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">decodeResource</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">resId</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+
+    <span class="c1">// Calculate inSampleSize</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">inSampleSize</span> <span class="o">=</span> <span class="n">calculateInSampleSize</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">reqWidth</span><span class="p">,</span> <span class="n">reqHeight</span><span class="p">);</span>
+
+    <span class="c1">// Decode bitmap with inSampleSize set</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">inJustDecodeBounds</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">BitmapFactory</span><span class="p">.</span><span class="n">decodeResource</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">resId</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>On Android Android 2.2 (API level 8) and lower, when garbage collection occurs, your app's threads get stopped. This causes a lag that can degrade performance. Android 2.3 adds concurrent garbage collection, which means that the memory is reclaimed soon after a bitmap is no longer referenced.On Android 2.3.3 (API level 10) and lower, the backing pixel data for a bitmap is stored in native memory. It is separate from the bitmap itself, which is stored in the Dalvik heap. The pixel data in native memory is not released in a predictable manner, potentially causing an application to briefly exceed its memory limits and crash. As of Android 3.0 (API level 11), the pixel data is stored on the Dalvik heap along with the associated bitmap.在API level 8之前，gc会导致应用的UI thread暂停卡顿。Android 2.3开始加入了并行的gc。在API level 10之前，bitmap的pixel data存储在native memory，和存储在dalvik heap中的bitmap是分离的。native memory中的bitmap pixel data释放规律不可预测，会潜在导致应用oom crash。从API level 11开始，bitmap pixel data和bitmap本身一样存储在了dalvik heap中。</p>
+</li>
+<li>
+<p>On Android 2.3.3 (API level 10) and lower, using <code>recycle()</code> is recommended. If you're displaying large amounts of bitmap data in your app, you're likely to run into <code>OutOfMemoryError</code> errors. The <code>recycle()</code> method allows an app to reclaim memory as soon as possible.Android 3.0 (API level 11) introduces the <code>BitmapFactory.Options.inBitmap</code> field. If this option is set, decode methods that take the Options object will attempt to reuse an existing bitmap when loading content. This means that the bitmap's memory is reused, resulting in improved performance, and removing both memory allocation and de-allocation. However, there are certain restrictions with how <code>inBitmap</code> can be used. In particular, before Android 4.4 (API level 19), only equal sized bitmaps are supported. API level 10之前推荐使用<code>recycle</code>来进行bitmap内存的释放。从API level 11开始，引入了<code>BitmapFactory.Options.inBitmap</code>选项，可以复用bitmap。</p>
+</li>
+</ul>
+<div class="hlcode"><pre><span class="nb">Set</span><span class="o">&lt;</span><span class="nx">SoftReference</span><span class="o">&lt;</span><span class="nx">Bitmap</span><span class="o">&gt;&gt;</span> <span class="nx">mReusableBitmaps</span><span class="p">;</span>
+<span class="k">private</span> <span class="nf">LruCache</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="nx">BitmapDrawable</span><span class="o">&gt;</span> <span class="nx">mMemoryCache</span><span class="p">;</span>
+
+<span class="c1">// If you&#39;re running on Honeycomb or newer, create a</span>
+<span class="c1">// synchronized HashSet of references to reusable bitmaps.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">Utils.hasHoneycomb</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">mReusableBitmaps</span> <span class="o">=</span>
+            <span class="nx">Collections.synchronizedSet</span><span class="p">(</span><span class="nb">new</span> <span class="nx">HashSet</span><span class="o">&lt;</span><span class="nx">SoftReference</span><span class="o">&lt;</span><span class="nx">Bitmap</span><span class="o">&gt;&gt;</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="n">mMemoryCache</span> <span class="o">=</span> <span class="nb">new</span> <span class="nx">LruCache</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="nx">BitmapDrawable</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">mCacheParams.memCacheSize</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Notify the removed entry that is no longer being cached.</span>
+    <span class="p">@</span><span class="nx">Override</span>
+    <span class="k">protected</span> <span class="nf">void</span> <span class="nx">entryRemoved</span><span class="p">(</span><span class="nb">boolean</span> <span class="nx">evicted</span><span class="p">,</span> <span class="kt">String</span> <span class="nb">key</span><span class="p">,</span>
+            <span class="nx">BitmapDrawable</span> <span class="nx">oldValue</span><span class="p">,</span> <span class="nx">BitmapDrawable</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">RecyclingBitmapDrawable.class.isInstance</span><span class="p">(</span><span class="nx">oldValue</span><span class="p">))</span> <span class="p">{</span>
+            <span class="c1">// The removed entry is a recycling drawable, so notify it</span>
+            <span class="c1">// that it has been removed from the memory cache.</span>
+            <span class="p">((</span><span class="nx">RecyclingBitmapDrawable</span><span class="p">)</span> <span class="nx">oldValue</span><span class="p">)</span><span class="bp">.</span><span class="nx">setIsCached</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// The removed entry is a standard BitmapDrawable.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">Utils.hasHoneycomb</span><span class="p">())</span> <span class="p">{</span>
+                <span class="c1">// We&#39;re running on Honeycomb or later, so add the bitmap</span>
+                <span class="c1">// to a SoftReference set for possible use with inBitmap later.</span>
+                <span class="nx">mReusableBitmaps.add</span>
+                        <span class="p">(</span><span class="nb">new</span> <span class="nx">SoftReference</span><span class="o">&lt;</span><span class="nx">Bitmap</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">oldValue.getBitmap</span><span class="p">()));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="nx">....</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="nf">static</span> <span class="nx">Bitmap</span> <span class="nx">decodeSampledBitmapFromFile</span><span class="p">(</span><span class="kt">String</span> <span class="nb">filename</span><span class="p">,</span>
+        <span class="nx">int</span> <span class="nx">reqWidth</span><span class="p">,</span> <span class="nx">int</span> <span class="nx">reqHeight</span><span class="p">,</span> <span class="nx">ImageCache</span> <span class="k">cache</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">final</span> <span class="nx">BitmapFactory.Options</span> <span class="n">options</span> <span class="o">=</span> <span class="nb">new</span> <span class="nx">BitmapFactory.Options</span><span class="p">();</span>
+    <span class="nx">...</span>
+    <span class="nx">BitmapFactory.decodeFile</span><span class="p">(</span><span class="nb">filename</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="nx">...</span>
+
+    <span class="c1">// If we&#39;re running on Honeycomb or newer, try to use inBitmap.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Utils.hasHoneycomb</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">addInBitmapOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="k">cache</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">...</span>
+    <span class="k">return</span> <span class="nx">BitmapFactory.decodeFile</span><span class="p">(</span><span class="nb">filename</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="nf">static</span> <span class="bp">void</span> <span class="nx">addInBitmapOptions</span><span class="p">(</span><span class="nx">BitmapFactory.Options</span> <span class="nx">options</span><span class="p">,</span>
+        <span class="nx">ImageCache</span> <span class="k">cache</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// inBitmap only works with mutable bitmaps, so force the decoder to</span>
+    <span class="c1">// return mutable bitmaps.</span>
+    <span class="n">options.inMutable</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">cache</span> <span class="o">!=</span> <span class="kt">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Try to find a bitmap to use for inBitmap.</span>
+        <span class="nx">Bitmap</span> <span class="n">inBitmap</span> <span class="o">=</span> <span class="k">cache</span><span class="bp">.</span><span class="nx">getBitmapFromReusableSet</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">inBitmap</span> <span class="o">!=</span> <span class="kt">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// If a suitable bitmap has been found, set it as the value of</span>
+            <span class="c1">// inBitmap.</span>
+            <span class="n">options.inBitmap</span> <span class="o">=</span> <span class="nx">inBitmap</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// This method iterates through the reusable bitmaps, looking for one </span>
+<span class="c1">// to use for inBitmap:</span>
+<span class="k">protected</span> <span class="nf">Bitmap</span> <span class="nx">getBitmapFromReusableSet</span><span class="p">(</span><span class="nx">BitmapFactory.Options</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="kt">null</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mReusableBitmaps</span> <span class="o">!=</span> <span class="kt">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">mReusableBitmaps.isEmpty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">synchronized</span> <span class="p">(</span><span class="nx">mReusableBitmaps</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">final</span> <span class="nb">Iterator</span><span class="o">&lt;</span><span class="nx">SoftReference</span><span class="o">&lt;</span><span class="nx">Bitmap</span><span class="o">&gt;&gt;</span> <span class="n">iterator</span>
+                    <span class="o">=</span> <span class="nx">mReusableBitmaps.iterator</span><span class="p">();</span>
+            <span class="nx">Bitmap</span> <span class="nb">item</span><span class="p">;</span>
+
+            <span class="k">while</span> <span class="p">(</span><span class="nx">iterator.hasNext</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="nx">iterator.next</span><span class="p">()</span><span class="bp">.</span><span class="nb">get</span><span class="p">();</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="kt">null</span> <span class="o">!=</span> <span class="nb">item</span> <span class="o">&amp;&amp;</span> <span class="nx">item.isMutable</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="c1">// Check to see it the item can be used for inBitmap.</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">canUseForInBitmap</span><span class="p">(</span><span class="nb">item</span><span class="p">,</span> <span class="nx">options</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="n">bitmap</span> <span class="o">=</span> <span class="nb">item</span><span class="p">;</span>
+
+                        <span class="c1">// Remove from reusable set so it can&#39;t be used again.</span>
+                        <span class="nx">iterator.remove</span><span class="p">();</span>
+                        <span class="nx">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="c1">// Remove from the set if the reference has been cleared.</span>
+                    <span class="nx">iterator.remove</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">bitmap</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">static</span> <span class="nb">boolean</span> <span class="nx">canUseForInBitmap</span><span class="p">(</span>
+        <span class="nx">Bitmap</span> <span class="nx">candidate</span><span class="p">,</span> <span class="nx">BitmapFactory.Options</span> <span class="nx">targetOptions</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Build.VERSION.SDK_INT</span> <span class="o">&gt;=</span> <span class="nx">Build.VERSION_CODES.KITKAT</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// From Android 4.4 (KitKat) onward we can re-use if the byte size of</span>
+        <span class="c1">// the new bitmap is smaller than the reusable bitmap candidate</span>
+        <span class="c1">// allocation byte count.</span>
+        <span class="nx">int</span> <span class="n">width</span> <span class="o">=</span> <span class="nx">targetOptions.outWidth</span> <span class="o">/</span> <span class="nx">targetOptions.inSampleSize</span><span class="p">;</span>
+        <span class="nx">int</span> <span class="n">height</span> <span class="o">=</span> <span class="nx">targetOptions.outHeight</span> <span class="o">/</span> <span class="nx">targetOptions.inSampleSize</span><span class="p">;</span>
+        <span class="nx">int</span> <span class="n">byteCount</span> <span class="o">=</span> <span class="nb">width</span> <span class="o">*</span> <span class="nb">height</span> <span class="o">*</span> <span class="nx">getBytesPerPixel</span><span class="p">(</span><span class="nx">candidate.getConfig</span><span class="p">());</span>
+        <span class="k">return</span> <span class="nx">byteCount</span> <span class="o">&lt;=</span> <span class="nx">candidate.getAllocationByteCount</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// On earlier versions, the dimensions must match exactly and the inSampleSize must be 1</span>
+    <span class="k">return</span> <span class="nx">candidate.getWidth</span><span class="p">()</span> <span class="o">==</span> <span class="nx">targetOptions.outWidth</span>
+            <span class="o">&amp;&amp;</span> <span class="nx">candidate.getHeight</span><span class="p">()</span> <span class="o">==</span> <span class="nx">targetOptions.outHeight</span>
+            <span class="o">&amp;&amp;</span> <span class="nx">targetOptions.inSampleSize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * A helper function to return the byte usage per pixel of a bitmap based on its configuration.</span>
+<span class="cm"> */</span>
+<span class="nx">static</span> <span class="nx">int</span> <span class="nx">getBytesPerPixel</span><span class="p">(</span><span class="nx">Config</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">config</span> <span class="o">==</span> <span class="nx">Config.ARGB_8888</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">config</span> <span class="o">==</span> <span class="nx">Config.RGB_565</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">config</span> <span class="o">==</span> <span class="nx">Config.ARGB_4444</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">config</span> <span class="o">==</span> <span class="nx">Config.ALPHA_8</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
     </div>
 
         </div>

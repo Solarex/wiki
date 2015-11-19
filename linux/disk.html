@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <title>disk - Wiki.Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#linux">linux</a> » disk
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">disk</div>
+    <div id="content">
+        <ul>
+<li><code>dd if=/dev/zero of=/tmp/swapfile bs=1024k count=10</code> <code>mkswap -f /tmp/swapfile</code> <code>swapon /tmp/swapfile</code></li>
+<li><code>swapon -s</code>显示fstab中交换分区信息</li>
+<li><code>swapon -a</code>将<code>/etc/fstab</code>文件中所有设置为swap的设备开启，标记noauto参数的设备除外</li>
+<li><code>swapoff -a</code>将<code>/etc/fstab</code>文件中所有设置为swap的设备关闭</li>
+<li><code>swapoff /tmp/swapfile</code></li>
+<li>disk uuid <a href="https://help.ubuntu.com/community/Fstab">ubuntu.ref</a></li>
+<li><code>sudo mount -a</code> mount all file systems in <code>/etc/fstab</code></li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$sudo</span> <span class="nx">blkid</span>
+<span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sda1</span><span class="p">:</span> <span class="n">UUID</span><span class="o">=</span><span class="s2">&quot;208d621f-5e2e-4e21-bb91-3ab1654631bd&quot;</span> <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;ext4&quot;</span> 
+<span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sda5</span><span class="p">:</span> <span class="n">UUID</span><span class="o">=</span><span class="s2">&quot;4ff30db3-2fbf-4567-865e-20cf11ae9ae0&quot;</span> <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;swap&quot;</span> 
+<span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sda6</span><span class="p">:</span> <span class="n">UUID</span><span class="o">=</span><span class="s2">&quot;8b6f7402-a8d3-49a2-94ae-db05006a03ac&quot;</span> <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;ext4&quot;</span> 
+<span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sda7</span><span class="p">:</span> <span class="n">UUID</span><span class="o">=</span><span class="s2">&quot;39431f38-69ba-4092-8cef-0abd78a1b76e&quot;</span> <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;ext4&quot;</span> 
+<span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sdb</span><span class="p">:</span> <span class="n">LABEL</span><span class="o">=</span><span class="s2">&quot;SSD&quot;</span> <span class="n">UUID</span><span class="o">=</span><span class="s2">&quot;6b750347-c706-4614-8f69-a0e0d0f6fc81&quot;</span> <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;ext4&quot;</span>
+<span class="nv">$cat</span> <span class="p">/</span><span class="nx">etc</span><span class="p">/</span><span class="nx">fstab</span>
+<span class="err">#</span> <span class="p">/</span><span class="nx">etc</span><span class="p">/</span><span class="nx">fstab</span><span class="p">:</span> <span class="nx">static</span> <span class="nb">file</span> <span class="nx">system</span> <span class="nx">information.</span>
+<span class="err">#</span>
+<span class="err">#</span> <span class="nx">Use</span> <span class="s1">&#39;blkid&#39;</span> <span class="k">to</span> <span class="nx">print</span> <span class="nx">the</span> <span class="nx">universally</span> <span class="nx">unique</span> <span class="nx">identifier</span> <span class="nb">for</span> <span class="nx">a</span>
+<span class="err">#</span> <span class="nx">device</span><span class="p">;</span> <span class="nx">this</span> <span class="nx">may</span> <span class="nx">be</span> <span class="nx">used</span> <span class="k">with</span> <span class="n">UUID</span><span class="o">=</span> <span class="nx">as</span> <span class="nx">a</span> <span class="nx">more</span> <span class="nx">robust</span> <span class="nx">way</span> <span class="k">to</span> <span class="nb">name</span> <span class="nx">devices</span>
+<span class="err">#</span> <span class="nx">that</span> <span class="nx">works</span> <span class="nx">even</span> <span class="k">if</span> <span class="nx">disks</span> <span class="nx">are</span> <span class="nx">added</span> <span class="ow">and</span> <span class="nx">removed.</span> <span class="nx">See</span> <span class="nx">fstab</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="nx">.</span>
+<span class="err">#</span>
+<span class="err">#</span> <span class="o">&lt;</span><span class="nb">file</span> <span class="nx">system</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">mount</span> <span class="nx">point</span><span class="o">&gt;</span>   <span class="o">&lt;</span><span class="k">type</span><span class="o">&gt;</span>  <span class="o">&lt;</span><span class="nx">options</span><span class="o">&gt;</span>       <span class="o">&lt;</span><span class="nb">dump</span><span class="o">&gt;</span>  <span class="o">&lt;</span><span class="nb">pass</span><span class="o">&gt;</span>
+<span class="nx">proc</span>            <span class="p">/</span><span class="nx">proc</span>           <span class="nx">proc</span>    <span class="nx">nodev</span><span class="p">,</span><span class="nx">noexec</span><span class="p">,</span><span class="nx">nosuid</span> <span class="mi">0</span>       <span class="mi">0</span>
+<span class="err">#</span> <span class="o">/</span> <span class="nx">was</span> <span class="k">on</span> <span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sde6</span> <span class="nx">during</span> <span class="nx">installation</span>
+<span class="n">UUID</span><span class="o">=</span><span class="mi">8</span><span class="nx">b6f7402</span><span class="na">-a8d3</span><span class="o">-</span><span class="mi">49</span><span class="nx">a2</span><span class="o">-</span><span class="mi">94</span><span class="nx">ae</span><span class="na">-db05006a03ac</span> <span class="o">/</span>               <span class="nx">ext4</span>    <span class="n">errors</span><span class="o">=</span><span class="nx">remount</span><span class="na">-ro</span> <span class="mi">0</span>       <span class="mi">1</span>
+<span class="err">#</span> <span class="p">/</span><span class="nx">boot</span> <span class="nx">was</span> <span class="k">on</span> <span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sde1</span> <span class="nx">during</span> <span class="nx">installation</span>
+<span class="n">UUID</span><span class="o">=</span><span class="mi">208</span><span class="nx">d621f</span><span class="o">-</span><span class="mi">5</span><span class="nx">e2e</span><span class="o">-</span><span class="mi">4</span><span class="nx">e21</span><span class="na">-bb91</span><span class="o">-</span><span class="mi">3</span><span class="nx">ab1654631bd</span> <span class="p">/</span><span class="nx">boot</span>           <span class="nx">ext4</span>    <span class="nx">defaults</span>        <span class="mi">0</span>       <span class="mi">2</span>
+<span class="err">#</span> <span class="p">/</span><span class="nb">home</span> <span class="nx">was</span> <span class="k">on</span> <span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sde7</span> <span class="nx">during</span> <span class="nx">installation</span>
+<span class="n">UUID</span><span class="o">=</span><span class="mi">39431</span><span class="nx">f38</span><span class="o">-</span><span class="mi">69</span><span class="nx">ba</span><span class="o">-</span><span class="mi">4092</span><span class="o">-</span><span class="mi">8</span><span class="nx">cef</span><span class="o">-</span><span class="mi">0</span><span class="nx">abd78a1b76e</span> <span class="p">/</span><span class="nb">home</span>           <span class="nx">ext4</span>    <span class="nx">defaults</span>        <span class="mi">0</span>       <span class="mi">2</span>
+<span class="err">#</span> <span class="nx">swap</span> <span class="nx">was</span> <span class="k">on</span> <span class="p">/</span><span class="nx">dev</span><span class="p">/</span><span class="nx">sde5</span> <span class="nx">during</span> <span class="nx">installation</span>
+<span class="n">UUID</span><span class="o">=</span><span class="mi">4</span><span class="nx">ff30db3</span><span class="o">-</span><span class="mi">2</span><span class="nx">fbf</span><span class="o">-</span><span class="mi">4567</span><span class="o">-</span><span class="mi">865</span><span class="nx">e</span><span class="o">-</span><span class="mi">20</span><span class="nx">cf11ae9ae0</span> <span class="kc">none</span>            <span class="nx">swap</span>    <span class="nx">sw</span>              <span class="mi">0</span>       <span class="mi">0</span>
+<span class="err">#</span> <span class="nx">ssd</span>
+<span class="n">UUID</span><span class="o">=</span><span class="mi">6</span><span class="nx">b750347</span><span class="na">-c706</span><span class="o">-</span><span class="mi">4614</span><span class="o">-</span><span class="mi">8</span><span class="nx">f69</span><span class="na">-a0e0d0f6fc81</span> <span class="p">/</span><span class="nb">media</span><span class="p">/</span><span class="nx">ssd</span>      <span class="nx">ext4</span>    <span class="nx">defaults</span>        <span class="mi">0</span>       <span class="mi">2</span>
+</pre></div>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2015 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+    </body>
+</html>

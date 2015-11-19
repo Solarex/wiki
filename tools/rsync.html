@@ -24,6 +24,25 @@
     <div id="title">rsync</div>
     <div id="content">
         <h2 id="rsync">rsync</h2>
+<ul>
+<li><code>rsync -avzP -e ssh remoteuser@remotehost:/remote/dir /this/dir/</code></li>
+<li><a href="http://troy.jdmz.net/rsync/index.html">ref0</a>,<a href="http://www.tecmint.com/rsync-local-remote-file-synchronization-commands/">ref1</a></li>
+<li><code>rsync options source destination</code></li>
+<li>options</li>
+<li><code>-v</code>,verbose</li>
+<li><code>-r</code>,recursively</li>
+<li><code>-a</code>,archive mode</li>
+<li><code>-z</code>,compress file data</li>
+<li>
+<p><code>-h</code>,human-readable,output numbers in a human-readable format</p>
+</li>
+<li>
+<p>If a file or directory not exist at the source, but already exists at the destination, you might want to delete that existing file/directory at the target while syncing .</p>
+</li>
+<li><code>rsync --remove-source-files -zvh backup.tar /tmp/backups/</code></li>
+<li><code>rsync --dry-run --remove-source-files -zvh backup.tar /tmp/backups/</code></li>
+<li><code>rsync -zvhW backup.tar /tmp/backups/backup.tar backup.tar</code>,Also, by default rsync syncs changed blocks and bytes only, if you want explicitly want to sync whole file then you use ‘-W‘ option with it.</li>
+</ul>
     </div>
 
         </div>

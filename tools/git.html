@@ -89,8 +89,21 @@ popd
 <li><code>git commit --amend --reset-author</code>重置最后一次提交的author</li>
 <li><code>git log --follow -p file</code>，查看文件历史版本</li>
 <li><code>git cherry-pick commit-id</code>，"复制"一个提交节点并在当前分支做一次完全一样的新提交。</li>
+<li><code>git clone -o meizu ssh://*****</code>,change remote origin to meizu</li>
 <li><a href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html">visual-git-guide</a></li>
+<li><code>git config --global diff.external /path/to/meld.sh</code></li>
 </ul>
+<div class="hlcode"><pre><span class="c">#!/bin/bash</span>
+meld <span class="s2">&quot;$2&quot;</span> <span class="s2">&quot;$5&quot;</span> &gt;/dev/null &gt;2&amp;1
+</pre></div>
+
+
+<ul>
+<li><code>git config --global diff.external /path/to/opendiff.sh</code>,<code>git config --global --unset diff.external</code></li>
+</ul>
+<div class="hlcode"><pre><span class="c">#!/bin/bash</span>
+/usr/bin/opendiff <span class="s2">&quot;$2&quot;</span> <span class="s2">&quot;$5&quot;</span> -merge <span class="s2">&quot;$1&quot;</span>
+</pre></div>
     </div>
 
         </div>
