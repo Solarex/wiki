@@ -43,6 +43,8 @@
 <li>Win:<code>tasklist /svc</code>,<code>taskkill /pid 1965</code>,<code>taskkill /f /im QQ.exe</code></li>
 <li><code>tar xvf sth.tgz -C uncompress_folder</code></li>
 <li><code>updatedb -l 0 -o db_file -U source_directory</code> , <code>locate sth -d db_file</code></li>
+<li>find out the working directory of a running process,<code>pwdx &lt;pid&gt;</code>,<code>lsof -p &lt;pid&gt; | grep cwd</code>,<code>readlink /proc/&lt;pid&gt;/cwd</code></li>
+<li>format json in vim,<code>%!python -m json.tool</code></li>
 </ul>
     </div>
 

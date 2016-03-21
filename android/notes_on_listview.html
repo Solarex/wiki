@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <title>Notes on ListView - Wiki.Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#android">android</a> » Notes on ListView
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="title">Notes on ListView</div>
+    <div id="content">
+        <ul>
+<li><code>index</code> child views,<code>position</code> data in adapter,<code>id</code> unique identifier for data</li>
+<li><code>hasStableIds</code> Stable IDs allow the <code>ListView</code> to optimize for the case when items remain the same between <code>notifyDataSetChanged</code> calls. The IDs it refers to are the ones returned from <code>getItemId</code>.数据源发生变化<code>notifyDataSetChanged</code>之后，只有<code>getItemId</code>返回值发生变化的item会被重新创建。Without it, the ListView has to recreate all Views since it can't know if the item IDs are the same between data changes (e.g. if the ID is just the index in the data, it has to recreate everything). With it, it can refrain from recreating Views that kept their item IDs.</li>
+<li><code>convertView</code> supplied by <code>ListView</code>,matches item types,can be reused.<code>ArrayList&lt;View&gt;[] mScrapViews</code></li>
+<li><code>notifyDataSetChanged</code> new or update data,<code>notifyDataSetInvalidated</code> no more data available,there is no more data in <code>ListView</code>,it's all gone.</li>
+<li><code>getItemViewType</code> type of view for a given position,used to provide the right convertView,<code>getViewTypeCount</code> how many types to expect.</li>
+<li>commit data changes to the adapter and call <code>notifyDataSetChanged</code> on the UI thread.</li>
+<li>having an enabled item lets you selected with the drawables,it also lets you click the item.disabling the items is not necessarily to show the user that this item is not available for instance,can be use to apply different apperance.disable一个item项来提供不一样apperance的item view type来避免点击。</li>
+<li><code>setItemsCanFocus</code> to tell ListView you dont want to select the entire rows,but to select stuff inside the rows</li>
+<li><code>ListView.addHeaderView</code>,<code>ListView.addFooterView</code> must be called before <code>setAdapter</code>.<code>addHeaderView(View v, Object data, boolean isSelectable)</code>,<code>addFooterView(View v, Object data, boolean isSelectable)</code></li>
+<li><code>setAdapter</code>传入进去的adapter由于有headerview和footerview的存在，headerview和footerview的数据类型和item不同，adapter被包装成了<code>HeaderViewListAdapter</code>,<code>getAdapter</code>获取的adapter和之前传入进去的adapter是不同的。</li>
+<li><code>ListView selectors</code>,set <code>android:drawSelectorOnTop</code> to be true,shown behind the list items</li>
+<li><code>convertView.setBackground(R.drawable.selector)</code></li>
+<li><code>android:transcriptMode</code> behavior of the list when the content changes,<code>disabled</code> doesn't scroll,<code>normal</code> scrolls to the bottom if last item is visible,<code>alwaysScroll</code>,always scroll to the bottom</li>
+<li><code>android:stackFromBottom</code> stack items in reverse order, starts with the last item from the adapter, useful for chats,messaging, talk, IRC,etc</li>
+<li><code>android:textFilterEnabled=true</code>,Adapter must implement Filterable,eg. <code>CursorAdapter</code>,<code>ArrayAdapter</code> etc,implement <code>getFilter</code></li>
+<li><code>Filter</code>,<code>protected FilterResults performFiltering(CharSequence prefix)</code>在background thread被调用,<code>protected void pushlishResults(CharSequence constraint, FilterResults results)</code>在UI线程被调用</li>
+<li>ListView自身的优化，when scrolling views are cached in bitmaps,opaque bitmap to avoid blending，快速滑动时会出现黑色条目，<code>android:cacheColorHint="@color/bg_color"</code></li>
+<li>scroll bar根据列表项动态调整大小，snake effect，when views have very different heights,smooth scroollbar need each item's height(to expensive),<code>android:smoothScrollbar="false"</code></li>
+<li>set <code>ListView</code> height to <code>wrap_content</code>,will measure three items in the list.布局过程中，会计算前三项item来计算布局高度并把前三项item放入回收器中，然后开始真正的填充数据过程。</li>
+<li>access view directly,<code>getFirstVisiblePosition</code>第一个可见的item position,<code>getChildCount</code>有多少view显示在屏幕上，<code>getChildAt</code></li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2015 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+    </body>
+</html>
