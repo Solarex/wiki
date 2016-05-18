@@ -1,12 +1,29 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <title>android - Wiki.Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
     </head>
 
     <body>
@@ -15,13 +32,15 @@
             
     <div id="header">
         <div id="post-nav">
+            <div id="toggle-button">宽版</div>
             
             <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#android">android</a> » android
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">android</div>
+    <h1><center>android</center></h1>
+    <hr>
     <div id="content">
         <h2 id="android">android</h2>
 <ul>
@@ -31,21 +50,27 @@
 --package com.example.myfirstapp</code></li>
 <li><code>ant debug</code>,<code>adb install bin/MyFirstApp-debug.apk</code></li>
 <li><code>android create avd -n &lt;name&gt; -t &lt;targetID&gt; -p path/to/my/avd -c &lt;size&gt;[K|M] [-&lt;option&gt; &lt;value&gt;] ...</code></li>
+<li><a href="http://stackoverflow.com/questions/26016770/how-to-install-old-version-of-android-build-tools-from-command-line">install old version android build tools/tools/platform tools</a>,<code>android list sdk --all</code>,<code>android update sdk -u -a -t [NO_OF_ITEM_TO_BE_INSTALLED]</code>,Example: if I wanted to install andorid sdk build tools revision 23.0.1, I would type in:<code>android update sdk -u -a -t 7</code>,<code>-u (--no-ui)  # Headless mode, -a (--all)    # Includes all packages, included the obsolete ones, -t (--filter) # in this example we have filtered by package index, i.e. 5</code></li>
 <li><code>mksdcard -l &lt;label&gt; &lt;size&gt; &lt;file&gt;</code></li>
 <li><code>android move avd -n &lt;name&gt; [-&lt;option&gt; &lt;value&gt;] ...</code>,move or rename an AVD</li>
 <li><code>android update avd -n &lt;name&gt;</code></li>
 <li><code>android delete avd -n &lt;name&gt;</code></li>
 <li><code>emulator -avd &lt;avd_name&gt; [&lt;options&gt;]</code>,eg,<code>emulator -avd WVGA800 -scale 96dpi -dpi-device 160</code>,<code>emulator -avd &lt;avd_name&gt;  -wipe-data</code></li>
+<li><code>adb shell service list</code></li>
+<li><code>adb shell dumpsys activity/cpuinfo/battery</code></li>
+<li><code>adb shell dumpsys | grep "DUMP OF SERVICE"</code></li>
+<li><code>adb shell dumpsys window -h</code>,<code>adb shell dumpsys activity -h</code>,<code>adb shell dumpsys meminfo -h</code>,<code>adb shell dumpsys package -h</code>,<code>adb shell dumpsys batteryinfo -h</code></li>
 </ul>
 <h3 id="using-emulator">Using Emulator</h3>
     </div>
 
         </div>
         <div id="footer">
-            <span>
-                Copyright © 2012-2015 Solarex.
+              <p>
+                Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
-            </span>
+              </p>
+                <p>Last Update 2016-05-18 21:33:28</p>
         </div>
     </body>
 </html>

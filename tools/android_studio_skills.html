@@ -1,12 +1,29 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <title>Android Studio Skills - Wiki.Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
     </head>
 
     <body>
@@ -15,13 +32,15 @@
             
     <div id="header">
         <div id="post-nav">
+            <div id="toggle-button">宽版</div>
             
             <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#tools">tools</a> » Android Studio Skills
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">Android Studio Skills</div>
+    <h1><center>Android Studio Skills</center></h1>
+    <hr>
     <div id="content">
         <h2 id="as-shortcutsxwindow">AS shortcuts(XWindow)</h2>
 <ul>
@@ -59,6 +78,7 @@
 <li><code>cmd+5</code>toggle breakpoints <code>alt+cmd+5</code> view all breakpoints</li>
 <li><code>shift+f6</code> rename</li>
 <li><code>ctrl+f4</code>关闭窗口</li>
+<li>line wrap,<code>Preferences --&gt; Editor --&gt; Code Style</code>,set <code>Right margin (columns)</code> to <code>120</code>,<code>Preferences --&gt; Editor --&gt; Code Style --&gt; Java --&gt; Wrapping and Braces --&gt; Ensure right margin is not exceeed</code> checked,<code>code --&gt; Reformat code</code></li>
 </ul>
 <h2 id="shortcuts">shortcuts</h2>
 <ul>
@@ -82,10 +102,11 @@
 
         </div>
         <div id="footer">
-            <span>
-                Copyright © 2012-2015 Solarex.
+              <p>
+                Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
-            </span>
+              </p>
+                <p>Last Update 2016-05-18 21:33:28</p>
         </div>
     </body>
 </html>

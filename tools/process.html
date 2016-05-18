@@ -1,12 +1,29 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
         <title>process - Wiki.Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
     </head>
 
     <body>
@@ -15,13 +32,15 @@
             
     <div id="header">
         <div id="post-nav">
+            <div id="toggle-button">宽版</div>
             
             <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#tools">tools</a> » process
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <div id="title">process</div>
+    <h1><center>process</center></h1>
+    <hr>
     <div id="content">
         <ul>
 <li>任何进程都与文件关联；我们会用到lsof工具（list opened files），作用是列举系统中已经被打开的文件。在linux环境中，任何事物都是文件，设备是文件，目录是文件，甚至sockets也是文件。</li>
@@ -61,10 +80,11 @@ lsof      12035 Solarex  cwd    DIR    1,4      374 2069275 .
 
         </div>
         <div id="footer">
-            <span>
-                Copyright © 2012-2015 Solarex.
+              <p>
+                Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
-            </span>
+              </p>
+                <p>Last Update 2016-05-18 21:33:28</p>
         </div>
     </body>
 </html>
