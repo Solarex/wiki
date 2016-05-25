@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>adb - Wiki.Solarex</title>
+        <title>adb - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -44,46 +44,120 @@
     <div id="content">
         <h2 id="adb">adb</h2>
 <ul>
-<li>ADB是一个通用的命令行工具来供你和Android模拟器或者Android设备交互。ADB是Client/Server架构，包括3个部分。Client，运行在开发机上。可以在shell中运行adb命令来调用它。Server，运行在开发机后台，Server管理Client和运行在模拟器或者Android设备上的adb daemon的通信。Daemon，运行在Android模拟器或者Android设备上的后台程序。</li>
-<li>When you start an adb client, the client first checks whether there is an adb server process already running. If there isn't, it starts the server process. When the server starts, it binds to local TCP port 5037 and listens for commands sent from adb clients—all adb clients use port 5037 to communicate with the adb server.启动一个adb client时，client首先检查是否有adb server在运行，如果没有就起adb server进程。server进程起来的时候会绑定到5037端口，监听所有从adb client发送过来的命令。The server then sets up connections to all running emulator/device instances. It locates emulator/device instances by scanning odd-numbered ports in the range 5555 to 5585, the range used by emulators/devices. Where the server finds an adb daemon, it sets up a connection to that port. Note that each emulator/device instance acquires a pair of sequential ports — an even-numbered port for console connections and an odd-numbered port for adb connections.adb server通过扫描5555到5585以内的奇数端口来定位Android模拟器和Android设备，然后和它们建立通信。如果adb server在端口中发现了adb daemon，他会建立和那个端口的连接。每个Android模拟器和Android设备需要一对连续的端口，一个偶数端口用来console connection，一个奇数端口用来adb connection。(server与client通信的端口是是5037,adb server会与emulator交互的，使用的端口有两个，一个是5554专门用于与Emulator实例的连接，那么数据可以从Emulator转发给IDE控制台了，另一个则是5555，专门与adb daemon连接为后面调试使用。http://www.cnblogs.com/carmanloneliness/archive/2013/04/16/3023299.html)</li>
-<li><code>adb emu -s emulator-5554 kill</code></li>
+<li>
+<p>ADB是一个通用的命令行工具来供你和Android模拟器或者Android设备交互。ADB是Client/Server架构，包括3个部分。Client，运行在开发机上。可以在shell中运行adb命令来调用它。Server，运行在开发机后台，Server管理Client和运行在模拟器或者Android设备上的adb daemon的通信。Daemon，运行在Android模拟器或者Android设备上的后台程序。</p>
+</li>
+<li>
+<p>When you start an adb client, the client first checks whether there is an adb server process already running. If there isn't, it starts the server process. When the server starts, it binds to local TCP port 5037 and listens for commands sent from adb clients—all adb clients use port 5037 to communicate with the adb server.启动一个adb client时，client首先检查是否有adb server在运行，如果没有就起adb server进程。server进程起来的时候会绑定到5037端口，监听所有从adb client发送过来的命令。The server then sets up connections to all running emulator/device instances. It locates emulator/device instances by scanning odd-numbered ports in the range 5555 to 5585, the range used by emulators/devices. Where the server finds an adb daemon, it sets up a connection to that port. Note that each emulator/device instance acquires a pair of sequential ports — an even-numbered port for console connections and an odd-numbered port for adb connections.adb server通过扫描5555到5585以内的奇数端口来定位Android模拟器和Android设备，然后和它们建立通信。如果adb server在端口中发现了adb daemon，他会建立和那个端口的连接。每个Android模拟器和Android设备需要一对连续的端口，一个偶数端口用来console connection，一个奇数端口用来adb connection。(server与client通信的端口是是5037,adb server会与emulator交互的，使用的端口有两个，一个是5554专门用于与Emulator实例的连接，那么数据可以从Emulator转发给IDE控制台了，另一个则是5555，专门与adb daemon连接为后面调试使用。http://www.cnblogs.com/carmanloneliness/archive/2013/04/16/3023299.html)</p>
+</li>
+<li>
+<p><code>adb emu -s emulator-5554 kill</code></p>
+</li>
 </ul>
 <h2 id="android-adb-tools-help">android adb tools help</h2>
 <ul>
-<li><code>adb devices</code></li>
-<li><code>adb install test.apk</code></li>
-<li><code>adb uninstall org.solarex.test</code></li>
-<li><code>adb logcat [option] [filter-specs]</code> Prints log data to the screen.</li>
-<li><code>adb bugreport</code> Prints <code>dumpsys</code>, <code>dumpstate</code>, and <code>logcat</code> data to the screen, for the purposes of bug reporting.</li>
-<li><code>adb jdwp</code> Prints a list of available JDWP processes on a given device.You can use the forward <code>jdwp:&lt;pid&gt;</code> port-forwarding specification to connect to a specific JDWP process. For example:<code>adb forward tcp:8000 jdwp:472</code>,<code>jdb -attach localhost:8000</code></li>
-<li><code>adb pull &lt;remote&gt; &lt;local&gt;</code>,<code>adb pull /data/system/packages.xml .</code></li>
-<li><code>adb push &lt;local&gt; &lt;remote&gt;</code></li>
-<li><code>adb forward &lt;local&gt; &lt;remote&gt;</code>Forwards socket connections from a specified local port to a specified remote port on the emulator/device instance.Port specifications can use these schemes:<code>tcp:&lt;portnum&gt;</code>,<code>local:&lt;UNIX domain socket name&gt;</code>,<code>dev:&lt;character device name&gt;</code>,<code>jdwp:&lt;pid&gt;</code>.转发本地端口通信到远程模拟器或者Android设备上的端口。</li>
-<li><code>adb ppp &lt;tty&gt; [parm]…</code>Run PPP over USB.<code>&lt;tty&gt;</code> — the tty for PPP stream. For example <code>dev:/dev/omap_csmi_ttyl</code>.<code>[parm]…</code> — zero or more PPP/PPPD options, such as defaultroute, local, notty, etc.Note that you should not automatically start a PPP connection.</li>
-<li><code>adb get-serialno</code></li>
-<li><code>adb get-state</code></li>
-<li><code>adb wait-for-device</code></li>
-<li>adb shell,Adb provides a Unix shell that you can use to run a variety of commands on an emulator or connected device. The command binaries are stored in the file system of the emulator or device, at <code>/system/bin/</code>.</li>
-<li><code>adb shell am start PACKAGE_NAME/ACTIVITY_IN_PACKAGE</code>,<code>adb shell am start -n com.meizu.voiceassistant/.MainActivity</code></li>
-<li><code>adb shell screencap -p /sdcard/sc.png &amp;&amp; adb pull /sdcard/sc.png .</code>,<code>adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' &gt; sc.png</code>,<a href="http://blog.shvetsov.com/2013/02/grab-android-screenshot-to-computer-via.html">ref</a></li>
-<li><code>adb shell input keyevent 26</code>,sends the power button event to turn the device on or off</li>
-<li><code>adb shell input keyevent 82</code>,sends the event that unlocks the lockscreen on the device,can be combine with the power button event to turn on the device and unlock the screen</li>
-<li><code>adb shell pm list packages -f</code>,list all installed packages</li>
-<li><code>adb shell pm clear PACKAGENAME</code>,clear application data,<code>adb shell pm clear com.meizu.voiceassistant</code></li>
-<li><code>adb logcat -v threadtime -s TAG1 TAG2</code></li>
-<li><code>adb logcat "*:PRIORITY"</code>,<code>adb logcat "*:W"</code>,<code>V,D,I,W,E,F,S</code>,verbose,debug,info,warning,error,fatal,silent</li>
-<li><code>adb logcat -s TAG1:PRIORITY TAG2:PRIORITY</code></li>
-<li><code>adb logcat -c</code></li>
-<li><code>adb shell input keyevent 3</code>home</li>
-<li><code>adb shell input keyevent 82</code>menu</li>
-<li><code>adb shell input keyevent 19</code>up</li>
-<li><code>adb shell input keyevent 20</code>down</li>
-<li><code>adb shell input keyevent 21</code>left</li>
-<li><code>adb shell input keyevent 22</code>right</li>
-<li><code>adb shell input keyevent 66</code>enter</li>
-<li><code>adb shell input keyevent 4</code>back</li>
-<li><code>adb shell input keyevent</code>, either an <code>event_code</code> or a <code>string</code> will be sent to the device.</li>
-<li><code>adb shell pm list permissions -g -d</code> 查看危险权限列表。正常权限指的是所有非危险（non-dangerous）权限，包括normal，system和signature 权限。正常权限风险较低，用于容许应用以最小风险来访问隔离的应用级别的特性。</li>
+<li>
+<p><code>adb devices</code></p>
+</li>
+<li>
+<p><code>adb install test.apk</code></p>
+</li>
+<li>
+<p><code>adb uninstall org.solarex.test</code></p>
+</li>
+<li>
+<p><code>adb logcat [option] [filter-specs]</code> Prints log data to the screen.</p>
+</li>
+<li>
+<p><code>adb bugreport</code> Prints <code>dumpsys</code>, <code>dumpstate</code>, and <code>logcat</code> data to the screen, for the purposes of bug reporting.</p>
+</li>
+<li>
+<p><code>adb jdwp</code> Prints a list of available JDWP processes on a given device.You can use the forward <code>jdwp:&lt;pid&gt;</code> port-forwarding specification to connect to a specific JDWP process. For example:<code>adb forward tcp:8000 jdwp:472</code>,<code>jdb -attach localhost:8000</code></p>
+</li>
+<li>
+<p><code>adb pull &lt;remote&gt; &lt;local&gt;</code>,<code>adb pull /data/system/packages.xml .</code></p>
+</li>
+<li>
+<p><code>adb push &lt;local&gt; &lt;remote&gt;</code></p>
+</li>
+<li>
+<p><code>adb forward &lt;local&gt; &lt;remote&gt;</code>Forwards socket connections from a specified local port to a specified remote port on the emulator/device instance.Port specifications can use these schemes:<code>tcp:&lt;portnum&gt;</code>,<code>local:&lt;UNIX domain socket name&gt;</code>,<code>dev:&lt;character device name&gt;</code>,<code>jdwp:&lt;pid&gt;</code>.转发本地端口通信到远程模拟器或者Android设备上的端口。</p>
+</li>
+<li>
+<p><code>adb ppp &lt;tty&gt; [parm]…</code>Run PPP over USB.<code>&lt;tty&gt;</code> — the tty for PPP stream. For example <code>dev:/dev/omap_csmi_ttyl</code>.<code>[parm]…</code> — zero or more PPP/PPPD options, such as defaultroute, local, notty, etc.Note that you should not automatically start a PPP connection.</p>
+</li>
+<li>
+<p><code>adb get-serialno</code></p>
+</li>
+<li>
+<p><code>adb get-state</code></p>
+</li>
+<li>
+<p><code>adb wait-for-device</code></p>
+</li>
+<li>
+<p>adb shell,Adb provides a Unix shell that you can use to run a variety of commands on an emulator or connected device. The command binaries are stored in the file system of the emulator or device, at <code>/system/bin/</code>.</p>
+</li>
+<li>
+<p><code>adb shell am start PACKAGE_NAME/ACTIVITY_IN_PACKAGE</code>,<code>adb shell am start -n com.meizu.voiceassistant/.MainActivity</code></p>
+</li>
+<li>
+<p><code>adb shell screencap -p /sdcard/sc.png &amp;&amp; adb pull /sdcard/sc.png .</code>,<code>adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' &gt; sc.png</code>,<a href="http://blog.shvetsov.com/2013/02/grab-android-screenshot-to-computer-via.html">ref</a></p>
+</li>
+<li>
+<p><code>adb shell input keyevent 26</code>,sends the power button event to turn the device on or off</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 82</code>,sends the event that unlocks the lockscreen on the device,can be combine with the power button event to turn on the device and unlock the screen</p>
+</li>
+<li>
+<p><code>adb shell pm list packages -f</code>,list all installed packages</p>
+</li>
+<li>
+<p><code>adb shell pm clear PACKAGENAME</code>,clear application data,<code>adb shell pm clear com.meizu.voiceassistant</code></p>
+</li>
+<li>
+<p><code>adb logcat -v threadtime -s TAG1 TAG2</code></p>
+</li>
+<li>
+<p><code>adb logcat "*:PRIORITY"</code>,<code>adb logcat "*:W"</code>,<code>V,D,I,W,E,F,S</code>,verbose,debug,info,warning,error,fatal,silent</p>
+</li>
+<li>
+<p><code>adb logcat -s TAG1:PRIORITY TAG2:PRIORITY</code></p>
+</li>
+<li>
+<p><code>adb logcat -c</code></p>
+</li>
+<li>
+<p><code>adb shell input keyevent 3</code>home</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 82</code>menu</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 19</code>up</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 20</code>down</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 21</code>left</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 22</code>right</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 66</code>enter</p>
+</li>
+<li>
+<p><code>adb shell input keyevent 4</code>back</p>
+</li>
+<li>
+<p><code>adb shell input keyevent</code>, either an <code>event_code</code> or a <code>string</code> will be sent to the device.</p>
+</li>
+<li>
+<p><code>adb shell pm list permissions -g -d</code> 查看危险权限列表。正常权限指的是所有非危险（non-dangerous）权限，包括normal，system和signature 权限。正常权限风险较低，用于容许应用以最小风险来访问隔离的应用级别的特性。</p>
+</li>
 </ul>
 <div class="hlcode"><pre>usage: input <span class="o">[</span>text|keyevent<span class="o">]</span>
   input text &lt;string&gt;
@@ -179,10 +253,18 @@ adb shell input text <span class="s1">&#39;this%sis%san%sexample&#39;</span> // 
 
 
 <ul>
-<li><code>adb shell getevent</code>,<code>adb shell getevent /dev/input/eventx</code>,<code>adb shell sendevent /dev/input/eventx</code></li>
-<li><code>adb shell input touchscreen &lt;x1&gt; &lt;y1&gt; &lt;x2&gt; &lt;y2&gt;</code>,<code>adb shell input touchscreen swipe 18 665 18 350</code>模拟滑动输入</li>
-<li><code>adb connect &lt;device-ip-number&gt;</code>连接指定ip</li>
-<li><code>adb shell dumpsys activity top</code>,<code>adb shell dumpsys activity</code>,(am状态Activity Manager State),<code>adb shell dumpsys package</code>package information,<code>adb shell dumpsys procstats</code>memory info,<code>adb shell dumpsys gfxinfo</code>graphics information</li>
+<li>
+<p><code>adb shell getevent</code>,<code>adb shell getevent /dev/input/eventx</code>,<code>adb shell sendevent /dev/input/eventx</code></p>
+</li>
+<li>
+<p><code>adb shell input touchscreen &lt;x1&gt; &lt;y1&gt; &lt;x2&gt; &lt;y2&gt;</code>,<code>adb shell input touchscreen swipe 18 665 18 350</code>模拟滑动输入</p>
+</li>
+<li>
+<p><code>adb connect &lt;device-ip-number&gt;</code>连接指定ip</p>
+</li>
+<li>
+<p><code>adb shell dumpsys activity top</code>,<code>adb shell dumpsys activity</code>,(am状态Activity Manager State),<code>adb shell dumpsys package</code>package information,<code>adb shell dumpsys procstats</code>memory info,<code>adb shell dumpsys gfxinfo</code>graphics information</p>
+</li>
 </ul>
 <h2 id="adb-shell-am-activitymanager">adb shell am (ActivityManager)</h2>
 <div class="hlcode"><pre><span class="c"># am help</span>
@@ -358,7 +440,7 @@ applications to <span class="nb">break </span>and other undersireable behavior.
                 Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-18 21:33:28</p>
+                <p>Last Update 2016-05-25 16:32:32</p>
         </div>
     </body>
 </html>

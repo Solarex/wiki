@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>iptables - Wiki.Solarex</title>
+        <title>iptables - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -69,8 +69,12 @@
 <li>
 <p>列出现有iptables规则 <code>iptables -L</code></p>
 </li>
-<li>插入一个规则 <code>iptables -i INPUT 3 -p tcp --dport 22 -j ACCEPT</code>在<code>INPUT</code>链中插入规则，插入到第3个，匹配规则tcp协议，目的端口号22，执行动作允许动作。</li>
-<li>删除一个规则，<code>iptables -D INPUT 3</code>，<code>iptables -D INPUT -s 192.168.1.1 -j DROP</code>删除匹配的规则。</li>
+<li>
+<p>插入一个规则 <code>iptables -i INPUT 3 -p tcp --dport 22 -j ACCEPT</code>在<code>INPUT</code>链中插入规则，插入到第3个，匹配规则tcp协议，目的端口号22，执行动作允许动作。</p>
+</li>
+<li>
+<p>删除一个规则，<code>iptables -D INPUT 3</code>，<code>iptables -D INPUT -s 192.168.1.1 -j DROP</code>删除匹配的规则。</p>
+</li>
 <li>
 <p>删除所有规则，<code>iptables -F</code></p>
 </li>
@@ -80,9 +84,15 @@
 <li>
 <p>匹配参数</p>
 </li>
-<li>基于IP地址，<code>-s 192.168.1.1</code>源地址，<code>-d 10.0.0.0/8</code>目标IP地址。</li>
-<li>基于网络接口(网卡)，<code>-i eth0</code>接收接口，<code>-o eth0</code>发送接口。</li>
-<li>排除参数 <code>-s '!' 192.168.1.0/24</code>取反</li>
+<li>
+<p>基于IP地址，<code>-s 192.168.1.1</code>源地址，<code>-d 10.0.0.0/8</code>目标IP地址。</p>
+</li>
+<li>
+<p>基于网络接口(网卡)，<code>-i eth0</code>接收接口，<code>-o eth0</code>发送接口。</p>
+</li>
+<li>
+<p>排除参数 <code>-s '!' 192.168.1.0/24</code>取反</p>
+</li>
 <li>
 <p>基于协议/端口号 <code>-p tcp --dport 23</code>，<code>-p udp --sport 53</code>，<code>-p icmp</code></p>
 </li>
@@ -122,7 +132,7 @@ iptables -t nat -A POSTROUTING -j SNAT --to-source 1.2.3.4
                 Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-18 21:33:28</p>
+                <p>Last Update 2016-05-25 16:32:32</p>
         </div>
     </body>
 </html>

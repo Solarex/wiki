@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>process - Wiki.Solarex</title>
+        <title>process - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,15 +43,33 @@
     <hr>
     <div id="content">
         <ul>
-<li>任何进程都与文件关联；我们会用到lsof工具（list opened files），作用是列举系统中已经被打开的文件。在linux环境中，任何事物都是文件，设备是文件，目录是文件，甚至sockets也是文件。</li>
-<li>查询正在运行的进程信息<code>ps -ef</code>,查询归属于用户colin115的进程<code>ps -ef | grep colin115</code>或<code>ps -lu colin115</code></li>
-<li>查询进程ID（适合只记得部分进程字段）<code>pgrep 查找进程</code></li>
-<li>以完整的格式显示所有的进程<code>ps -ajx</code></li>
-<li>查看端口占用的进程状态：<code>lsof -i:3306</code></li>
-<li>查看用户username的进程所打开的文件<code>lsof -u username</code></li>
-<li>查询init进程当前打开的文件<code>lsof -c init</code></li>
-<li>查询指定的进程ID(23295)打开的文件<code>lsof -p 23295</code></li>
-<li>查询指定目录下被进程开启的文件（使用+D 递归目录）：</li>
+<li>
+<p>任何进程都与文件关联；我们会用到lsof工具（list opened files），作用是列举系统中已经被打开的文件。在linux环境中，任何事物都是文件，设备是文件，目录是文件，甚至sockets也是文件。</p>
+</li>
+<li>
+<p>查询正在运行的进程信息<code>ps -ef</code>,查询归属于用户colin115的进程<code>ps -ef | grep colin115</code>或<code>ps -lu colin115</code></p>
+</li>
+<li>
+<p>查询进程ID（适合只记得部分进程字段）<code>pgrep 查找进程</code></p>
+</li>
+<li>
+<p>以完整的格式显示所有的进程<code>ps -ajx</code></p>
+</li>
+<li>
+<p>查看端口占用的进程状态：<code>lsof -i:3306</code></p>
+</li>
+<li>
+<p>查看用户username的进程所打开的文件<code>lsof -u username</code></p>
+</li>
+<li>
+<p>查询init进程当前打开的文件<code>lsof -c init</code></p>
+</li>
+<li>
+<p>查询指定的进程ID(23295)打开的文件<code>lsof -p 23295</code></p>
+</li>
+<li>
+<p>查询指定目录下被进程开启的文件（使用+D 递归目录）：</p>
+</li>
 </ul>
 <div class="hlcode"><pre>Solarex at MacPro in ~/Workspace/Solarex/simiki on master*
 <span class="nv">$ </span>lsof +d .
@@ -70,11 +88,21 @@ lsof      12035 Solarex  cwd    DIR    1,4      374 2069275 .
 
 
 <ul>
-<li><code>kill PID</code>,<code>kill -9 PID</code>,<code>kill %job</code>杀死job工作</li>
-<li>使用命令pmap，来输出进程内存的状况，可以用来分析线程堆栈；<code>pmap PID</code></li>
-<li>将用户colin115下的所有进程名以av_开头的进程终止:<code>ps -u colin115 |  awk '/av_/ {print "kill -9 " $1}' | sh</code></li>
-<li>将用户colin115下所有进程名中包含HOST的进程终止:<code>ps -fe| grep colin115|grep HOST |awk '{print $2}' | xargs kill -9;</code></li>
-<li><code>ldd</code>在mac上有<code>otool -L &lt;object file&gt;</code>对应，<code>pmap pid</code>有<code>vmmap &lt;pid&gt;</code>对应</li>
+<li>
+<p><code>kill PID</code>,<code>kill -9 PID</code>,<code>kill %job</code>杀死job工作</p>
+</li>
+<li>
+<p>使用命令pmap，来输出进程内存的状况，可以用来分析线程堆栈；<code>pmap PID</code></p>
+</li>
+<li>
+<p>将用户colin115下的所有进程名以av_开头的进程终止:<code>ps -u colin115 |  awk '/av_/ {print "kill -9 " $1}' | sh</code></p>
+</li>
+<li>
+<p>将用户colin115下所有进程名中包含HOST的进程终止:<code>ps -fe| grep colin115|grep HOST |awk '{print $2}' | xargs kill -9;</code></p>
+</li>
+<li>
+<p><code>ldd</code>在mac上有<code>otool -L &lt;object file&gt;</code>对应，<code>pmap pid</code>有<code>vmmap &lt;pid&gt;</code>对应</p>
+</li>
 </ul>
     </div>
 
@@ -84,7 +112,7 @@ lsof      12035 Solarex  cwd    DIR    1,4      374 2069275 .
                 Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-18 21:33:28</p>
+                <p>Last Update 2016-05-25 16:32:32</p>
         </div>
     </body>
 </html>

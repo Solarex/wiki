@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>sed&awk - Wiki.Solarex</title>
+        <title>sed&awk - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,12 +43,24 @@
     <hr>
     <div id="content">
         <ul>
-<li><code>sed 's/text/replace_text/' file</code>   //替换每一行的第一处匹配的text</li>
-<li><code>sed 's/text/replace_text/g' file</code>,<code>sed -i 's/text/repalce_text/g' file</code></li>
-<li><code>sed '/^$/d' file</code>,移除空白行</li>
-<li><code>$&gt;echo this is en example | sed 's/\w+/[&amp;]/g' $&gt;[this]  [is] [en] [example]</code>已匹配的字符串通过标记&amp;来引用.</li>
-<li><code>sed 's/hello\([0-9]\)/\1/'</code>第一个匹配的括号内容使用标记 1 来引用</li>
-<li><code>sed 's/$var/HLLOE/'</code>sed通常用单引号来引用,也可使用双引号，使用双引号后，双引号会对表达式求值:</li>
+<li>
+<p><code>sed 's/text/replace_text/' file</code>   //替换每一行的第一处匹配的text</p>
+</li>
+<li>
+<p><code>sed 's/text/replace_text/g' file</code>,<code>sed -i 's/text/repalce_text/g' file</code></p>
+</li>
+<li>
+<p><code>sed '/^$/d' file</code>,移除空白行</p>
+</li>
+<li>
+<p><code>$&gt;echo this is en example | sed 's/\w+/[&amp;]/g' $&gt;[this]  [is] [en] [example]</code>已匹配的字符串通过标记&amp;来引用.</p>
+</li>
+<li>
+<p><code>sed 's/hello\([0-9]\)/\1/'</code>第一个匹配的括号内容使用标记 1 来引用</p>
+</li>
+<li>
+<p><code>sed 's/$var/HLLOE/'</code>sed通常用单引号来引用,也可使用双引号，使用双引号后，双引号会对表达式求值:</p>
+</li>
 </ul>
 <div class="hlcode"><pre><span class="nv">p</span><span class="o">=</span>patten
 <span class="nv">r</span><span class="o">=</span>replaced
@@ -58,12 +70,24 @@
 
 
 <ul>
-<li>字符串插入字符：将文本中每行内容（ABCDEF） 转换为 ABC/DEF <code>sed 's/^.\{3\}/&amp;\//g' file</code></li>
-<li>awk脚本结构,<code>awk ' BEGIN{ statements } statements2 END{ statements } '</code>执行begin中语句块；从文件或stdin中读入一行，然后执行statements2，重复这个过程，直到文件全部被读取完毕；执行end语句块；</li>
-<li>使用不带参数的print时，会打印当前行<code>echo -e "line1\nline2" | awk 'BEGIN{print "start"} {print } END{ print "End" }'</code></li>
-<li>NR:表示记录数量，在执行过程中对应当前行号；NF:表示字段数量，在执行过程总对应当前行的字段数；$0:这个变量包含执行过程中当前行的文本内容；$1:第一个字段的文本内容；$2:第二个字段的文本内容；</li>
-<li>打印每一行的第二和第三个字段 <code>awk '{print $2, $3}' file</code>，统计文件的行数，<code>awk ' END {print NR}' file</code>,累加每一行的第一个字段<code>echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0 ;print "begin";} {sum += $1;} END {print "=="; print sum }'</code></li>
-<li>用样式对awk处理的行进行过滤</li>
+<li>
+<p>字符串插入字符：将文本中每行内容（ABCDEF） 转换为 ABC/DEF <code>sed 's/^.\{3\}/&amp;\//g' file</code></p>
+</li>
+<li>
+<p>awk脚本结构,<code>awk ' BEGIN{ statements } statements2 END{ statements } '</code>执行begin中语句块；从文件或stdin中读入一行，然后执行statements2，重复这个过程，直到文件全部被读取完毕；执行end语句块；</p>
+</li>
+<li>
+<p>使用不带参数的print时，会打印当前行<code>echo -e "line1\nline2" | awk 'BEGIN{print "start"} {print } END{ print "End" }'</code></p>
+</li>
+<li>
+<p>NR:表示记录数量，在执行过程中对应当前行号；NF:表示字段数量，在执行过程总对应当前行的字段数；$0:这个变量包含执行过程中当前行的文本内容；$1:第一个字段的文本内容；$2:第二个字段的文本内容；</p>
+</li>
+<li>
+<p>打印每一行的第二和第三个字段 <code>awk '{print $2, $3}' file</code>，统计文件的行数，<code>awk ' END {print NR}' file</code>,累加每一行的第一个字段<code>echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0 ;print "begin";} {sum += $1;} END {print "=="; print sum }'</code></p>
+</li>
+<li>
+<p>用样式对awk处理的行进行过滤</p>
+</li>
 </ul>
 <div class="hlcode"><pre>awk <span class="s1">&#39;NR &lt; 5&#39;</span> <span class="c">#行号小于5</span>
 awk <span class="s1">&#39;NR==1,NR==4 {print}&#39;</span> file <span class="c">#行号等于1和4的打印出来</span>
@@ -73,9 +97,15 @@ awk <span class="s1">&#39;!/linux/&#39;</span> <span class="c">#不包含linux�
 
 
 <ul>
-<li>设置定界符,使用-F来设置定界符（默认为空格）:<code>awk -F: '{print $NF}' /etc/passwd</code></li>
-<li>使用getline，将外部shell命令的输出读入到变量cmdout中:<code>echo | awk '{"grep root /etc/passwd" | getline cmdout; print cmdout }'</code></li>
-<li>在awk中使用循环</li>
+<li>
+<p>设置定界符,使用-F来设置定界符（默认为空格）:<code>awk -F: '{print $NF}' /etc/passwd</code></p>
+</li>
+<li>
+<p>使用getline，将外部shell命令的输出读入到变量cmdout中:<code>echo | awk '{"grep root /etc/passwd" | getline cmdout; print cmdout }'</code></p>
+</li>
+<li>
+<p>在awk中使用循环</p>
+</li>
 </ul>
 <div class="hlcode"><pre><span class="k">for</span><span class="o">(</span><span class="nv">i</span><span class="o">=</span>0;i&lt;10;i++<span class="o">){</span>print <span class="nv">$i</span>;<span class="o">}</span>
 <span class="k">for</span><span class="o">(</span>i in array<span class="o">){</span>print array<span class="o">[</span>i<span class="o">]</span>;<span class="o">}</span>
@@ -93,10 +123,18 @@ awk <span class="s1">&#39;{lifo[NR] = $0; lno=NR} \</span>
 
 
 <ul>
-<li>awk结合grep找到指定的服务，然后将其kill掉<code>ps -fe| grep msv8 | grep -v MFORWARD | awk '{print $2}' | xargs kill -9;</code></li>
-<li>awk实现head、tail命令,head,<code>awk 'NR&lt;=10{print}' filename</code>,tail,<code>awk '{buffer[NR%10] = $0;} END{for(i=0;i&lt;11;i++){ print buffer[i %10]} } ' filename</code></li>
-<li>打印指定列<code>ls -lrt | awk '{print $6}'</code>,<code>ls -lrt | cut -f6</code></li>
-<li>打印处于<code>start_pattern</code> 和<code>end_pattern</code>之间的文本:<code>awk '/start_pattern/, /end_pattern/' filename</code>,<code>seq 100 | awk '/13/,/15/'</code>,<code>cat /etc/passwd| awk '/mai.*mail/,/news.*news/'</code></li>
+<li>
+<p>awk结合grep找到指定的服务，然后将其kill掉<code>ps -fe| grep msv8 | grep -v MFORWARD | awk '{print $2}' | xargs kill -9;</code></p>
+</li>
+<li>
+<p>awk实现head、tail命令,head,<code>awk 'NR&lt;=10{print}' filename</code>,tail,<code>awk '{buffer[NR%10] = $0;} END{for(i=0;i&lt;11;i++){ print buffer[i %10]} } ' filename</code></p>
+</li>
+<li>
+<p>打印指定列<code>ls -lrt | awk '{print $6}'</code>,<code>ls -lrt | cut -f6</code></p>
+</li>
+<li>
+<p>打印处于<code>start_pattern</code> 和<code>end_pattern</code>之间的文本:<code>awk '/start_pattern/, /end_pattern/' filename</code>,<code>seq 100 | awk '/13/,/15/'</code>,<code>cat /etc/passwd| awk '/mai.*mail/,/news.*news/'</code></p>
+</li>
 <li>
 <p>awk常用内建函数,index(string,search_string):返回search_string在string中出现的位置,sub(regex,replacement_str,string):将正则匹配到的第一处内容替换为replacement_str;,match(regex,string):检查正则表达式是否能够匹配字符串；length(string)：返回字符串长度</p>
 </li>
@@ -140,7 +178,7 @@ cat file.txt| awk <span class="s1">&#39;{print}&#39;</span>
                 Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-18 21:33:28</p>
+                <p>Last Update 2016-05-25 16:32:32</p>
         </div>
     </body>
 </html>

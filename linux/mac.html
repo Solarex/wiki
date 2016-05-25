@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>MAC Skills - Wiki.Solarex</title>
+        <title>MAC Skills - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,33 +43,86 @@
     <hr>
     <div id="content">
         <ul>
-<li><code>defaults write com.apple.screencapture location ~/Pictures/ScreenShots;killall SystemUIServer</code>,change default screen capture folder</li>
-<li><code>diskutil list</code></li>
-<li><code>diskutil unmountDisk force /dev/disk2</code></li>
-<li><a href="http://www.gfzj.us/2014/12/20/charlse-sn-download.html">charles破解 sn 注册码</a>，<a href="http://www.gfzj.us/tech/2015/06/24/charles-hacking.html">Charles Web Debugging Proxy Hacking</a></li>
-<li>mac command lines</li>
-<li><code>mitmproxy -a IP_ADDR -p PORT —-no-upstream-cert</code>代理时不校验ssl证书</li>
-<li>Use the following Terminal command to reset the DNS cache in OS X v10.10.4 or later:<code>sudo killall -HUP mDNSResponder</code></li>
-<li>sips</li>
+<li>
+<p><code>defaults write com.apple.screencapture location ~/Pictures/ScreenShots;killall SystemUIServer</code>,change default screen capture folder</p>
+</li>
+<li>
+<p><code>diskutil list</code></p>
+</li>
+<li>
+<p><code>diskutil unmountDisk force /dev/disk2</code></p>
+</li>
+<li>
+<p><a href="http://www.gfzj.us/2014/12/20/charlse-sn-download.html">charles破解 sn 注册码</a>，<a href="http://www.gfzj.us/tech/2015/06/24/charles-hacking.html">Charles Web Debugging Proxy Hacking</a></p>
+</li>
+<li>
+<p>mac command lines</p>
+</li>
+<li>
+<p><code>mitmproxy -a IP_ADDR -p PORT —-no-upstream-cert</code>代理时不校验ssl证书</p>
+</li>
+<li>
+<p>Use the following Terminal command to reset the DNS cache in OS X v10.10.4 or later:<code>sudo killall -HUP mDNSResponder</code></p>
+</li>
+<li>
+<p>sips</p>
+</li>
+<li><code>sips --resampleWidth &lt;width in pixel&gt; --resampleHeight &lt;height in pixels&gt; /pat/to/pic</code></li>
 <li><code>sips -Z 320 iamge_file_name</code>裁剪时固定图片宽度，高度自适应</li>
-<li><code>sips -z 400 300 iamge_file_name</code>裁剪时指定图片宽与高</li>
-<li><code>sips -r 90 image_file_name</code> 旋转图片，上面的命令将图片顺时针旋转90度，相信机智的你已经想到逆时针90度应该是-90了。没错，顺时针用正数表示，逆时针可以用负数表示。你可以进行任意角度和方向的旋转。</li>
-<li><code>sips -f horizontal image_file_name</code> 翻转图片，上面命令可以对图片进行水平翻转，-f支持水平和垂直两种翻转，水平（horizontal），垂直（vertical）。</li>
-<li><code>sips -s format jpeg input.png -o output.jpg</code>，修改图片格式，使用-s参数可以修改图片格式为指定值，sips支持
-jpeg | tiff | png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga共11种格式。并且-s除了能修改文件格式外，还能修改图片的其它meta数据，具体可以通过man sips查看。</li>
-<li><code>sips -g pixelWidth -g pixelHeight image_file_name</code> 上面命令可以获取图片的长宽高信息，与-s参数一样，-g也支持更多的meta值，可以参见man sips的信息</li>
-<li>brew</li>
-<li><code>brew list</code>,<code>brew list --pinned</code></li>
-<li><code>brew search git</code>,<code>brew install git</code>,<code>brew update &amp;&amp; brew upgrade</code></li>
-<li><code>brew cleanup</code></li>
-<li><code>brew cask search sogouinput</code></li>
-<li><code>brew cask install sogouinput</code></li>
-<li><code>system_profiler SPUSBDataType</code>得到所有USB设备信息，<code>system_profiler SPNetworkDataType</code>得到所有网络信息</li>
-<li>disable AndroidFileTransfer agent</li>
-<li>http://android.stackexchange.com/questions/33504/stop-android-file-transfer-popping-up</li>
-<li><code>rm -r ~/Library/Application\ Support/Google/Android\ File\Transfer/Android\ File\ Transfer\ Agent.app</code></li>
-<li><code>cd /Applications/Android\ File\ Transfer.app/Contents/Resources &amp;&amp; mv Android\ File\ Transfer\ Agent.app Android\ File\ Transfer\Agent.app.disable</code></li>
-<li>remove AFT from login items,System preferences --&gt; Users&amp;Groups --&gt; user --&gt; login items</li>
+<li>
+<p><code>sips -z 400 300 iamge_file_name</code>裁剪时指定图片宽与高</p>
+</li>
+<li>
+<p><code>sips -r 90 image_file_name</code> 旋转图片，上面的命令将图片顺时针旋转90度，相信机智的你已经想到逆时针90度应该是-90了。没错，顺时针用正数表示，逆时针可以用负数表示。你可以进行任意角度和方向的旋转。</p>
+</li>
+<li>
+<p><code>sips -f horizontal image_file_name</code> 翻转图片，上面命令可以对图片进行水平翻转，-f支持水平和垂直两种翻转，水平（horizontal），垂直（vertical）。</p>
+</li>
+<li>
+<p><code>sips -s format jpeg input.png -o output.jpg</code>，修改图片格式，使用-s参数可以修改图片格式为指定值，sips支持jpeg | tiff | png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga共11种格式。并且-s除了能修改文件格式外，还能修改图片的其它meta数据，具体可以通过man sips查看。</p>
+</li>
+<li>
+<p><code>sips -g pixelWidth -g pixelHeight image_file_name</code> 上面命令可以获取图片的长宽高信息，与-s参数一样，-g也支持更多的meta值，可以参见man sips的信息</p>
+</li>
+<li>
+<p><a href="https://www.java.com/en/download/faq/exception_sitelist.xml">java applet security in mac</a>,<code>system preferences</code>--&gt;<code>java</code>--&gt;<code>security</code>--&gt;<code>exception list</code></p>
+</li>
+<li>
+<p>brew</p>
+</li>
+<li>
+<p><code>brew list</code>,<code>brew list --pinned</code></p>
+</li>
+<li>
+<p><code>brew search git</code>,<code>brew install git</code>,<code>brew update &amp;&amp; brew upgrade</code></p>
+</li>
+<li>
+<p><code>brew cleanup</code></p>
+</li>
+<li>
+<p><code>brew cask search sogouinput</code></p>
+</li>
+<li>
+<p><code>brew cask install sogouinput</code></p>
+</li>
+<li>
+<p><code>system_profiler SPUSBDataType</code>得到所有USB设备信息，<code>system_profiler SPNetworkDataType</code>得到所有网络信息</p>
+</li>
+<li>
+<p>disable AndroidFileTransfer agent</p>
+</li>
+<li>
+<p>http://android.stackexchange.com/questions/33504/stop-android-file-transfer-popping-up</p>
+</li>
+<li>
+<p><code>rm -r ~/Library/Application\ Support/Google/Android\ File\Transfer/Android\ File\ Transfer\ Agent.app</code></p>
+</li>
+<li>
+<p><code>cd /Applications/Android\ File\ Transfer.app/Contents/Resources &amp;&amp; mv Android\ File\ Transfer\ Agent.app Android\ File\ Transfer\Agent.app.disable</code></p>
+</li>
+<li>
+<p>remove AFT from login items,System preferences --&gt; Users&amp;Groups --&gt; user --&gt; login items</p>
+</li>
 </ul>
     </div>
 
@@ -79,7 +132,7 @@ jpeg | tiff | png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga共11种格�
                 Copyright © 2012-2016 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-18 21:33:28</p>
+                <p>Last Update 2016-05-25 16:32:32</p>
         </div>
     </body>
 </html>
