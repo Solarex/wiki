@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>dns - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Linux">Linux</a> » dns
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>dns</center></h1>
+    <hr>
+    <div id="content">
+        <h1 id="dns">DNS</h1>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/06/dns.html">DNS 原理入门</a></li>
+<li>主机名.次级域名.顶级域名.根域名 即 host.sld.tld.root,host.second-level-domain.top-level-domain.root</li>
+<li>DNS服务器根据域名的层级，进行分级查询。需要明确的是，每一级域名都有自己的NS记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。所谓"分级查询"，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，过程大致如下。</li>
+<li>从"根域名服务器"查到"顶级域名服务器"的NS记录和A记录（IP地址）</li>
+<li>从"顶级域名服务器"查到"次级域名服务器"的NS记录和A记录（IP地址）</li>
+<li>从"次级域名服务器"查出"主机名"的IP地址</li>
+<li>"根域名服务器"的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器里面。目前，世界上一共有十三组根域名服务器，从A.ROOT-SERVERS.NET一直到M.ROOT-SERVERS.NET。</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>dig +trace math.stackexchange.com
+
+; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; +trace math.stackexchange.com
+;; global options: +cmd
+.           45647   IN  NS  d.root-servers.net.
+.           45647   IN  NS  i.root-servers.net.
+.           45647   IN  NS  f.root-servers.net.
+.           45647   IN  NS  m.root-servers.net.
+.           45647   IN  NS  e.root-servers.net.
+.           45647   IN  NS  j.root-servers.net.
+.           45647   IN  NS  g.root-servers.net.
+.           45647   IN  NS  l.root-servers.net.
+.           45647   IN  NS  b.root-servers.net.
+.           45647   IN  NS  c.root-servers.net.
+.           45647   IN  NS  k.root-servers.net.
+.           45647   IN  NS  h.root-servers.net.
+.           45647   IN  NS  a.root-servers.net.
+;; Received 228 bytes from 192.168.31.1#53<span class="o">(</span>192.168.31.1<span class="o">)</span> in 129 ms
+
+com.            172800  IN  NS  g.gtld-servers.net.
+com.            172800  IN  NS  b.gtld-servers.net.
+com.            172800  IN  NS  h.gtld-servers.net.
+com.            172800  IN  NS  m.gtld-servers.net.
+com.            172800  IN  NS  a.gtld-servers.net.
+com.            172800  IN  NS  k.gtld-servers.net.
+com.            172800  IN  NS  e.gtld-servers.net.
+com.            172800  IN  NS  l.gtld-servers.net.
+com.            172800  IN  NS  i.gtld-servers.net.
+com.            172800  IN  NS  f.gtld-servers.net.
+com.            172800  IN  NS  j.gtld-servers.net.
+com.            172800  IN  NS  d.gtld-servers.net.
+com.            172800  IN  NS  c.gtld-servers.net.
+;; Received 500 bytes from 202.12.27.33#53<span class="o">(</span>202.12.27.33<span class="o">)</span> in 291 ms
+
+stackexchange.com.  172800  IN  NS  ns-463.awsdns-57.com.
+stackexchange.com.  172800  IN  NS  ns-925.awsdns-51.net.
+stackexchange.com.  172800  IN  NS  ns-1029.awsdns-00.org.
+stackexchange.com.  172800  IN  NS  ns-1832.awsdns-37.co.uk.
+;; Received 209 bytes from 192.55.83.30#53<span class="o">(</span>192.55.83.30<span class="o">)</span> in 595 ms
+
+math.stackexchange.com. 300 IN  A   151.101.193.69
+math.stackexchange.com. 300 IN  A   151.101.129.69
+math.stackexchange.com. 300 IN  A   151.101.65.69
+math.stackexchange.com. 300 IN  A   151.101.1.69
+stackexchange.com.  172800  IN  NS  ns-1029.awsdns-00.org.
+stackexchange.com.  172800  IN  NS  ns-1832.awsdns-37.co.uk.
+stackexchange.com.  172800  IN  NS  ns-463.awsdns-57.com.
+stackexchange.com.  172800  IN  NS  ns-925.awsdns-51.net.
+;; Received 241 bytes from 205.251.199.40#53<span class="o">(</span>205.251.199.40<span class="o">)</span> in 371 ms
+</pre></div>
+
+
+<ul>
+<li>DNS的记录类型</li>
+<li>A：地址记录（Address），返回域名指向的IP地址。</li>
+<li>NS：域名服务器记录（Name Server），返回保存下一级域名信息的服务器地址。该记录只能设置为域名，不能设置为IP地址。</li>
+<li>MX：邮件记录（Mail eXchange），返回接收电子邮件的服务器地址。</li>
+<li>CNAME：规范名称记录（Canonical Name），返回另一个域名，即当前查询的域名是另一个域名的跳转，详见下文。</li>
+<li>PTR：逆向查询记录（Pointer Record），只用于从IP地址查询域名，详见下文。</li>
+<li>
+<p>由于CNAME记录就是一个替换，所以域名一旦设置CNAME记录以后，就不能再设置其他记录了（比如A记录和MX记录），这是为了防止产生冲突。举例来说，foo.com指向bar.com，而两个域名各有自己的MX记录，如果两者不一致，就会产生问题。由于顶级域名通常要设置MX记录，所以一般不允许用户对顶级域名设置CNAME记录。</p>
+</li>
+<li>
+<p>PTR记录用于从IP地址反查域名。dig命令的-x参数用于查询PTR记录。</p>
+</li>
+<li>host命令可以看作dig命令的简化版本，返回当前请求域名的各种记录。host命令也可以用于逆向查询，即从IP地址查询域名，等同于dig -x <ip>。</li>
+<li>nslookup命令用于互动式地查询域名记录。</li>
+<li>whois命令用来查看域名的注册情况。</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:30:21</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>自定义view - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Android">Android</a> » 自定义view
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>自定义view</center></h1>
+    <hr>
+    <div id="content">
+        <ul>
+<li><code>View.onMeasure</code>,<code>widthMeasureSpec</code>和<code>heightMeasureSpec</code>，效率的原因以整数形式传入。在他们使用之前，首先要做的是使用<code>MeasureSpec.getMode</code>和<code>MeasureSpec.getSize</code></li>
+<li><code>specMode</code>有三种</li>
+<li><code>MeasureSpec.EXACTLY</code>,边界已经确定，match_parent, fill_parent, 20dp</li>
+<li><code>MeasureSpec.AT_MOST</code>,父控件能给的最大尺寸，这样子view会根据这个上限来设置自己的大小，wrap_content</li>
+<li><code>MeasureSpec.UNSPECIFIED</code>,未指定大小，可以是任意大小，这种情况不多，一般都是父控件是AdapterView，通过measure方法传入的模式</li>
+<li><code>setMeasuredDimension</code>这个方法必须由<code>onMeasure(int, int)</code>来调用，来存储测量的宽高值，如果有子view还要调用measureChildren</li>
+<li>自定义属性：</li>
+<li><code>attrs.xml</code></li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;declare-styleable</span> <span class="na">name=</span><span class="s">&quot;CustomView&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">&quot;textColor&quot;</span> <span class="na">format=</span><span class="s">&quot;color&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">&quot;textSize&quot;</span> <span class="na">format=</span><span class="s">&quot;dimension&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/declare-styleable&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>获取对应的值</li>
+</ul>
+<div class="hlcode"><pre><span class="n">TypedArray</span> <span class="n">array</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="n">obtainStyledAttributes</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span><span class="n">R</span><span class="p">.</span><span class="n">styleable</span><span class="p">.</span><span class="n">CustomView</span><span class="p">,</span> <span class="n">defStyle</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">mStrokeWidth</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">getDimensionPixelSize</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">styleable</span><span class="p">.</span><span class="n">CustomViews_stroke_width</span><span class="p">,</span> <span class="n">DEFAULT_STROKE_WIDTH</span><span class="p">);</span>
+</pre></div>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:30:21</p>
+        </div>
+    </body>
+</html>

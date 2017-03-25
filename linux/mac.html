@@ -34,7 +34,7 @@
         <div id="post-nav">
             <div id="toggle-button">宽版</div>
             
-            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#linux">linux</a> » MAC Skills
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Linux">Linux</a> » MAC Skills
             
         </div>
     </div>
@@ -54,6 +54,9 @@
 </li>
 <li>
 <p><a href="http://www.gfzj.us/2014/12/20/charlse-sn-download.html">charles破解 sn 注册码</a>，<a href="http://www.gfzj.us/tech/2015/06/24/charles-hacking.html">Charles Web Debugging Proxy Hacking</a></p>
+</li>
+<li>
+<p>pdf背景色改变，RGB，199 237 204，由于windows每一项的最大值是255，若以1为最大值，则这个颜色的值为：0.78 0.93 0.8，skim的颜色管理支持 RGBa格式，并且是以1为最大值，关闭skim。打开终端，输入<code>defaults write -app skim SKPageBackgroundColor -array 0.78 0.93 0.8 1</code></p>
 </li>
 <li>
 <p>mac command lines</p>
@@ -86,6 +89,12 @@
 </li>
 <li>
 <p><a href="https://www.java.com/en/download/faq/exception_sitelist.xml">java applet security in mac</a>,<code>system preferences</code>--&gt;<code>java</code>--&gt;<code>security</code>--&gt;<code>exception list</code></p>
+</li>
+<li>
+<p><code>alias server='python -m SimpleHTTPServer || python -m http.server</code>,<code>alias show='defaults write com.apple.finder AppleShowAllFiles -bool true &amp;&amp; killall Finder'</code>,<code>alias hidden='defaults write com.apple.finder AppleShowAllFiles -bool false &amp;&amp; killall Finder</code>'<code>alias port='port(){ lsof -i tcp:$@;};port $1'</code></p>
+</li>
+<li>
+<p><code>function port() { lsof -i tcp:$1 }</code>,<code>function ports() { lsof -Pni4 | grep LISTEN }</code></p>
 </li>
 <li>
 <p>brew</p>
@@ -123,16 +132,19 @@
 <li>
 <p>remove AFT from login items,System preferences --&gt; Users&amp;Groups --&gt; user --&gt; login items</p>
 </li>
+<li>
+<p>Your services (the ones that are local to your account,automator) are in the folder: <code>~/Library/Services</code>.</p>
+</li>
 </ul>
     </div>
 
         </div>
         <div id="footer">
               <p>
-                Copyright © 2012-2016 Solarex.
+                Copyright © 2012-2017 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2016-05-25 16:32:32</p>
+                <p>Last Update 2017-03-26 05:30:21</p>
         </div>
     </body>
 </html>
