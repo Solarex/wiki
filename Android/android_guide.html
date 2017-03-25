@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>android_guide - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Android">Android</a> » android_guide
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>android_guide</center></h1>
+    <hr>
+    <div id="content">
+        <h1 id="android-guide">Android Guide</h1>
+<h2 id="introduction">Introduction</h2>
+<h3 id="system-permissions">System Permissions</h3>
+<ul>
+<li>checking permissions,<code>Context.checkCallingPermission()</code>,<code>Context.checkPermission(String, int, int)</code>,<code>PackageManager.checkPermission(String, String)</code></li>
+<li>per-uri permission,when starting an activity or returning a result to an activity, the caller can set <code>Intent.FLAG_GRANT_READ_URI_PERMISSION</code> and/or <code>Intent.FLAG_GRANT_WRITE_URI_PERMISSION</code>. This grants the receiving activity permission access the specific data URI in the Intent, regardless of whether it has any permission to access data in the content provider corresponding to the Intent.The granting of fine-grained URI permissions does, however, require some cooperation with the content provider holding those URIs. It is strongly recommended that content providers implement this facility, and declare that they support it through the <code>android:grantUriPermissions</code> attribute or <code>&lt;grant-uri-permissions&gt;</code> tag.在发送携带数据uri的Intent时，设置<code>Intent.FLAG_GRANT_READ_URI_PERMISSION</code>或者<code>Intent.FLAG_GRANT_WRITE_URI_PERMISSION</code>可以给接收Intent的activity赋予读取，写入数据的权利。per-uri permission需要content provider的协助。</li>
+<li>To add a fragment without a UI, add the fragment from the activity using <code>add(Fragment, String)</code> (supplying a unique string "tag" for the fragment, rather than a view ID). This adds the fragment, but, because it's not associated with a view in the activity layout, it does not receive a call to <code>onCreateView()</code>. So you don't need to implement that method.通过<code>add(fragment, String)</code>来为<code>fragment</code>设置一个<code>tag</code>方便未来<code>findFragmentByTag</code>来进行查找。Supplying a string tag for the fragment isn't strictly for non-UI fragments—you can also supply string tags to fragments that do have a UI—but if the fragment does not have a UI, then the string tag is the only way to identify it. If you want to get the fragment from the activity later, you need to use <code>findFragmentByTag()</code>.</li>
+<li>Calling <code>commit()</code> does not perform the transaction immediately. Rather, it schedules it to run on the activity's UI thread (the "main" thread) as soon as the thread is able to do so. If necessary, however, you may call <code>executePendingTransactions()</code> from your UI thread to immediately execute transactions submitted by <code>commit()</code>. Doing so is usually not necessary unless the transaction is a dependency for jobs in other threads.调用<code>FragmentTransaction.commit</code>并不马上执行<code>transaction</code>中的动作，而是将其放入主线程消息队列中等待调度。可以调用<code>FragmentTransaction.executePendingTransactions</code>来马上执行commit的transaction。</li>
+<li>Fragment与Activity进行通信，<code>getActivity</code>，Fragment与Fragment进行通信，在FragmentA中建立一个interface，Activity实现interface，在FragmentA中<code>onActivityCreate</code>回调方法中将activity强转为interface。<code>setArguments</code>,<code>setTargetFragment</code>。</li>
+<li>launchmode,<code>standard</code>,<code>singleTop</code>If an instance of the activity already exists at the top of the current task, the system routes the intent to that instance through a call to its <code>onNewIntent()</code> method, rather than creating a new instance of the activity. The activity can be instantiated multiple times, each instance can belong to different tasks, and one task can have multiple instances (but only if the activity at the top of the back stack is not an existing instance of the activity).如果实例已经在task的顶部，则回调实例的<code>onNewIntent</code>方法而不是重新创建一个实例。实例可以创建多次，从属于不同的task。<code>singleTask</code>The system creates a new task and instantiates the activity at the root of the new task. However, if an instance of the activity already exists in a separate task, the system routes the intent to the existing instance through a call to its onNewIntent() method, rather than creating a new instance. Only one instance of the activity can exist at a time.如果没有实例不存在，则创建一个实例作为一个新的task的root，如果实例已经存在于其他的task中，则cleartop并回调实例的<code>onNewIntent</code>方法。<code>singleInstance</code>Same as "singleTask", except that the system doesn't launch any other activities into the task holding the instance. The activity is always the single and only member of its task; any activities started by this one open in a separate task.<code>singleInstance</code>模式下实例只能存在于一个task中，task不能有其他组件。<code>taskAffinity</code>task别名，一般为包名。</li>
+<li>task root activity,<code>alwaysRetainTaskState</code>,<code>clearTaskOnLaunch</code>针对整个task,<code>finishOnTaskLaunch</code>针对单一activity</li>
+<li>同一activity的不同实例显示在recent task list中，像chrome的标签页一样，<code>startActivity</code>中<code>Intent</code>设置<code>FLAG_ACTIVITY_NEW_DOCUMENT</code>,<code>FLAG_ACTIVITY_MULTIPLE_TASK</code>.<code>android:documentLaunchMode</code>,<code>intoExisting</code>,<code>always</code>,<code>never</code>,<code>none</code>.set <code>android:excludeFromRecents</code> to true can always exclude a task from the overview screen entirely by setting the <code>&lt;activity&gt;</code> attribute.</li>
+<li>ContentProvider,DAO,UriMatcher处理不同表，权限，读写，读，写，表级别限制</li>
+<li>Process Level</li>
+<li>Foreground process</li>
+<li>Visible process</li>
+<li>Service process</li>
+<li>Background process</li>
+<li>Empty process</li>
+<li>尽管视图组通常不会画自身的内容,但是在很多情况下还是有这个需求的,有两个地方,我们可以要求ViewGroup画一些内容,一个是在dispatchDraw()里,父类的方法调用之后,此时,由于孩子视图已经绘制完毕,因此我们所画的东西就会在其之上,第二个地方是ViewGroup的onDraw()回调,正如之前我们在View里见到的onDraw一样,我们在这儿画的东西会赶在孩子视图绘制之前,所以这里的内容是在孩子视图内容之下的,这里适合画各种,动态的背景或者是一些状态选择器,如果你要在ViewGroup的onDraw里面添代码,你不能忘记使ViewGroup的onDraw回调有效,调用setWillNotDraw(false),否则,你的onDraw()方法不能被触发,因为ViewGroup自身onDraw方法默认是禁用的.</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

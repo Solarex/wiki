@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>shell - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Linux">Linux</a> » shell
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>shell</center></h1>
+    <hr>
+    <div id="content">
+        <h2 id="bash-commands">Bash Commands</h2>
+<ul>
+<li>
+<p><code>tar xvjfm scripts.tar.bz2</code>, <code>-m, --touch don't extract file modified time</code>, using time in host machine</p>
+</li>
+<li>
+<p><code>curl -H "Content-Type: application/json" -d '{"object_kind":"merge_request","object_attributes":{"id":22,"target_branch":"master","source_branch":"master","source_project_id":57,"author_id":9,"assignee_id":null,"title":"Master Title","created_at":"2014-07-02T02:31:20.000Z","updated_at":"2014-07-02T02:36:33.008Z","milestone_id":null,"state":"closed","merge_status":"unchecked","target_project_id":55,"iid":7,"descrinption":"description_content"}}' http://10.0.6.122:9002/merge_request</code> curl post</p>
+</li>
+<li>
+<p><code>apt-get update/upgrade/dist-upgrade/autoclean/autoremove/clean/remove/purge</code></p>
+</li>
+<li>
+<p><code>dpkg-reconfigure foo</code>重新配置</p>
+</li>
+<li>
+<p><code>echo "foo hold" | sudo dpkg --set-selections</code></p>
+</li>
+<li>
+<p><code>echo "foo install" | sudo dpkg --set-selections</code></p>
+</li>
+<li>
+<p><code>apt-cache search foo, dpkg -l foo*</code>, <code>apt-cache show foo , dpkg --print-avail foo</code></p>
+</li>
+<li>
+<p><code>dpkg -L foo</code></p>
+</li>
+<li>
+<p><code>dpkg --get-selections</code></p>
+</li>
+<li>
+<p><code>dlocate foo, dpkg -S foo</code> foo文件来自哪个包</p>
+</li>
+<li>
+<p><code>apt-file search foo</code> 哪些安装包提供foo文件,不仅仅包含系统中已经安装的</p>
+</li>
+<li>
+<p><code>dpkg -c foo.deb</code> foo.deb 包含哪些文件</p>
+</li>
+<li>
+<p><code>apt-cache dumpavail</code>显示所有可用安装包,以及他们各自的详细信息</p>
+</li>
+<li>
+<p><code>apt-cache pkgnames</code> 快速列出已安装软件包名称</p>
+</li>
+<li>
+<p>apt使用代理:<code>echo "export http_proxy=http://127.0.0.1:8087" &gt;&gt; ~/.bashrc</code>,<code>echo 'Acquire::http::proxy http://127.0.0.1:8087' &gt;&gt; /etc/apt/apt.conf</code></p>
+</li>
+<li>
+<p>Win:<code>tasklist /svc</code>,<code>taskkill /pid 1965</code>,<code>taskkill /f /im QQ.exe</code></p>
+</li>
+<li>
+<p><code>tar xvf sth.tgz -C uncompress_folder</code></p>
+</li>
+<li>
+<p><code>updatedb -l 0 -o db_file -U source_directory</code> , <code>locate sth -d db_file</code></p>
+</li>
+<li>
+<p>find out the working directory of a running process,<code>pwdx &lt;pid&gt;</code>,<code>lsof -p &lt;pid&gt; | grep cwd</code>,<code>readlink /proc/&lt;pid&gt;/cwd</code></p>
+</li>
+<li>
+<p>format json in vim,<code>%!python -m json.tool</code></p>
+</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

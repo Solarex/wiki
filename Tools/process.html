@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>process - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Tools">Tools</a> » process
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>process</center></h1>
+    <hr>
+    <div id="content">
+        <ul>
+<li>
+<p>任何进程都与文件关联；我们会用到lsof工具（list opened files），作用是列举系统中已经被打开的文件。在linux环境中，任何事物都是文件，设备是文件，目录是文件，甚至sockets也是文件。</p>
+</li>
+<li>
+<p>查询正在运行的进程信息<code>ps -ef</code>,查询归属于用户colin115的进程<code>ps -ef | grep colin115</code>或<code>ps -lu colin115</code></p>
+</li>
+<li>
+<p>查询进程ID（适合只记得部分进程字段）<code>pgrep 查找进程</code></p>
+</li>
+<li>
+<p>以完整的格式显示所有的进程<code>ps -ajx</code></p>
+</li>
+<li>
+<p>查看端口占用的进程状态：<code>lsof -i:3306</code></p>
+</li>
+<li>
+<p>查看用户username的进程所打开的文件<code>lsof -u username</code></p>
+</li>
+<li>
+<p>查询init进程当前打开的文件<code>lsof -c init</code></p>
+</li>
+<li>
+<p>查询指定的进程ID(23295)打开的文件<code>lsof -p 23295</code></p>
+</li>
+<li>
+<p>查询指定目录下被进程开启的文件（使用+D 递归目录）：</p>
+</li>
+</ul>
+<div class="hlcode"><pre>Solarex at MacPro in ~/Workspace/Solarex/simiki on master*
+<span class="nv">$ </span>lsof +d .
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+bash    11057 Solarex  cwd    DIR    1,4      374 2069275 .
+lsof    12016 Solarex  cwd    DIR    1,4      374 2069275 .
+lsof    12017 Solarex  cwd    DIR    1,4      374 2069275 .
+Solarex at MacPro in ~/Workspace/Solarex/simiki on master*
+<span class="nv">$ </span>lsof +D ./
+COMMAND     PID    USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+Sublime    1178 Solarex  cwd    DIR    1,4      748 4919490 ./content/tools
+bash      11057 Solarex  cwd    DIR    1,4      374 2069275 .
+lsof      12034 Solarex  cwd    DIR    1,4      374 2069275 .
+lsof      12035 Solarex  cwd    DIR    1,4      374 2069275 .
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>kill PID</code>,<code>kill -9 PID</code>,<code>kill %job</code>杀死job工作</p>
+</li>
+<li>
+<p>使用命令pmap，来输出进程内存的状况，可以用来分析线程堆栈；<code>pmap PID</code></p>
+</li>
+<li>
+<p>将用户colin115下的所有进程名以av_开头的进程终止:<code>ps -u colin115 |  awk '/av_/ {print "kill -9 " $1}' | sh</code></p>
+</li>
+<li>
+<p>将用户colin115下所有进程名中包含HOST的进程终止:<code>ps -fe| grep colin115|grep HOST |awk '{print $2}' | xargs kill -9;</code></p>
+</li>
+<li>
+<p><code>ldd</code>在mac上有<code>otool -L &lt;object file&gt;</code>对应，<code>pmap pid</code>有<code>vmmap &lt;pid&gt;</code>对应</p>
+</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

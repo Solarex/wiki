@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>Android Tv开发 - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Android">Android</a> » Android Tv开发
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>Android Tv开发</center></h1>
+    <hr>
+    <div id="content">
+        <ul>
+<li>declare manifest</li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;uses-feature</span> <span class="na">android:name=</span><span class="s">&quot;android.software.leanback&quot;</span>
+        <span class="na">android:required=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-feature</span> <span class="na">android:name=</span><span class="s">&quot;android.hardware.touchscreen&quot;</span>
+              <span class="na">android:required=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;application</span>
+  <span class="na">android:banner=</span><span class="s">&quot;@drawable/banner&quot;</span> <span class="nt">&gt;</span>
+  ...
+  <span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">&quot;com.example.android.MainActivity&quot;</span>
+    <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.MAIN&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.LAUNCHER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+  <span class="nt">&lt;/activity&gt;</span>
+
+  <span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">&quot;com.example.android.TvActivity&quot;</span>
+    <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+    <span class="na">android:theme=</span><span class="s">&quot;@style/Theme.Leanback&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;intent-filter&gt;</span>
+      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.MAIN&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.LEANBACK_LAUNCHER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+
+  <span class="nt">&lt;/activity&gt;</span>
+<span class="nt">&lt;/application&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>change launcher color</li>
+</ul>
+<p>When a TV app launches, the system displays an animation that resembles an expanding, filled circle. 
+To customize the color of this animation, set the <code>android:colorPrimary</code> attribute of your TV app or activity to a specific color. 
+You should also set two additional <code>transition overlap</code> attributes to <code>true</code>.</p>
+<div class="hlcode"><pre><span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;style</span> <span class="err">...</span> <span class="nt">&gt;</span>
+      <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:colorPrimary&quot;</span><span class="nt">&gt;</span>@color/primary<span class="nt">&lt;/item&gt;</span>
+      <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:windowAllowReturnTransitionOverlap&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+      <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:windowAllowEnterTransitionOverlap&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>check for a tv device</li>
+</ul>
+<div class="hlcode"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&quot;DeviceTypeRuntimeCheck&quot;</span><span class="o">;</span>
+
+<span class="n">UiModeManager</span> <span class="n">uiModeManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">UiModeManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">UI_MODE_SERVICE</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">uiModeManager</span><span class="o">.</span><span class="na">getCurrentModeType</span><span class="o">()</span> <span class="o">==</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">UI_MODE_TYPE_TELEVISION</span><span class="o">)</span> <span class="o">{</span> 
+    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Running on a TV Device&quot;</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Running on a non-TV Device&quot;</span><span class="o">)</span>
+<span class="o">}</span> 
+</pre></div>
+
+
+<ul>
+<li>unsupported tv hardware features</li>
+</ul>
+<p>Android system does not support the following features for a TV device: <code>android.hardware.touchscreen</code>,<code>android.hardware.faketouch</code> for touchscreen emulator,<code>android.hardware.telephony</code>,<code>android.hardware.camera</code>,<code>android.hardware.bluetooth</code>,<code>android.hardware.nfc</code>,<code>android.hardware.location.gps</code>,<code>android.hardware.microphone</code>,<code>android.hardware.sensor</code>.</p>
+<p>checking for hardware features</p>
+<div class="hlcode"><pre><span class="c1">// Check if the telephony hardware feature is available. </span>
+<span class="k">if</span> <span class="o">(</span><span class="n">getPackageManager</span><span class="o">().</span><span class="na">hasSystemFeature</span><span class="o">(</span><span class="s">&quot;android.hardware.telephony&quot;</span><span class="o">))</span> <span class="o">{</span> 
+    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;HardwareFeatureTest&quot;</span><span class="o">,</span> <span class="s">&quot;Device can make phone calls&quot;</span><span class="o">);</span>
+<span class="o">}</span> 
+
+<span class="c1">// Check if android.hardware.touchscreen feature is available. </span>
+<span class="k">if</span> <span class="o">(</span><span class="n">getPackageManager</span><span class="o">().</span><span class="na">hasSystemFeature</span><span class="o">(</span><span class="s">&quot;android.hardware.touchscreen&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;HardwareFeatureTest&quot;</span><span class="o">,</span> <span class="s">&quot;Device has a touch screen.&quot;</span><span class="o">);</span>
+<span class="o">}</span> 
+</pre></div>
+
+
+<ul>
+<li>GPS</li>
+</ul>
+<p>TVs are stationary, indoor devices, and do not have built-in global positioning system (GPS) receivers. If your app uses location information, you can still allow users to search for a location, or use a static location provider such as a zip code configured during the TV device setup.</p>
+<div class="hlcode"><pre><span class="c1">// Request a static location from the location manager </span>
+<span class="n">LocationManager</span> <span class="n">locationManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">LocationManager</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span>
+        <span class="n">Context</span><span class="o">.</span><span class="na">LOCATION_SERVICE</span><span class="o">);</span>
+<span class="n">Location</span> <span class="n">location</span> <span class="o">=</span> <span class="n">locationManager</span><span class="o">.</span><span class="na">getLastKnownLocation</span><span class="o">(</span><span class="s">&quot;static&quot;</span><span class="o">);</span>
+
+<span class="c1">// Attempt to get postal or zip code from the static location object </span>
+<span class="n">Geocoder</span> <span class="n">geocoder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Geocoder</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="n">Address</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">{</span> 
+  <span class="n">address</span> <span class="o">=</span> <span class="n">geocoder</span><span class="o">.</span><span class="na">getFromLocation</span><span class="o">(</span><span class="n">location</span><span class="o">.</span><span class="na">getLatitude</span><span class="o">(),</span>
+          <span class="n">location</span><span class="o">.</span><span class="na">getLongitude</span><span class="o">(),</span> <span class="mi">1</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> 
+  <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;Zip code&quot;</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">getPostalCode</span><span class="o">());</span>
+
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Geocoder error&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ul>
+<li>Any TV app activity that is subject to disconnect and reconnect events must be configured to handle reconnection events in the app manifest. The following code sample demonstrates how to enable an activity to handle configuration changes, including a keyboard or navigation device connecting, disconnecting, or reconnecting:</li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;activity</span>
+  <span class="na">android:name=</span><span class="s">&quot;com.example.android.TvActivity&quot;</span>
+  <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+  <span class="na">android:configChanges=</span><span class="s">&quot;keyboard|keyboardHidden|navigation&quot;</span>
+  <span class="na">android:theme=</span><span class="s">&quot;@style/Theme.Leanback&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;intent-filter&gt;</span>
+    <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.MAIN&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.LEANBACK_LAUNCHER&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent-filter&gt;</span>
+  ...
+<span class="nt">&lt;/activity&gt;</span>
+</pre></div>
+
+
+<p>This configuration change allows the app to continue running through a reconnection event, rather than being restarted by the Android framework, which is not a good user experience.</p>
+<ul>
+<li>Leanback Theme</li>
+</ul>
+<div class="hlcode"><pre><span class="nt">&lt;activity</span>
+  <span class="na">android:name=</span><span class="s">&quot;com.example.android.TvActivity&quot;</span>
+  <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+  <span class="na">android:theme=</span><span class="s">&quot;@style/Theme.Leanback&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>Overscan</li>
+</ul>
+<p>Layouts for TV have some unique requirements due to the evolution of TV standards and the desire to always present a full screen picture to viewers. For this reason, TV devices may clip the outside edge of an app layout in order to ensure that the entire display is filled. This behavior is generally referred to as overscan.</p>
+<p>Screen elements that must be visible to the user at all times should be positioned within the overscan safe area. Adding a 5% margin of 48dp on the left and right edges and 27dp on the top and bottom edges to a layout ensures that screen elements in that layout will be within the overscan safe area.</p>
+<p>Background screen elements that the user doesn't directly interact with should not be adjusted or clipped to the overscan safe area. This approach ensures that background screen elements look correct on all screens.</p>
+<p>The following example shows a root layout that can contain background elements, and a nested child layout that has a 5% margin and can contain elements within the overscan safe area:</p>
+<p>TV边界应该留些边距。</p>
+<div class="hlcode"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+   <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+   <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+   <span class="nt">&gt;</span>
+
+   <span class="c">&lt;!-- Screen elements that can render outside the overscan safe area go here --&gt;</span>
+
+   <span class="c">&lt;!-- Nested RelativeLayout with overscan-safe margin --&gt;</span>
+   <span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+       <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+       <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+       <span class="na">android:layout_marginTop=</span><span class="s">&quot;27dp&quot;</span>
+       <span class="na">android:layout_marginBottom=</span><span class="s">&quot;27dp&quot;</span>
+       <span class="na">android:layout_marginLeft=</span><span class="s">&quot;48dp&quot;</span>
+       <span class="na">android:layout_marginRight=</span><span class="s">&quot;48dp&quot;</span><span class="nt">&gt;</span>
+
+      <span class="c">&lt;!-- Screen elements that need to be within the overscan safe area go here --&gt;</span>
+
+   <span class="nt">&lt;/RelativeLayout&gt;</span>
+<span class="nt">&lt;/RelativeLayout&gt;</span>
+</pre></div>
+
+
+<p>Do not apply overscan margins to your layout if you are using the v17 leanback classes, such as <code>BrowseFragment</code> or related widgets, as those layouts already incorporate overscan-safe margins.</p>
+<ul>
+<li>modifying directional navigation</li>
+</ul>
+<p>The Android framework automatically applies a directional navigation scheme based on the relative position of focusable elements in your layouts. You should test the generated navigation scheme in your app using a D-pad controller. After testing, if you decide you want users to move through your layouts in a specific way, you can set up explicit directional navigation for your controls.</p>
+<div class="hlcode"><pre><span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">&quot;@+id/Category1&quot;</span>
+        <span class="na">android:nextFocusDown=</span><span class="s">&quot;@+id/Category2&quot;</span><span class="err">\</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p><code>nextFocusDown</code>,<code>nextFocusLeft</code>,<code>nextFocusRight</code>,<code>nextFocusUp</code></p>
+<p>You should set up the navigation order as a loop, so that the last control directs focus back to the first one.</p>
+<ul>
+<li>provide clear focus and selection</li>
+</ul>
+<p>It is important to always have an item in focus that a user can take action on immediately after your app starts, or any time it is idle.</p>
+<p>Your app layout and implementation should use color, size, animation, or a combination of these attributes to help users easily determine what actions they can take next. Use a uniform scheme for indicating focus across your application.</p>
+<p>Use <code>selector</code> to implement highlights for focused and selected controls.</p>
+<ul>
+<li><code>ImageCardView</code>,To receive focus from the D-pad controller by calling <code>setFocusable(true)</code> and <code>setFocusableInTouchMode(true)</code>.</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

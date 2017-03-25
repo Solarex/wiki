@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>MAC Skills - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Linux">Linux</a> » MAC Skills
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>MAC Skills</center></h1>
+    <hr>
+    <div id="content">
+        <ul>
+<li>
+<p><code>defaults write com.apple.screencapture location ~/Pictures/ScreenShots;killall SystemUIServer</code>,change default screen capture folder</p>
+</li>
+<li>
+<p><code>diskutil list</code></p>
+</li>
+<li>
+<p><code>diskutil unmountDisk force /dev/disk2</code></p>
+</li>
+<li>
+<p><a href="http://www.gfzj.us/2014/12/20/charlse-sn-download.html">charles破解 sn 注册码</a>，<a href="http://www.gfzj.us/tech/2015/06/24/charles-hacking.html">Charles Web Debugging Proxy Hacking</a></p>
+</li>
+<li>
+<p>pdf背景色改变，RGB，199 237 204，由于windows每一项的最大值是255，若以1为最大值，则这个颜色的值为：0.78 0.93 0.8，skim的颜色管理支持 RGBa格式，并且是以1为最大值，关闭skim。打开终端，输入<code>defaults write -app skim SKPageBackgroundColor -array 0.78 0.93 0.8 1</code></p>
+</li>
+<li>
+<p>mac command lines</p>
+</li>
+<li>
+<p><code>mitmproxy -a IP_ADDR -p PORT —-no-upstream-cert</code>代理时不校验ssl证书</p>
+</li>
+<li>
+<p>Use the following Terminal command to reset the DNS cache in OS X v10.10.4 or later:<code>sudo killall -HUP mDNSResponder</code></p>
+</li>
+<li>
+<p>sips</p>
+</li>
+<li><code>sips --resampleWidth &lt;width in pixel&gt; --resampleHeight &lt;height in pixels&gt; /pat/to/pic</code></li>
+<li><code>sips -Z 320 iamge_file_name</code>裁剪时固定图片宽度，高度自适应</li>
+<li>
+<p><code>sips -z 400 300 iamge_file_name</code>裁剪时指定图片宽与高</p>
+</li>
+<li>
+<p><code>sips -r 90 image_file_name</code> 旋转图片，上面的命令将图片顺时针旋转90度，相信机智的你已经想到逆时针90度应该是-90了。没错，顺时针用正数表示，逆时针可以用负数表示。你可以进行任意角度和方向的旋转。</p>
+</li>
+<li>
+<p><code>sips -f horizontal image_file_name</code> 翻转图片，上面命令可以对图片进行水平翻转，-f支持水平和垂直两种翻转，水平（horizontal），垂直（vertical）。</p>
+</li>
+<li>
+<p><code>sips -s format jpeg input.png -o output.jpg</code>，修改图片格式，使用-s参数可以修改图片格式为指定值，sips支持jpeg | tiff | png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga共11种格式。并且-s除了能修改文件格式外，还能修改图片的其它meta数据，具体可以通过man sips查看。</p>
+</li>
+<li>
+<p><code>sips -g pixelWidth -g pixelHeight image_file_name</code> 上面命令可以获取图片的长宽高信息，与-s参数一样，-g也支持更多的meta值，可以参见man sips的信息</p>
+</li>
+<li>
+<p><a href="https://www.java.com/en/download/faq/exception_sitelist.xml">java applet security in mac</a>,<code>system preferences</code>--&gt;<code>java</code>--&gt;<code>security</code>--&gt;<code>exception list</code></p>
+</li>
+<li>
+<p><code>alias server='python -m SimpleHTTPServer || python -m http.server</code>,<code>alias show='defaults write com.apple.finder AppleShowAllFiles -bool true &amp;&amp; killall Finder'</code>,<code>alias hidden='defaults write com.apple.finder AppleShowAllFiles -bool false &amp;&amp; killall Finder</code>'<code>alias port='port(){ lsof -i tcp:$@;};port $1'</code></p>
+</li>
+<li>
+<p><code>function port() { lsof -i tcp:$1 }</code>,<code>function ports() { lsof -Pni4 | grep LISTEN }</code></p>
+</li>
+<li>
+<p>brew</p>
+</li>
+<li>
+<p><code>brew list</code>,<code>brew list --pinned</code></p>
+</li>
+<li>
+<p><code>brew search git</code>,<code>brew install git</code>,<code>brew update &amp;&amp; brew upgrade</code></p>
+</li>
+<li>
+<p><code>brew cleanup</code></p>
+</li>
+<li>
+<p><code>brew cask search sogouinput</code></p>
+</li>
+<li>
+<p><code>brew cask install sogouinput</code></p>
+</li>
+<li>
+<p><code>system_profiler SPUSBDataType</code>得到所有USB设备信息，<code>system_profiler SPNetworkDataType</code>得到所有网络信息</p>
+</li>
+<li>
+<p>disable AndroidFileTransfer agent</p>
+</li>
+<li>
+<p>http://android.stackexchange.com/questions/33504/stop-android-file-transfer-popping-up</p>
+</li>
+<li>
+<p><code>rm -r ~/Library/Application\ Support/Google/Android\ File\Transfer/Android\ File\ Transfer\ Agent.app</code></p>
+</li>
+<li>
+<p><code>cd /Applications/Android\ File\ Transfer.app/Contents/Resources &amp;&amp; mv Android\ File\ Transfer\ Agent.app Android\ File\ Transfer\Agent.app.disable</code></p>
+</li>
+<li>
+<p>remove AFT from login items,System preferences --&gt; Users&amp;Groups --&gt; user --&gt; login items</p>
+</li>
+<li>
+<p>Your services (the ones that are local to your account,automator) are in the folder: <code>~/Library/Services</code>.</p>
+</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

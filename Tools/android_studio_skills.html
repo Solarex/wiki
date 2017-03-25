@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>Android Studio Skills - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Tools">Tools</a> » Android Studio Skills
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>Android Studio Skills</center></h1>
+    <hr>
+    <div id="content">
+        <h2 id="as-shortcutsxwindow">AS shortcuts(XWindow)</h2>
+<ul>
+<li>
+<p><code>enter</code>补全<code>tab</code>补全替换掉错误的</p>
+</li>
+<li>
+<p><code>esc</code>编辑窗口获取焦点，<code>shift+esc</code>关闭其他窗口，编辑窗口获取焦点，e.g. find usage --&gt; shift+esc</p>
+</li>
+<li>
+<p><code>f12</code>重新打开刚才关闭的工具窗口</p>
+</li>
+<li>
+<p><code>ctrl+tab</code>窗口切换，编辑窗口+工具窗口<code>ctrl+e</code>recently opened files <code>ctrl+shift+e</code>recently opened tool windows</p>
+</li>
+<li>
+<p><code>ctrl+shift+f12</code>关闭所有工具窗口</p>
+</li>
+<li>
+<p><code>ctrl+p</code>方法参数提示</p>
+</li>
+<li>
+<p><code>ctrl+alt+v</code>自动生成变量并补全变量类型</p>
+</li>
+<li>
+<p><code>ctrl+alt+p</code>将方法中声明的局部变量提取到方法参数中供外部传入</p>
+</li>
+<li>
+<p><code>ctal+alt+m</code>将选中代码抽取成方法<code>ctrl+alt+n</code>反向</p>
+</li>
+<li>
+<p><code>shift+ctrl+alt+t</code>弹出重构菜单</p>
+</li>
+<li>
+<p><code>shift+f6</code>修改变量名、方法名、类名</p>
+</li>
+<li>
+<p><code>alt+f1</code>弹出文件菜单，可以在finder中定位文件</p>
+</li>
+<li>
+<p><code>shift+方向键</code>拓展选择</p>
+</li>
+<li>
+<p><code>ctrl+alt+t</code>surround with菜单</p>
+</li>
+<li>
+<p><code>ctrl+alt+h</code>显示调用方法树</p>
+</li>
+<li>
+<p><code>cmd+0</code>(user-defined)navigate back <code>ctrl+alt+向右</code>navigate forward</p>
+</li>
+<li>
+<p><code>ctrl+b</code>，<code>ctrl+click</code>跳转到声明，<code>ctrl+alt+b</code>跳转到实现，<code>ctrl+shift+b</code>跳转到类型实现声明</p>
+</li>
+<li>
+<p><code>ctrl+u</code>跳转到父类</p>
+</li>
+<li>
+<p><code>alt+上下方向键</code>在内部类和方法声明之间跳转</p>
+</li>
+<li>
+<p><code>ctrl+f12</code>显示file structure</p>
+</li>
+<li>
+<p><code>ctrl+shift+i</code> quick definition lookup</p>
+</li>
+<li>
+<p><code>ctrl+shift+plus/minus</code> 展开折叠代码段</p>
+</li>
+<li>
+<p><code>ctrl+shift+a</code> find actions</p>
+</li>
+<li>
+<p><code>alt+shift+up/down</code> move line up/down</p>
+</li>
+<li>
+<p><code>ctrl+y</code> delete line or selections</p>
+</li>
+<li>
+<p><code>ctrl+d</code> duplicate lines</p>
+</li>
+<li>
+<p><code>ctrl+w/ctrl+shift+w</code> expand/shrink selections</p>
+</li>
+<li>
+<p><code>ctrl+j</code>inset live template / snippet</p>
+</li>
+<li>
+<p><code>ctrl+shift+enter</code>complete statments</p>
+</li>
+<li>
+<p><code>ctrl+shift+backspace</code> last edition location</p>
+</li>
+<li>
+<p><code>ctrl+shift+j</code> join lines</p>
+</li>
+<li>
+<p><code>cmd+5</code>toggle breakpoints <code>alt+cmd+5</code> view all breakpoints</p>
+</li>
+<li>
+<p><code>shift+f6</code> rename</p>
+</li>
+<li>
+<p><code>ctrl+f4</code>关闭窗口</p>
+</li>
+<li>
+<p>line wrap,<code>Preferences --&gt; Editor --&gt; Code Style</code>,set <code>Right margin (columns)</code> to <code>120</code>,<code>Preferences --&gt; Editor --&gt; Code Style --&gt; Java --&gt; Wrapping and Braces --&gt; Ensure right margin is not exceeed</code> checked,<code>code --&gt; Reformat code</code></p>
+</li>
+</ul>
+<h2 id="shortcuts">shortcuts</h2>
+<ul>
+<li>
+<p><a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Quick+Start">quick_start</a></p>
+</li>
+<li>
+<p><a href="http://www.techrepublic.com/article/four-handy-android-studio-shortcuts-for-eclipse-users/">ref</a></p>
+</li>
+<li>
+<p>tips&amp;tricks,<a href="http://www.developerphil.com/android-studio-tips-tricks-moving-around/">0</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-1/">1</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-2/">2</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-3/">3</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-4/">4</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-5/">5</a>,<a href="http://www.developerphil.com/android-studio-tips-of-the-day-roundup-6/">6</a></p>
+</li>
+<li>
+<p>posts,<a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1108/1935.html">快捷键</a>,<a href="http://www.jcodecraeer.com/a/anzhuokaifa/Android_Studio/2015/0324/2637.html">加速构建</a>,<a href="https://rinvay.github.io/android/2015/04/09/Build-Android-with-Gradle/">使用gradle构建Android程序</a>,<a href="http://blog.isming.me/2014/12/12/import-library-to-android-studio/">导入开源库到基于Android Studio构建的项目中</a>,<a href="http://blog.isming.me/2014/11/21/use-gradle-new/">使用gradle构建android项目（续）</a>,<a href="http://blog.isming.me/2014/05/20/android4gradle/">使用Gradle构建Android项目</a>,[AndroidStudio配置本地gradle]</p>
+</li>
+<li>
+<p>如果网速不行想跳过这步的可以在bin目录的idea.properties增加一行：disable.android.first.run=true就行了，mac平台的右键安装包-&gt;Show Package Contents 就找到bin目录了</p>
+</li>
+<li>
+<p><code>cmd+shift+f</code>,search</p>
+</li>
+<li>
+<p><code>Ctrl+P</code>方法参数提示</p>
+</li>
+<li>
+<p><code>Ctrl+空格</code>代码提示 </p>
+</li>
+<li>
+<p><code>Ctrl＋Shift＋Space</code>在很多时候都能够给出Smart提示</p>
+</li>
+<li>
+<p><code>Ctrl+Alt+Space</code>类名或接口名提示</p>
+</li>
+<li>
+<p><code>tasks.withType(JavaCompile){}</code>,<a href="https://stackoverflow.com/questions/24668746/after-upgrading-to-gradle-2-0-could-not-find-property-compile-on-root-project">https://stackoverflow.com/questions/24668746/after-upgrading-to-gradle-2-0-could-not-find-property-compile-on-root-project</a></p>
+</li>
+</ul>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>iptables - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Tools">Tools</a> » iptables
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>iptables</center></h1>
+    <hr>
+    <div id="content">
+        <h1 id="iptables-tutorial">iptables tutorial</h1>
+<p><a href="https://www.frozentux.net/documents/iptables-tutorial/">REF</a></p>
+<ul>
+<li>
+<p>It is very important to understand that iptables was and is specifically built to work on the headers of the Internet and the Transport layers. It is possible to do some very basic filtering with iptables in the Application and Network access layers as well, but it was not designed for this, nor is it very suitable for those purposes.Iptables通常被用来在tcp/ip层工作，尽管也可以在application layer/network access layer工作，但不推荐这样做。For example, if we use a string match and match for a specific string inside the packet, lets say <code>get /index.html</code>. Will that work? Normally, yes. However, if the packet size is very small, it will not. The reason is that iptables is built to work on a per packet basis, which means that if the string is split into several separate packets, iptables will not see that whole string. For this reason, you are much, much better off using a proxy of some sort for filtering in the application layer.</p>
+</li>
+<li>
+<p>If the IP filter implementation is strictly following the definition, it would in other words only be able to filter packets based on their IP headers (Source and Destionation address, TOS/DSCP/ECN , TTL, Protocol , etc. Things that are actually in the IP header.) However, since the Iptables implementation is not perfectly strict around this definition, it is also able to filter packets based on other headers that lie deeper into the packet (TCP, UDP, etc), and shallower (MAC source address).</p>
+</li>
+<li>
+<p><code>iptable -A INPUT -p tcp --dport 80 -m time --timestart 09:00 --timestop 18:00 -j DROP</code></p>
+</li>
+<li>
+<p><code>Netfilter</code>有5个链chain/filter point，为<code>INPUT,OUTPUT,FORWARD,PREROUTING,POSTROUTING</code>，4个table，为<code>raw,filter,nat,mangle</code>。<code>filter</code>用以对数据进行过滤，工作在<code>INPUT,OUTPUT,FORWARD</code>，<code>nat</code>用以对数据包的源地址，目标地址进行修改，工作在<code>OUTPUT,PREROUTING,POSTROUTING</code>中，<code>mangle</code>用以对数据包进行高级修改，如<code>TTL,TOS,QOS</code>等，工作在5个链中，即<code>INPUT,OUTPUT,FORWARD,PREROUTING,POSTROUTING</code>。</p>
+</li>
+<li>
+<p>作为服务器使用，可以使用<code>INPUT</code>链，<code>filter</code>表来规定那些主机可以访问我，可以使用<code>OUTPUT</code>链，<code>filter</code>表来规定哪些数据可以发送出去。作为路由器使用时，可以通过<code>FORWARD</code>链，<code>filter</code>表来控制哪些可以转发，如果需要修改转发数据的源地址、目标IP地址，可以使用<code>PREROUTING,POSTROUTING</code>链，<code>nat</code>表。</p>
+</li>
+<li>
+<p><code>iptables</code>通过规则对数据访问进行控制，一个规则使用一行配置，规则按照顺序排列，当收到、发出、转发数据包时，使用规则对数据包进行匹配，按规则顺序进行逐条匹配。数据包按照第一个匹配上的规则执行相关操作：丢弃，放行，修改，没有匹配规则，则使用默认动作，每个chain都有各自的默认动作。</p>
+</li>
+<li>
+<p><code>iptables -t filter -A INPUT -s 192.168.1.1 -j DROP</code>表，链，匹配属性，执行动作。匹配属性可以使用源、目标IP地址，协议(TCP,UDP,ICMP)，端口号，接口，TCP状态。动作可以选择<code>ACCEPT,DROP,REJECT</code>。<code>REJECT</code>相比<code>DROP</code>还会返回失败信息。</p>
+</li>
+<li>
+<p>列出现有iptables规则 <code>iptables -L</code></p>
+</li>
+<li>
+<p>插入一个规则 <code>iptables -i INPUT 3 -p tcp --dport 22 -j ACCEPT</code>在<code>INPUT</code>链中插入规则，插入到第3个，匹配规则tcp协议，目的端口号22，执行动作允许动作。</p>
+</li>
+<li>
+<p>删除一个规则，<code>iptables -D INPUT 3</code>，<code>iptables -D INPUT -s 192.168.1.1 -j DROP</code>删除匹配的规则。</p>
+</li>
+<li>
+<p>删除所有规则，<code>iptables -F</code></p>
+</li>
+<li>
+<p>命令行输入的<code>iptables</code>规则是临时生效，保存在内存当中，机器重启后就没有了，并不会永久保存。若要永久保存规则，则需要将规则保存在<code>/etc/sysconfig/iptables</code>配置文件中，可以通过<code>service iptables save</code> 或<code>iptables-svae &gt;/etc/sysconfig/iptables</code>将iptables规则写入配置文件。CentOS/RHEL系统会带有默认iptables规则，保存自定义规则会覆盖默认规则。</p>
+</li>
+<li>
+<p>匹配参数</p>
+</li>
+<li>
+<p>基于IP地址，<code>-s 192.168.1.1</code>源地址，<code>-d 10.0.0.0/8</code>目标IP地址。</p>
+</li>
+<li>
+<p>基于网络接口(网卡)，<code>-i eth0</code>接收接口，<code>-o eth0</code>发送接口。</p>
+</li>
+<li>
+<p>排除参数 <code>-s '!' 192.168.1.0/24</code>取反</p>
+</li>
+<li>
+<p>基于协议/端口号 <code>-p tcp --dport 23</code>，<code>-p udp --sport 53</code>，<code>-p icmp</code></p>
+</li>
+<li>
+<p>控制到本机的流量</p>
+</li>
+</ul>
+<div class="hlcode"><pre>iptables -A INPUT -s 192.168.1.100 -j DROP
+iptables -A INPUT -p tcp --dport 80 -j DROP
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 22 -j DROP
+iptables -A INPUT -i eth0 -j ACCEPT
+</pre></div>
+
+
+<ul>
+<li>
+<p>使用做路由器(进行数据转发)时，可以通过定义forward规则来进行控制转发。禁止所有从192.168.1.0/24到10.1.1.0/24的流量<code>iptables -A FORWARD -s 192.168.1.0/24 -d 10.1.1.0/24 -j DROP</code></p>
+</li>
+<li>
+<p>使用<code>nat</code>表对源IP地址，目标IP地址进行修改，NAT分为两种，<code>SNAT</code>对源IP地址进行转换，通常用于内部共享一个公共IP，伪装内部地址。<code>DNAT</code>是目标地址转换，通常用于跳转。</p>
+</li>
+</ul>
+<div class="hlcode"><pre><span class="c">#通过nat实现跳转</span>
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-dest 192.168.1.10
+<span class="c">#通过nat对出向数据进行跳转</span>
+iptables -t nat -A OUTPUT -p tcp --dport 80 -j DNAT --to-dest 192.168.1.100:8080
+<span class="c">#通过nat对数据流进行封装，一般意义上的nat，将内部ip地址全部伪装成一个外部公网ip地址</span>
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+<span class="c">#通过nat隐藏源ip地址</span>
+iptables -t nat -A POSTROUTING -j SNAT --to-source 1.2.3.4
+</pre></div>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-03-26 05:38:14</p>
+        </div>
+    </body>
+</html>
