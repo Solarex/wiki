@@ -11,6 +11,8 @@ date: 2015-08-30 23:31
 
 + [charles破解 sn 注册码](http://www.gfzj.us/2014/12/20/charlse-sn-download.html)，[Charles Web Debugging Proxy Hacking](http://www.gfzj.us/tech/2015/06/24/charles-hacking.html)
 
++ pdf背景色改变，RGB，199 237 204，由于windows每一项的最大值是255，若以1为最大值，则这个颜色的值为：0.78 0.93 0.8，skim的颜色管理支持 RGBa格式，并且是以1为最大值，关闭skim。打开终端，输入``defaults write -app skim SKPageBackgroundColor -array 0.78 0.93 0.8 1``
+
 + mac command lines
 
 + ``mitmproxy -a IP_ADDR -p PORT —-no-upstream-cert``代理时不校验ssl证书
@@ -31,6 +33,9 @@ date: 2015-08-30 23:31
   + ``sips -g pixelWidth -g pixelHeight image_file_name`` 上面命令可以获取图片的长宽高信息，与-s参数一样，-g也支持更多的meta值，可以参见man sips的信息
 
 + [java applet security in mac](https://www.java.com/en/download/faq/exception_sitelist.xml),``system preferences``-->``java``-->``security``-->``exception list``
+
++ ``alias server='python -m SimpleHTTPServer || python -m http.server``,``alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'``,``alias hidden='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder``'``alias port='port(){ lsof -i tcp:$@;};port $1'``
++ ``function port() { lsof -i tcp:$1 }``,``function ports() { lsof -Pni4 | grep LISTEN }``
 
 + brew
 
@@ -56,4 +61,4 @@ date: 2015-08-30 23:31
 
   + remove AFT from login items,System preferences --> Users&Groups --> user --> login items
 
-
++ Your services (the ones that are local to your account,automator) are in the folder: ``~/Library/Services``.
