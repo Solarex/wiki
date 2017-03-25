@@ -3,7 +3,8 @@ echo $PWD
 simiki=/Users/houruhou/Workspace/OpenSource/Blog+Wiki/simiki
 git branch -a 
 git checkout gh-pages
-find . -depth -name "*.html" -delete
+#find . -depth -name "*.html" -delete
+rm -rf *
 rsync -rvt ${simiki}/output/* .
 echo "sync successed"
 read -p "Press any key to continue......" key
