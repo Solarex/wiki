@@ -169,7 +169,12 @@ meld <span class="s2">&quot;$2&quot;</span> <span class="s2">&quot;$5&quot;</spa
 <ul>
 <li><code>git subtree add --prefix emacs/.emacs.d git@github.com:jcouyang/.emacs.d.git master —squash</code>,<code>git remote add emacs git@github.com:jcouyang/.emacs.d.git</code>,<code>git subtree push --prefix emacs/.emacs.d emacs master</code></li>
 <li>​<code>git pull origin master --allow-unrelated-histories</code></li>
+<li>rebase 将一个分支上所有的提交历史都应用到另一个分支上 不要在一个已经公开的远端分支上使用rebase.</li>
 </ul>
+<div class="hlcode"><pre><span class="err">#</span> <span class="nx">将experimentBranch应用到master上面</span>
+<span class="err">#</span> <span class="nx">git</span> <span class="nx">rebase</span> <span class="o">&lt;</span><span class="nx">basebranch</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">topicbranch</span><span class="o">&gt;</span>
+<span class="err">$</span> <span class="nx">git</span> <span class="nx">rebase</span> <span class="nx">master</span> <span class="nx">experimentBranch</span>
+</pre></div>
     </div>
 
         </div>
@@ -178,7 +183,7 @@ meld <span class="s2">&quot;$2&quot;</span> <span class="s2">&quot;$5&quot;</spa
                 Copyright © 2012-2017 Solarex.
                 Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
               </p>
-                <p>Last Update 2017-04-26 18:46:52</p>
+                <p>Last Update 2017-10-22 09:56:16</p>
         </div>
     </body>
 </html>

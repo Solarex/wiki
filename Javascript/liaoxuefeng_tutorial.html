@@ -1,0 +1,2085 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="../static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
+        <title>liaoxuefeng_tutorial - Wiki·Solarex</title>
+        <meta name="keywords" content="android,linux,python,mac"/>
+        <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    var oddClick = true;
+    $(document).ready(function() {
+      $('#toggle-button').click(function() {
+        $('#container').animate({
+          width: oddClick? "100%":"60%",
+        });
+        $(this).text(oddClick? "窄版":"宽版");
+        oddClick = !oddClick;
+      });
+    });
+</script>
+
+    </head>
+
+    <body>
+        <a href="https://github.com/Solarex/wiki"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+        <div id="container">
+            
+    <div id="header">
+        <div id="post-nav">
+            <div id="toggle-button">宽版</div>
+            
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Javascript">Javascript</a> » liaoxuefeng_tutorial
+            
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1><center>liaoxuefeng_tutorial</center></h1>
+    <hr>
+    <div id="content">
+        <div class="hlcode"><pre><span class="nb">false</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="nb">false</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// false</span>
+</pre></div>
+
+
+<p>要特别注意相等运算符==。JavaScript在设计时，有两种比较运算符：</p>
+<p>第一种是==比较，它会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；</p>
+<p>第二种是===比较，它不会自动转换数据类型，如果数据类型不一致，返回false，如果一致，再比较。</p>
+<p>由于JavaScript这个设计缺陷，不要使用==比较，始终坚持使用===比较。</p>
+<p>另一个例外是NaN这个特殊的Number与所有其他值都不相等，包括它自己：</p>
+<div class="hlcode"><pre><span class="n">NaN</span> <span class="o">===</span> <span class="n">NaN</span><span class="p">;</span> <span class="c1">// false</span>
+</pre></div>
+
+
+<p>唯一能判断NaN的方法是通过isNaN()函数：</p>
+<div class="hlcode"><pre><span class="n">isNaN</span><span class="p">(</span><span class="n">NaN</span><span class="p">);</span> <span class="c1">// true</span>
+</pre></div>
+
+
+<p>JavaScript的设计者希望用null表示一个空的值，而undefined表示值未定义。事实证明，这并没有什么卵用，区分两者的意义不大。大多数情况下，我们都应该用null。undefined仅仅在判断函数参数是否传递的情况下有用。</p>
+<p>JavaScript的数组可以包括任意数据类型。</p>
+<div class="hlcode"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="nb">true</span><span class="p">];</span>
+</pre></div>
+
+
+<p>另一种创建数组的方法是通过Array()函数实现：</p>
+<div class="hlcode"><pre><span class="n">new</span> <span class="nf">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// 创建了数组[1, 2, 3]</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="nb">true</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// 返回索引为0的元素，即1</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span> <span class="c1">// 返回索引为5的元素，即true</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span> <span class="c1">// 索引超出了范围，返回undefined</span>
+</pre></div>
+
+
+<p>JavaScript的对象是一组由键-值组成的无序集合，例如：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;</span><span class="n">Bob</span><span class="err">&#39;</span><span class="p">,</span>
+    <span class="nl">age:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nl">tags:</span> <span class="p">[</span><span class="err">&#39;</span><span class="n">js</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">web</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">mobile</span><span class="err">&#39;</span><span class="p">],</span>
+    <span class="nl">city:</span> <span class="err">&#39;</span><span class="n">Beijing</span><span class="err">&#39;</span><span class="p">,</span>
+    <span class="nl">hasCar:</span> <span class="nb">true</span><span class="p">,</span>
+    <span class="nl">zipcode:</span> <span class="n">null</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>JavaScript对象的键都是字符串类型，值可以是任意数据类型。</p>
+<p>变量在JavaScript中就是用一个变量名表示，变量名是大小写英文、数字、$和_的组合，且不能用数字开头。变量名也不能是JavaScript的关键字，如if、while等。</p>
+<p>可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量，但是要注意只能用var申明一次。</p>
+<p>JavaScript在设计之初，为了方便初学者学习，并不强制要求用var申明变量。这个设计错误带来了严重的后果：如果一个变量没有通过var申明就被使用，那么该变量就自动被申明为全局变量：</p>
+<div class="hlcode"><pre><span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// i现在是全局变量</span>
+</pre></div>
+
+
+<p>在同一个页面的不同的JavaScript文件中，如果都不用var申明，恰好都使用了变量i，将造成变量i互相影响，产生难以调试的错误结果。</p>
+<p>使用var申明的变量则不是全局变量，它的范围被限制在该变量被申明的函数体内（函数的概念将稍后讲解），同名变量在不同的函数体内互不冲突。</p>
+<p>为了修补JavaScript这一严重设计缺陷，ECMA在后续规范中推出了strict模式，在strict模式下运行的JavaScript代码，强制通过var申明变量，未使用var申明变量就使用的，将导致运行错误。</p>
+<p>启用strict模式的方法是在JavaScript代码的第一行写上：</p>
+<div class="hlcode"><pre><span class="err">&#39;</span><span class="n">use</span> <span class="n">strict</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>这是一个字符串，不支持strict模式的浏览器会把它当做一个字符串语句执行，支持strict模式的浏览器将开启strict模式运行JavaScript。</p>
+<p>ASCII字符可以以\x##形式的十六进制表示，例如：</p>
+<div class="hlcode"><pre><span class="sc">&#39;\x41&#39;</span><span class="p">;</span> <span class="c1">// 完全等同于 &#39;A&#39;</span>
+</pre></div>
+
+
+<p>还可以用\u####表示一个Unicode字符：</p>
+<div class="hlcode"><pre><span class="err">&#39;\</span><span class="n">u4e2d</span><span class="err">\</span><span class="n">u6587</span><span class="err">&#39;</span><span class="p">;</span> <span class="c1">// 完全等同于 &#39;中文&#39;</span>
+</pre></div>
+
+
+<p>由于多行字符串用\n写起来比较费事，所以最新的ES6标准新增了一种多行字符串的表示方法，用反引号 <code>...</code> 表示：</p>
+<div class="hlcode"><pre><span class="err">`这是一个</span>
+<span class="err">多行</span>
+<span class="err">字符串`</span><span class="p">;</span>
+</pre></div>
+
+
+<p>如果有很多变量需要连接，用+号就比较麻烦。ES6新增了一种模板字符串，表示方法和上面的多行字符串一样，但是它会自动替换字符串中的变量：</p>
+<div class="hlcode"><pre>var name = &#39;小明&#39;;
+var age = 20;
+var message = `你好, <span class="cp">${</span><span class="n">name</span><span class="cp">}</span>, 你今年<span class="cp">${</span><span class="n">age</span><span class="cp">}</span>岁了!`;
+alert(message);
+</pre></div>
+
+
+<p>要获取字符串某个指定位置的字符，使用类似Array的下标操作，索引号从0开始：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">!</span><span class="err">&#39;</span><span class="p">;</span>
+
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// &#39;H&#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span> <span class="c1">// &#39; &#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span> <span class="c1">// &#39;w&#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span> <span class="c1">// &#39;!&#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">13</span><span class="p">];</span> <span class="c1">// undefined 超出范围的索引不会报错，但一律返回undefined</span>
+</pre></div>
+
+
+<p>需要特别注意的是，字符串是不可变的，如果对字符串的某个索引赋值，不会有任何错误，但是，也没有任何效果：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Test</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;X&#39;</span><span class="p">;</span>
+<span class="n">alert</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// s仍然为&#39;Test&#39;</span>
+</pre></div>
+
+
+<p>JavaScript为字符串提供了一些常用方法，注意，调用这些方法本身不会改变原有字符串的内容，而是返回一个新字符串：<code>toUpperCase,toLowerCase</code></p>
+<p>JavaScript的Array可以包含任意数据类型，并通过索引来访问每个元素。</p>
+<p>要取得Array的长度，直接访问length属性：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="nb">true</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="c1">// 6</span>
+</pre></div>
+
+
+<p>请注意，直接给Array的length赋一个新的值会导致Array大小的变化：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="c1">// 3</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// arr变为[1, 2, 3, undefined, undefined, undefined]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// arr变为[1, 2]</span>
+</pre></div>
+
+
+<p>Array可以通过索引把对应的元素修改为新的值，因此，对Array的索引进行赋值会直接修改这个Array：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// arr现在变为[&#39;A&#39;, 99, &#39;C&#39;]</span>
+</pre></div>
+
+
+<p>请注意，如果通过索引赋值时，索引超过了范围，同样会引起Array大小的变化：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// arr变为[1, 2, 3, undefined, undefined, &#39;x&#39;]</span>
+</pre></div>
+
+
+<p>大多数其他编程语言不允许直接改变数组的大小，越界访问索引会报错。然而，JavaScript的Array却不会有任何错误。在编写代码时，不建议直接修改Array的大小，访问索引时要确保索引不会越界。</p>
+<p>数组</p>
+<p>JavaScript的Array可以包含任意数据类型，并通过索引来访问每个元素。</p>
+<p>要取得Array的长度，直接访问length属性：</p>
+<p>var arr = [1, 2, 3.14, 'Hello', null, true];
+arr.length; // 6
+请注意，直接给Array的length赋一个新的值会导致Array大小的变化：</p>
+<p>var arr = [1, 2, 3];
+arr.length; // 3
+arr.length = 6;
+arr; // arr变为[1, 2, 3, undefined, undefined, undefined]
+arr.length = 2;
+arr; // arr变为[1, 2]
+Array可以通过索引把对应的元素修改为新的值，因此，对Array的索引进行赋值会直接修改这个Array：</p>
+<p>var arr = ['A', 'B', 'C'];
+arr[1] = 99;
+arr; // arr现在变为['A', 99, 'C']
+请注意，如果通过索引赋值时，索引超过了范围，同样会引起Array大小的变化：</p>
+<p>var arr = [1, 2, 3];
+arr[5] = 'x';
+arr; // arr变为[1, 2, 3, undefined, undefined, 'x']
+大多数其他编程语言不允许直接改变数组的大小，越界访问索引会报错。然而，JavaScript的Array却不会有任何错误。在编写代码时，不建议直接修改Array的大小，访问索引时要确保索引不会越界。</p>
+<p>indexOf,slice</p>
+<p>slice()就是对应String的substring()版本，它截取Array的部分元素，然后返回一个新的Array：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;D&#39;</span><span class="p">,</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;F&#39;</span><span class="p">,</span> <span class="sc">&#39;G&#39;</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// 从索引0开始，到索引3结束，但不包括索引3: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// 从索引3开始到结束: [&#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;]</span>
+</pre></div>
+
+
+<p>注意到slice()的起止参数包括开始索引，不包括结束索引。</p>
+<p>如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;D&#39;</span><span class="p">,</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;F&#39;</span><span class="p">,</span> <span class="sc">&#39;G&#39;</span><span class="p">];</span>
+<span class="n">var</span> <span class="n">aCopy</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">slice</span><span class="p">();</span>
+<span class="n">aCopy</span><span class="p">;</span> <span class="c1">// [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;]</span>
+<span class="n">aCopy</span> <span class="o">===</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">// false</span>
+</pre></div>
+
+
+<p>push()向Array的末尾添加若干元素，pop()则把Array的最后一个元素删除掉：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">);</span> <span class="c1">// 返回Array新的长度: 4</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [1, 2, &#39;A&#39;, &#39;B&#39;]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="c1">// pop()返回&#39;B&#39;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [1, 2, &#39;A&#39;]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="n">arr</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="n">arr</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="c1">// 连续pop 3次</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// []</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="c1">// 空数组继续pop不会报错，而是返回undefined</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// []</span>
+</pre></div>
+
+
+<p>如果要往Array的头部添加若干元素，使用unshift()方法，shift()方法则把Array的第一个元素删掉：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">unshift</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">);</span> <span class="c1">// 返回Array新的长度: 4</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;A&#39;, &#39;B&#39;, 1, 2]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">shift</span><span class="p">();</span> <span class="c1">// &#39;A&#39;</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;B&#39;, 1, 2]</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">shift</span><span class="p">();</span> <span class="n">arr</span><span class="p">.</span><span class="n">shift</span><span class="p">();</span> <span class="n">arr</span><span class="p">.</span><span class="n">shift</span><span class="p">();</span> <span class="c1">// 连续shift 3次</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// []</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">shift</span><span class="p">();</span> <span class="c1">// 空数组继续shift不会报错，而是返回undefined</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// []</span>
+</pre></div>
+
+
+<p>sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;A&#39;</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">sort</span><span class="p">();</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+</pre></div>
+
+
+<p>能否按照我们自己指定的顺序排序呢？完全可以，我们将在后面的函数中讲到。</p>
+<p>reverse()把整个Array的元素给掉个个，也就是反转</p>
+<p>splice()方法是修改Array的“万能方法”，它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="err">&#39;</span><span class="n">Microsoft</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Apple</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Yahoo</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">AOL</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Excite</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Oracle</span><span class="err">&#39;</span><span class="p">];</span>
+<span class="c1">// 从索引2开始删除3个元素,然后再添加两个元素:</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Google</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Facebook</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 返回删除的元素 [&#39;Yahoo&#39;, &#39;AOL&#39;, &#39;Excite&#39;]</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;Microsoft&#39;, &#39;Apple&#39;, &#39;Google&#39;, &#39;Facebook&#39;, &#39;Oracle&#39;]</span>
+<span class="c1">// 只删除,不添加:</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// [&#39;Google&#39;, &#39;Facebook&#39;]</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;Microsoft&#39;, &#39;Apple&#39;, &#39;Oracle&#39;]</span>
+<span class="c1">// 只添加,不删除:</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Google</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">Facebook</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 返回[],因为没有删除任何元素</span>
+<span class="n">arr</span><span class="p">;</span> <span class="c1">// [&#39;Microsoft&#39;, &#39;Apple&#39;, &#39;Google&#39;, &#39;Facebook&#39;, &#39;Oracle&#39;]</span>
+</pre></div>
+
+
+<p>concat()方法把当前的Array和另一个Array连接起来，并返回一个新的Array：</p>
+<p>实际上，concat()方法可以接收任意个元素和Array，并且自动把Array拆开，然后全部添加到新的Array里：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]);</span> <span class="c1">// [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, 1, 2, 3, 4]</span>
+</pre></div>
+
+
+<p>join()方法是一个非常实用的方法，它把当前Array的每个元素都用指定的字符串连接起来，然后返回连接后的字符串：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="sc">&#39;-&#39;</span><span class="p">);</span> <span class="c1">// &#39;A-B-C-1-2-3&#39;</span>
+</pre></div>
+
+
+<p>如果Array的元素不是字符串，将自动转换为字符串后再连接。</p>
+<p>访问属性是通过.操作符完成的，但这要求属性名必须是一个有效的变量名。如果属性名包含特殊字符，就必须用''括起来：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">xiaohong</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;小红&#39;</span><span class="p">,</span>
+    <span class="err">&#39;</span><span class="n">middle</span><span class="o">-</span><span class="n">school</span><span class="err">&#39;</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">No</span><span class="mf">.1</span> <span class="n">Middle</span> <span class="n">School</span><span class="err">&#39;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>xiaohong的属性名middle-school不是一个有效的变量，就需要用''括起来。访问这个属性也无法使用.操作符，必须用['xxx']来访问：</p>
+<div class="hlcode"><pre><span class="n">xiaohong</span><span class="p">[</span><span class="err">&#39;</span><span class="n">middle</span><span class="o">-</span><span class="n">school</span><span class="err">&#39;</span><span class="p">];</span> <span class="c1">// &#39;No.1 Middle School&#39;</span>
+<span class="n">xiaohong</span><span class="p">[</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="p">];</span> <span class="c1">// &#39;小红&#39;</span>
+<span class="n">xiaohong</span><span class="p">.</span><span class="n">name</span><span class="p">;</span> <span class="c1">// &#39;小红&#39;</span>
+</pre></div>
+
+
+<p>也可以用xiaohong['name']来访问xiaohong的name属性，不过xiaohong.name的写法更简洁。我们在编写JavaScript代码的时候，属性名尽量使用标准的变量名，这样就可以直接通过object.prop的形式访问一个属性了。</p>
+<p>实际上JavaScript对象的所有属性都是字符串，不过属性对应的值可以是任意数据类型。</p>
+<p>如果访问一个不存在的属性会返回什么呢？JavaScript规定，访问不存在的属性不报错，而是返回undefined。</p>
+<p>由于JavaScript的对象是动态类型，你可以自由地给一个对象添加或删除属性：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;小明&#39;</span>
+<span class="p">};</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span><span class="p">;</span> <span class="c1">// undefined</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span> <span class="c1">// 新增一个age属性</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span><span class="p">;</span> <span class="c1">// 18</span>
+<span class="n">delete</span> <span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span><span class="p">;</span> <span class="c1">// 删除age属性</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span><span class="p">;</span> <span class="c1">// undefined</span>
+<span class="n">delete</span> <span class="n">xiaoming</span><span class="p">[</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="p">];</span> <span class="c1">// 删除name属性</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">name</span><span class="p">;</span> <span class="c1">// undefined</span>
+<span class="n">delete</span> <span class="n">xiaoming</span><span class="p">.</span><span class="n">school</span><span class="p">;</span> <span class="c1">// 删除一个不存在的school属性也不会报错</span>
+</pre></div>
+
+
+<p>如果我们要检测xiaoming是否拥有某一属性，可以用in操作符：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;小明&#39;</span><span class="p">,</span>
+    <span class="nl">birth:</span> <span class="mi">1990</span><span class="p">,</span>
+    <span class="nl">school:</span> <span class="err">&#39;</span><span class="n">No</span><span class="mf">.1</span> <span class="n">Middle</span> <span class="n">School</span><span class="err">&#39;</span><span class="p">,</span>
+    <span class="nl">height:</span> <span class="mf">1.70</span><span class="p">,</span>
+    <span class="nl">weight:</span> <span class="mi">65</span><span class="p">,</span>
+    <span class="nl">score:</span> <span class="n">null</span>
+<span class="p">};</span>
+<span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">xiaoming</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="err">&#39;</span><span class="n">grade</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">xiaoming</span><span class="p">;</span> <span class="c1">// false</span>
+</pre></div>
+
+
+<p>不过要小心，如果in判断一个属性存在，这个属性不一定是xiaoming的，它可能是xiaoming继承得到的：</p>
+<div class="hlcode"><pre><span class="err">&#39;</span><span class="n">toString</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">xiaoming</span><span class="p">;</span> <span class="c1">// true</span>
+</pre></div>
+
+
+<p>因为toString定义在object对象中，而所有对象最终都会在原型链上指向object，所以xiaoming也拥有toString属性。</p>
+<p>要判断一个属性是否是xiaoming自身拥有的，而不是继承得到的，可以用hasOwnProperty()方法：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;小明&#39;</span>
+<span class="p">};</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">hasOwnProperty</span><span class="p">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">hasOwnProperty</span><span class="p">(</span><span class="err">&#39;</span><span class="n">toString</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// false</span>
+</pre></div>
+
+
+<p>JavaScript把null、undefined、0、NaN和空字符串''视为false，其他值一概视为true。</p>
+<p>for循环的一个变体是for ... in循环，它可以把一个对象的所有属性依次循环出来，要过滤掉对象继承的属性，用hasOwnProperty()来实现。</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">name:</span> <span class="err">&#39;</span><span class="n">Jack</span><span class="err">&#39;</span><span class="p">,</span>
+    <span class="nl">age:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nl">city:</span> <span class="err">&#39;</span><span class="n">Beijing</span><span class="err">&#39;</span>
+<span class="p">};</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">key</span> <span class="n">in</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">key</span><span class="p">);</span> <span class="c1">// &#39;name&#39;, &#39;age&#39;, &#39;city&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>由于Array也是对象，而它的每个元素的索引被视为对象的属性，因此，for ... in循环可以直接循环出Array的索引：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="n">in</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">// &#39;0&#39;, &#39;1&#39;, &#39;2&#39;</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="c1">// &#39;A&#39;, &#39;B&#39;, &#39;C&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>请注意，for ... in对Array的循环得到的是String而不是Number。</p>
+<p>JavaScript的默认对象表示方式{}可以视为其他语言中的Map或Dictionary的数据结构，即一组键值对。</p>
+<p>但是JavaScript的对象有个小问题，就是键必须是字符串。但实际上Number或者其他数据类型作为键也是非常合理的。</p>
+<p>为了解决这个问题，最新的ES6规范引入了新的数据类型Map。</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Map</span><span class="p">([[</span><span class="err">&#39;</span><span class="n">Michael</span><span class="err">&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">],</span> <span class="p">[</span><span class="err">&#39;</span><span class="n">Bob</span><span class="err">&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="p">[</span><span class="err">&#39;</span><span class="n">Tracy</span><span class="err">&#39;</span><span class="p">,</span> <span class="mi">85</span><span class="p">]]);</span>
+<span class="n">m</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Michael</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 95</span>
+</pre></div>
+
+
+<p>初始化Map需要一个二维数组，或者直接初始化一个空Map。Map具有以下方法：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Map</span><span class="p">();</span> <span class="c1">// 空Map</span>
+<span class="n">m</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Adam</span><span class="err">&#39;</span><span class="p">,</span> <span class="mi">67</span><span class="p">);</span> <span class="c1">// 添加新的key-value</span>
+<span class="n">m</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Bob</span><span class="err">&#39;</span><span class="p">,</span> <span class="mi">59</span><span class="p">);</span>
+<span class="n">m</span><span class="p">.</span><span class="n">has</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Adam</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 是否存在key &#39;Adam&#39;: true</span>
+<span class="n">m</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Adam</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 67</span>
+<span class="n">m</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Adam</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// 删除key &#39;Adam&#39;</span>
+<span class="n">m</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Adam</span><span class="err">&#39;</span><span class="p">);</span> <span class="c1">// undefined</span>
+</pre></div>
+
+
+<p>由于一个key只能对应一个value，所以，多次对一个key放入value，后面的值会把前面的值冲掉</p>
+<p>Set和Map类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在Set中，没有重复的key。</p>
+<p>要创建一个Set，需要提供一个Array作为输入，或者直接创建一个空Set：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Set</span><span class="p">();</span> <span class="c1">// 空Set</span>
+<span class="n">var</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span> <span class="c1">// 含1, 2, 3</span>
+</pre></div>
+
+
+<p>重复元素在Set中自动被过滤：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">]);</span>
+<span class="n">s</span><span class="p">;</span> <span class="c1">// Set {1, 2, 3, &quot;3&quot;}</span>
+</pre></div>
+
+
+<p>注意数字3和字符串'3'是不同的元素。</p>
+<p>通过add(key)方法可以添加元素到Set中，可以重复添加，但不会有效果,通过delete(key)方法可以删除元素。</p>
+<p>遍历Array可以采用下标循环，遍历Map和Set就无法使用下标。为了统一集合类型，ES6标准引入了新的iterable类型，Array、Map和Set都属于iterable类型。</p>
+<p>具有iterable类型的集合可以通过新的for ... of循环来遍历。</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Set</span><span class="p">([</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">]);</span>
+<span class="n">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Map</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="sc">&#39;x&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="sc">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="sc">&#39;z&#39;</span><span class="p">]]);</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">x</span> <span class="n">of</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 遍历Array</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">x</span> <span class="n">of</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 遍历Set</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">x</span> <span class="n">of</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 遍历Map</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sc">&#39;=&#39;</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>for ... in循环由于历史遗留问题，它遍历的实际上是对象的属性名称。一个Array数组实际上也是一个对象，它的每个元素的索引被视为一个属性。</p>
+<p>当我们手动给Array对象添加了额外的属性后，for ... in循环将带来意想不到的意外效果：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="n">a</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">x</span> <span class="n">in</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;name&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>for ... in循环将把name包括在内，但Array的length属性却不包括在内。</p>
+<p>for ... of循环则完全修复了这些问题，它只循环集合本身的元素：</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">];</span>
+<span class="n">a</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">x</span> <span class="n">of</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// &#39;A&#39;, &#39;B&#39;, &#39;C&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>然而，更好的方式是直接使用iterable内置的forEach方法，它接收一个函数，每次迭代就自动回调该函数。以Array为例：</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="cp">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="cp">]</span><span class="p">;</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// element: 指向当前元素的值</span>
+    <span class="c1">// index: 指向当前索引</span>
+    <span class="c1">// array: 指向Array对象本身</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Set与Array类似，但Set没有索引，因此回调函数的前两个参数都是元素本身：</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="cp">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="cp">]</span><span class="p">);</span>
+<span class="nx">s</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">sameElement</span><span class="p">,</span> <span class="nx">set</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Map的回调函数参数依次为value、key和map本身：</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">(</span><span class="cp">[</span><span class="err">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="cp">]</span><span class="p">]);</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>在JavaScript中，定义函数的方式如下：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">abs</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>由于JavaScript允许传入任意个参数而不影响调用，因此传入的参数比定义的参数多也没有问题，虽然函数内部并不需要这些参数：</p>
+<p>abs(10, 'blablabla'); // 返回10
+abs(-9, 'haha', 'hehe', null); // 返回9
+传入的参数比定义的少也没有问题：</p>
+<p>abs(); // 返回NaN
+此时abs(x)函数的参数x将收到undefined，计算结果为NaN。</p>
+<p>要避免收到undefined，可以对参数进行检查：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">abs</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">!==</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="s1">&#39;Not a number&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>JavaScript还有一个免费赠送的关键字arguments，它只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。arguments类似Array但它不是一个Array：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 10</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="p">);</span> <span class="c1">// 10, 20, 30</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">foo</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="err">/ foo(a</span><span class="cp">[</span><span class="p">,</span> <span class="nx">b</span><span class="cp">]</span><span class="err">, c)</span>
+<span class="c1">// 接收2~3个参数，b是可选参数，如果只传2个参数，b默认为null：</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 实际拿到的参数是a和b，c为undefined</span>
+        <span class="nx">c</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span> <span class="c1">// 把b赋给c</span>
+        <span class="nx">b</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// b变为默认值</span>
+    <span class="p">}</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>由于JavaScript函数允许接收任意个参数，于是我们就不得不用arguments来获取所有参数：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">rest</span> <span class="o">=</span> <span class="cp">[]</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">rest</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arguments</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a = &#39;</span> <span class="o">+</span> <span class="nx">a</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;b = &#39;</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">rest</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>为了获取除了已定义参数a、b之外的参数，我们不得不用arguments，并且循环要从索引2开始以便排除前两个参数，这种写法很别扭，只是为了获得额外的rest参数，有没有更好的方法？</p>
+<p>ES6标准引入了rest参数，上面的函数可以改写为：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a = &#39;</span> <span class="o">+</span> <span class="nx">a</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;b = &#39;</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">rest</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="c1">// 结果:</span>
+<span class="c1">// a = 1</span>
+<span class="c1">// b = 2</span>
+<span class="c1">// Array </span><span class="cp">[</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="cp">]</span><span class="c1"></span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">// 结果:</span>
+<span class="c1">// a = 1</span>
+<span class="c1">// b = undefined</span>
+<span class="c1">// Array </span><span class="cp">[]</span><span class="c1"></span>
+</pre></div>
+
+
+<p>rest参数只能写在最后，前面用...标识，从运行结果可知，传入的参数先绑定a、b，多余的参数以数组形式交给变量rest，所以，不再需要arguments我们就获取了全部参数。</p>
+<p>如果传入的参数连正常定义的参数都没填满，也不要紧，rest参数会接收一个空数组（注意不是undefined）。</p>
+<p>在JavaScript中，用var申明的变量实际上是有作用域的。</p>
+<p>如果一个变量在函数体内部申明，则该变量的作用域为整个函数体，在函数体外不可引用该变量。</p>
+<p>如果两个不同的函数各自申明了同一个变量，那么该变量只在各自的函数体内起作用。换句话说，不同函数内部的同名变量互相独立，互不影响。由于JavaScript的函数可以嵌套，此时，内部函数可以访问外部函数定义的变量，反过来则不行。JavaScript的函数在查找变量时从自身函数定义开始，从“内”向“外”查找。如果内部函数定义了与外部函数重名的变量，则内部函数的变量将“屏蔽”外部函数的变量。</p>
+<p>JavaScript的函数定义有个特点，它会先扫描整个函数体的语句，把所有申明的变量“提升”到函数顶部：</p>
+<div class="hlcode"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="s1">&#39;Hello, &#39;</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="s1">&#39;Bob&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+
+
+<p>虽然是strict模式，但语句var x = 'Hello, ' + y;并不报错，原因是变量y在稍后申明了。但是alert显示Hello, undefined，说明变量y的值为undefined。这正是因为JavaScript引擎自动提升了变量y的声明，但不会提升变量y的赋值。</p>
+<p>对于上述foo()函数，JavaScript引擎看到的代码相当于：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">y</span><span class="p">;</span> <span class="c1">// 提升变量y的申明</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="s1">&#39;Hello, &#39;</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="s1">&#39;Bob&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>由于JavaScript的这一怪异的“特性”，我们在函数内部定义变量时，请严格遵守“在函数内部首先申明所有变量”这一规则。最常见的做法是用一个var申明函数内部用到的所有变量：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// x初始化为1</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// y初始化为2</span>
+        <span class="nx">z</span><span class="p">,</span> <span class="nx">i</span><span class="p">;</span> <span class="c1">// z和i为undefined</span>
+    <span class="c1">// 其他语句:</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>不在任何函数内定义的变量就具有全局作用域。实际上，JavaScript默认有一个全局对象window，全局作用域的变量实际上被绑定到window的一个属性。</p>
+<p>由于函数定义有两种方式，以变量方式var foo = function () {}定义的函数实际上也是一个全局变量，因此，顶层函数的定义也被视为一个全局变量，并绑定到window对象。</p>
+<p>alert()函数其实也是window的一个变量。</p>
+<p>JavaScript实际上只有一个全局作用域。任何变量（函数也视为变量），如果没有在当前函数作用域中找到，就会继续往上查找，最后如果在全局作用域中也没有找到，则报ReferenceError错误。</p>
+<p>全局变量会绑定到window上，不同的JavaScript文件如果使用了相同的全局变量，或者定义了相同名字的顶层函数，都会造成命名冲突，并且很难被发现。</p>
+<p>减少冲突的一个方法是把自己的所有变量和函数全部绑定到一个全局变量中。</p>
+<div class="hlcode"><pre><span class="c1">// 唯一的全局变量MYAPP:</span>
+<span class="k">var</span> <span class="no">MYAPP</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// 其他变量:</span>
+<span class="no">MYAPP</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">&#39;</span><span class="n">myapp</span><span class="p">&#39;;</span>
+<span class="no">MYAPP</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+<span class="c1">// 其他函数:</span>
+<span class="no">MYAPP</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&#39;</span><span class="n">foo</span><span class="p">&#39;;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>由于JavaScript的变量作用域实际上是函数内部，我们在for循环等语句块中是无法定义具有局部作用域的变量的：</p>
+<div class="hlcode"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+    <span class="nx">i</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// 仍然可以引用变量i</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>为了解决块级作用域，ES6引入了新的关键字let，用let替代var可以申明一个块级作用域的变量：</p>
+<div class="hlcode"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// SyntaxError</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>由于var和let申明的是变量，如果要申明一个常量，在ES6之前是不行的，我们通常用全部大写的变量来表示“这是一个常量，不要修改它的值”,ES6标准引入了新的关键字const来定义常量，const与let都具有块级作用域.</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">xiaoming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;小明&#39;</span><span class="p">,</span>
+    <span class="nx">birth</span><span class="o">:</span> <span class="mi">1990</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getFullYear</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">birth</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">xiaoming</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span> <span class="c1">// function xiaoming.age()</span>
+<span class="nx">xiaoming</span><span class="p">.</span><span class="nx">age</span><span class="p">();</span> <span class="c1">// 今年调用是25,明年调用就变成26了</span>
+</pre></div>
+
+
+<p>在一个方法内部，this是一个特殊变量，它始终指向当前对象，也就是xiaoming这个变量。所以，this.birth可以拿到xiaoming的birth属性。</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">getAge</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getFullYear</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">birth</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">xiaoming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;小明&#39;</span><span class="p">,</span>
+    <span class="nx">birth</span><span class="o">:</span> <span class="mi">1990</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="nx">getAge</span>
+<span class="p">};</span>
+
+<span class="nx">xiaoming</span><span class="p">.</span><span class="nx">age</span><span class="p">();</span> <span class="c1">// 25, 正常结果</span>
+<span class="nx">getAge</span><span class="p">();</span> <span class="c1">// NaN</span>
+</pre></div>
+
+
+<p>如果以对象的方法形式调用，比如xiaoming.age()，该函数的this指向被调用的对象，也就是xiaoming，这是符合我们预期的。</p>
+<p>如果单独调用函数，比如getAge()，此时，该函数的this指向全局对象，也就是window。</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">xiaoming</span><span class="p">.</span><span class="n">age</span><span class="p">;</span> <span class="c1">// 先拿到xiaoming的age函数</span>
+<span class="n">fn</span><span class="p">();</span> <span class="c1">// NaN</span>
+</pre></div>
+
+
+<p>也是不行的！要保证this指向正确，必须用obj.xxx()的形式调用！</p>
+<p>由于这是一个巨大的设计错误，要想纠正可没那么简单。ECMA决定，在strict模式下让函数的this指向undefined，因此，在strict模式下，你会得到一个错误：</p>
+<p>'use strict';</p>
+<p>var xiaoming = {
+    name: '小明',
+    birth: 1990,
+    age: function () {
+        var y = new Date().getFullYear();
+        return y - this.birth;
+    }
+};</p>
+<p>var fn = xiaoming.age;
+fn(); // Uncaught TypeError: Cannot read property 'birth' of undefined</p>
+<div class="hlcode"><pre><span class="err">这个决定只是让错误及时暴露出来，并没有解决</span><span class="n">this</span><span class="err">应该指向的正确位置。</span>
+</pre></div>
+
+
+<p>'use strict';</p>
+<p>var xiaoming = {
+    name: '小明',
+    birth: 1990,
+    age: function () {
+        function getAgeFromBirth() {
+            var y = new Date().getFullYear();
+            return y - this.birth;
+        }
+        return getAgeFromBirth();
+    }
+};</p>
+<p>xiaoming.age(); // Uncaught TypeError: Cannot read property 'birth' of undefined</p>
+<div class="hlcode"><pre><span class="err">结果又报错了！原因是</span><span class="n">this</span><span class="err">指针只在</span><span class="n">age</span><span class="err">方法的函数内指向</span><span class="n">xiaoming</span><span class="err">，在函数内部定义的函数，</span><span class="n">this</span><span class="err">又指向</span><span class="n">undefined</span><span class="err">了！（在非</span><span class="n">strict</span><span class="err">模式下，它重新指向全局对象</span><span class="n">window</span><span class="err">！）</span>
+
+<span class="err">修复的办法也不是没有，我们用一个</span><span class="n">that</span><span class="err">变量首先捕获</span><span class="n">this</span><span class="err">：</span>
+</pre></div>
+
+
+<p>'use strict';</p>
+<p>var xiaoming = {
+    name: '小明',
+    birth: 1990,
+    age: function () {
+        var that = this; // 在方法内部一开始就捕获this
+        function getAgeFromBirth() {
+            var y = new Date().getFullYear();
+            return y - that.birth; // 用that而不是this
+        }
+        return getAgeFromBirth();
+    }
+};</p>
+<p>xiaoming.age(); // 25</p>
+<div class="hlcode"><pre><span class="err">用</span><span class="n">var</span> <span class="n">that</span> <span class="o">=</span> <span class="n">this</span><span class="p">;</span><span class="err">，你就可以放心地在方法内部定义其他函数，而不是把所有语句都堆到一个方法中</span>
+
+<span class="err">要指定函数的</span><span class="n">this</span><span class="err">指向哪个对象，可以用函数本身的</span><span class="n">apply</span><span class="err">方法，它接收两个参数，第一个参数就是需要绑定的</span><span class="n">this</span><span class="err">变量，第二个参数是</span><span class="n">Array</span><span class="err">，表示函数本身的参数。</span>
+
+<span class="err">用</span><span class="n">apply</span><span class="err">修复</span><span class="n">getAge</span><span class="p">()</span><span class="err">调用：</span>
+</pre></div>
+
+
+<p>function getAge() {
+    var y = new Date().getFullYear();
+    return y - this.birth;
+}</p>
+<p>var xiaoming = {
+    name: '小明',
+    birth: 1990,
+    age: getAge
+};</p>
+<p>xiaoming.age(); // 25
+getAge.apply(xiaoming, []); // 25, this指向xiaoming, 参数为空</p>
+<div class="hlcode"><pre><span class="err">另一个与</span><span class="n">apply</span><span class="p">()</span><span class="err">类似的方法是</span><span class="n">call</span><span class="p">()</span><span class="err">，唯一区别是：</span>
+
+<span class="o">+</span> <span class="n">apply</span><span class="p">()</span><span class="err">把参数打包成</span><span class="n">Array</span><span class="err">再传入；</span>
+
+<span class="o">+</span> <span class="n">call</span><span class="p">()</span><span class="err">把参数按顺序传入。</span>
+
+<span class="err">比如调用</span><span class="n">Math</span><span class="p">.</span><span class="n">max</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="err">，分别用</span><span class="n">apply</span><span class="p">()</span><span class="err">和</span><span class="n">call</span><span class="p">()</span><span class="err">实现如下：</span>
+</pre></div>
+
+
+<p>Math.max.apply(null, [3, 5, 4]); // 5
+Math.max.call(null, 3, 5, 4); // 5</p>
+<div class="hlcode"><pre><span class="err">对普通函数调用，我们通常把</span><span class="n">this</span><span class="err">绑定为</span><span class="n">null</span><span class="err">。</span>
+
+<span class="n">JavaScript</span><span class="err">的所有对象都是动态的，即使内置的函数，我们也可以重新指向新的函数。</span>
+</pre></div>
+
+
+<p>var count = 0;
+var oldParseInt = parseInt; // 保存原函数</p>
+<p>window.parseInt = function () {
+    count += 1;
+    return oldParseInt.apply(null, arguments); // 调用原函数
+};</p>
+<p>// 测试:
+parseInt('10');
+parseInt('20');
+parseInt('30');
+count; // 3</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">的函数其实都指向某个变量。既然变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数，这种函数就称之为高阶函数。</span>
+
+<span class="err">由于</span><span class="n">map</span><span class="p">()</span><span class="err">方法定义在</span><span class="n">JavaScript</span><span class="err">的</span><span class="n">Array</span><span class="err">中，我们调用</span><span class="n">Array</span><span class="err">的</span><span class="n">map</span><span class="p">()</span><span class="err">方法，传入我们自己的函数，就得到了一个新的</span><span class="n">Array</span><span class="err">作为结果：</span>
+</pre></div>
+
+
+<p>function pow(x) {
+    return x * x;
+}</p>
+<p>var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]</p>
+<div class="hlcode"><pre>
+</pre></div>
+
+
+<p>var new_array = arr.map(function callback(currentValue, index, array) {
+    // Return element for new_array
+}[, thisArg])</p>
+<div class="hlcode"><pre><span class="n">Array</span><span class="err">的</span><span class="n">reduce</span><span class="p">()</span><span class="err">把一个函数作用在这个</span><span class="n">Array</span><span class="err">的</span><span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">...]</span><span class="err">上，这个函数必须接收两个参数，</span><span class="n">reduce</span><span class="p">()</span><span class="err">把结果继续和序列的下一个元素做累积计算，其效果就是：</span>
+</pre></div>
+
+
+<p>[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)</p>
+<div class="hlcode"><pre><span class="err">比方说对一个</span><span class="n">Array</span><span class="err">求和，就可以用</span><span class="n">reduce</span><span class="err">实现：</span>
+</pre></div>
+
+
+<p>var arr = [1, 3, 5, 7, 9];
+arr.reduce(function (x, y) {
+    return x + y;
+}); // 25</p>
+<div class="hlcode"><pre><span class="n">filter</span><span class="err">也是一个常用的操作，它用于把</span><span class="n">Array</span><span class="err">的某些元素过滤掉，然后返回剩下的元素。</span>
+
+<span class="err">和</span><span class="n">map</span><span class="p">()</span><span class="err">类似，</span><span class="n">Array</span><span class="err">的</span><span class="n">filter</span><span class="p">()</span><span class="err">也接收一个函数。和</span><span class="n">map</span><span class="p">()</span><span class="err">不同的是，</span><span class="n">filter</span><span class="p">()</span><span class="err">把传入的函数依次作用于每个元素，然后根据返回值是</span><span class="n">true</span><span class="err">还是</span><span class="n">false</span><span class="err">决定保留还是丢弃该元素。</span>
+
+<span class="err">例如，在一个</span><span class="n">Array</span><span class="err">中，删掉偶数，只保留奇数，可以这么写：</span>
+</pre></div>
+
+
+<p>var arr = [1, 2, 4, 5, 6, 9, 10, 15];
+var r = arr.filter(function (x) {
+    return x % 2 !== 0;
+});
+r; // [1, 5, 9, 15]</p>
+<div class="hlcode"><pre><span class="err">把一个</span><span class="n">Array</span><span class="err">中的空字符串删掉，可以这么写：</span>
+</pre></div>
+
+
+<p>var arr = ['A', '', 'B', null, undefined, 'C', '  '];
+var r = arr.filter(function (s) {
+    return s &amp;&amp; s.trim(); // 注意：IE9以下的版本没有trim()方法
+});
+r; // ['A', 'B', 'C']</p>
+<div class="hlcode"><pre><span class="err">可见用</span><span class="n">filter</span><span class="p">()</span><span class="err">这个高阶函数，关键在于正确实现一个“筛选”函数。</span>
+
+<span class="err">通常规定，对于两个元素</span><span class="n">x</span><span class="err">和</span><span class="n">y</span><span class="err">，如果认为</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="err">，则返回</span><span class="o">-</span><span class="mi">1</span><span class="err">，如果认为</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="err">，则返回</span><span class="mi">0</span><span class="err">，如果认为</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="err">，则返回</span><span class="mi">1</span><span class="err">，这样，排序算法就不用关心具体的比较过程，而是根据比较结果直接排序。</span>
+
+<span class="n">Array</span><span class="err">的</span><span class="n">sort</span><span class="p">()</span><span class="err">方法默认把所有元素先转换为</span><span class="n">String</span><span class="err">再排序，结果&#39;</span><span class="mi">10</span><span class="err">&#39;排在了</span><span class="sc">&#39;2&#39;</span><span class="err">的前面，因为字符</span><span class="sc">&#39;1&#39;</span><span class="err">比字符</span><span class="sc">&#39;2&#39;</span><span class="err">的</span><span class="n">ASCII</span><span class="err">码小。</span>
+</pre></div>
+
+
+<p>var arr = [10, 20, 1, 2];
+arr.sort(function (x, y) {
+    if (x &lt; y) {
+        return -1;
+    }
+    if (x &gt; y) {
+        return 1;
+    }
+    return 0;
+}); // [1, 2, 10, 20]</p>
+<div class="hlcode"><pre><span class="n">sort</span><span class="p">()</span><span class="err">方法会直接对</span><span class="n">Array</span><span class="err">进行修改，它返回的结果仍是当前</span><span class="n">Array</span><span class="err">。</span>
+
+<span class="err">高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回。</span>
+</pre></div>
+
+
+<p>function lazy_sum(arr) {
+    var sum = function () {
+        return arr.reduce(function (x, y) {
+            return x + y;
+        });
+    }
+    return sum;
+}</p>
+<div class="hlcode"><pre><span class="err">当我们调用</span><span class="n">lazy_sum</span><span class="p">()</span><span class="err">时，返回的并不是求和结果，而是求和函数：</span>
+</pre></div>
+
+
+<p>var f = lazy_sum([1, 2, 3, 4, 5]); // function sum()</p>
+<div class="hlcode"><pre><span class="err">调用函数</span><span class="n">f</span><span class="err">时，才真正计算求和的结果：</span>
+</pre></div>
+
+
+<p>f(); // 15</p>
+<div class="hlcode"><pre><span class="err">在这个例子中，我们在函数</span><span class="n">lazy_sum</span><span class="err">中又定义了函数</span><span class="n">sum</span><span class="err">，并且，内部函数</span><span class="n">sum</span><span class="err">可以引用外部函数</span><span class="n">lazy_sum</span><span class="err">的参数和局部变量，当</span><span class="n">lazy_sum</span><span class="err">返回函数</span><span class="n">sum</span><span class="err">时，</span><span class="o">**</span><span class="err">相关参数和变量都保存在返回的函数中</span><span class="o">**</span><span class="err">，这种称为“闭包（</span><span class="n">Closure</span><span class="err">）”的程序结构拥有极大的威力。</span>
+
+<span class="err">当我们调用</span><span class="n">lazy_sum</span><span class="p">()</span><span class="err">时，每次调用都会返回一个新的函数，即使传入相同的参数：</span>
+</pre></div>
+
+
+<p>var f1 = lazy_sum([1, 2, 3, 4, 5]);
+var f2 = lazy_sum([1, 2, 3, 4, 5]);
+f1 === f2; // false</p>
+<div class="hlcode"><pre><span class="err">注意到返回的函数在其定义内部引用了局部变量</span><span class="n">arr</span><span class="err">，所以，当一个函数返回了一个函数后，其内部的局部变量还被新函数引用</span><span class="p">,</span><span class="err">另一个需要注意的问题是，返回的函数并没有立刻执行，而是直到调用了</span><span class="n">f</span><span class="p">()</span><span class="err">才执行。</span>
+</pre></div>
+
+
+<p>function count() {
+    var arr = [];
+    for (var i=1; i&lt;=3; i++) {
+        arr.push(function () {
+            return i * i;
+        });
+    }
+    return arr;
+}</p>
+<p>var results = count();
+var f1 = results[0];
+var f2 = results[1];
+var f3 = results[2];</p>
+<p>f1(); // 16
+f2(); // 16
+f3(); // 16</p>
+<div class="hlcode"><pre><span class="err">返回的函数引用了变量</span><span class="n">i</span><span class="err">，但它并非立刻执行。等到</span><span class="mi">3</span><span class="err">个函数都返回时，它们所引用的变量</span><span class="n">i</span><span class="err">已经变成了</span><span class="mi">4</span><span class="err">，因此最终结果为</span><span class="mi">16</span><span class="err">。</span>
+
+<span class="err">返回闭包时牢记的一点就是：返回函数不要引用任何循环变量，或者后续会发生变化的变量。</span>
+
+<span class="err">如果一定要引用循环变量怎么办？方法是再创建一个函数，用该函数的参数绑定循环变量当前的值，无论该循环变量后续如何更改，已绑定到函数参数的值不变：</span>
+</pre></div>
+
+
+<p>function count() {
+    var arr = [];
+    for (var i=1; i&lt;=3; i++) {
+        arr.push((function (n) {
+            return function () {
+                return n * n;
+            }
+        })(i));
+    }
+    return arr;
+}</p>
+<p>var results = count();
+var f1 = results[0];
+var f2 = results[1];
+var f3 = results[2];</p>
+<p>f1(); // 1
+f2(); // 4
+f3(); // 9</p>
+<div class="hlcode"><pre>
+</pre></div>
+
+
+<p>'use strict';</p>
+<p>function create_counter(initial) {
+    var x = initial || 0;
+    return {
+        inc: function () {
+            x += 1;
+            return x;
+        }
+    }
+}</p>
+<p>var c1 = create_counter();
+c1.inc(); // 1
+c1.inc(); // 2
+c1.inc(); // 3</p>
+<p>var c2 = create_counter(10);
+c2.inc(); // 11
+c2.inc(); // 12
+c2.inc(); // 13</p>
+<div class="hlcode"><pre><span class="err">闭包就是携带状态的函数，并且它的状态可以完全对外隐藏起来。</span>
+
+<span class="n">ES6</span><span class="err">标准新增了一种新的函数：</span><span class="n">Arrow</span> <span class="n">Function</span><span class="err">（箭头函数）。</span>
+
+<span class="err">为什么叫</span><span class="n">Arrow</span> <span class="n">Function</span><span class="err">？因为它的定义用的就是一个箭头：</span>
+</pre></div>
+
+
+<p>x =&gt; x * x</p>
+<div class="hlcode"><pre><span class="err">上面的箭头函数相当于：</span>
+</pre></div>
+
+
+<p>function (x) {
+    return x * x;
+}</p>
+<div class="hlcode"><pre><span class="err">箭头函数相当于匿名函数，并且简化了函数定义。箭头函数有两种格式，一种像上面的，只包含一个表达式，连</span><span class="p">{</span> <span class="p">...</span> <span class="p">}</span><span class="err">和</span><span class="n">return</span><span class="err">都省略掉了。还有一种可以包含多条语句，这时候就不能省略</span><span class="p">{</span> <span class="p">...</span> <span class="p">}</span><span class="err">和</span><span class="k">return</span><span class="p">.</span>
+</pre></div>
+
+
+<p>// 两个参数:
+(x, y) =&gt; x * x + y * y</p>
+<p>// 无参数:
+() =&gt; 3.14</p>
+<p>// 可变参数:
+(x, y, ...rest) =&gt; {
+    var i, sum = x + y;
+    for (i=0; i&lt;rest.length; i++) {
+        sum += rest[i];
+    }
+    return sum;
+}</p>
+<div class="hlcode"><pre><span class="err">如果要返回一个对象，就要注意，如果是单表达式，这么写的话会报错：</span>
+</pre></div>
+
+
+<p>// SyntaxError:
+x =&gt; { foo: x }</p>
+<div class="hlcode"><pre><span class="err">因为和函数体的</span><span class="p">{</span> <span class="p">...</span> <span class="p">}</span><span class="err">有语法冲突，所以要改为：</span>
+</pre></div>
+
+
+<p>// ok:
+x =&gt; ({ foo: x })</p>
+<div class="hlcode"><pre><span class="err">箭头函数看上去是匿名函数的一种简写，但实际上，箭头函数和匿名函数有个明显的区别：箭头函数内部的</span><span class="n">this</span><span class="err">是词法作用域，由上下文确定。</span>
+</pre></div>
+
+
+<p>var obj = {
+    birth: 1990,
+    getAge: function () {
+        var b = this.birth; // 1990
+        var fn = function () {
+            return new Date().getFullYear() - this.birth; // this指向window或undefined
+        };
+        return fn();
+    }
+};</p>
+<div class="hlcode"><pre><span class="err">箭头函数完全修复了</span><span class="n">this</span><span class="err">的指向，</span><span class="n">this</span><span class="err">总是指向词法作用域，也就是外层调用者</span><span class="n">obj</span><span class="err">：</span>
+</pre></div>
+
+
+<p>var obj = {
+    birth: 1990,
+    getAge: function () {
+        var b = this.birth; // 1990
+        var fn = () =&gt; new Date().getFullYear() - this.birth; // this指向obj对象
+        return fn();
+    }
+};
+obj.getAge(); // 25</p>
+<div class="hlcode"><pre><span class="err">由于</span><span class="n">this</span><span class="err">在箭头函数中已经按照词法作用域绑定了，所以，用</span><span class="n">call</span><span class="p">()</span><span class="err">或者</span><span class="n">apply</span><span class="p">()</span><span class="err">调用箭头函数时，无法对</span><span class="n">this</span><span class="err">进行绑定，即传入的第一个参数被忽略：</span>
+</pre></div>
+
+
+<p>var obj = {
+    birth: 1990,
+    getAge: function (year) {
+        var b = this.birth; // 1990
+        var fn = (y) =&gt; y - this.birth; // this.birth仍是1990
+        return fn.call({birth:2000}, year);
+    }
+};
+obj.getAge(2015); // 25</p>
+<div class="hlcode"><pre><span class="nx">generator</span><span class="err">和函数不同的是，</span><span class="nx">generator</span><span class="err">由</span><span class="kd">function</span><span class="o">*</span><span class="err">定义（注意多出的</span><span class="o">*</span><span class="err">号），并且，除了</span><span class="nx">return</span><span class="err">语句，还可以用</span><span class="nx">yield</span><span class="err">返回多次。</span>
+</pre></div>
+
+
+<p>function* fib(max) {
+    var
+        t,
+        a = 0,
+        b = 1,
+        n = 1;
+    while (n &lt; max) {
+        yield a;
+        t = a + b;
+        a = b;
+        b = t;
+        n ++;
+    }
+    return a;
+}</p>
+<div class="hlcode"><pre><span class="err">直接调用一个</span><span class="n">generator</span><span class="err">和调用函数不一样，</span><span class="n">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="err">仅仅是创建了一个</span><span class="n">generator</span><span class="err">对象，还没有去执行它。调用</span><span class="n">generator</span><span class="err">对象有两个方法，一是不断地调用</span><span class="n">generator</span><span class="err">对象的</span><span class="n">next</span><span class="p">()</span><span class="err">方法：</span>
+</pre></div>
+
+
+<p>var f = fib(5);
+f.next(); // {value: 0, done: false}
+f.next(); // {value: 1, done: false}
+f.next(); // {value: 1, done: false}
+f.next(); // {value: 2, done: false}
+f.next(); // {value: 3, done: true}</p>
+<div class="hlcode"><pre><span class="n">next</span><span class="p">()</span><span class="err">方法会执行</span><span class="n">generator</span><span class="err">的代码，然后，每次遇到</span><span class="n">yield</span> <span class="n">x</span><span class="p">;</span><span class="err">就返回一个对象``</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">done</span><span class="o">:</span> <span class="nb">true</span><span class="o">/</span><span class="nb">false</span><span class="p">}</span><span class="err">``，然后“暂停”。返回的</span><span class="n">value</span><span class="err">就是</span><span class="n">yield</span><span class="err">的返回值，</span><span class="n">done</span><span class="err">表示这个</span><span class="n">generator</span><span class="err">是否已经执行结束了。如果</span><span class="n">done</span><span class="err">为</span><span class="nb">true</span><span class="err">，则</span><span class="n">value</span><span class="err">就是</span><span class="n">return</span><span class="err">的返回值。</span>
+
+<span class="err">当执行到</span><span class="n">done</span><span class="err">为</span><span class="n">true</span><span class="err">时，这个</span><span class="n">generator</span><span class="err">对象就已经全部执行完毕，不要再继续调用</span><span class="n">next</span><span class="p">()</span><span class="err">了。</span>
+
+<span class="err">第二个方法是直接用</span><span class="k">for</span> <span class="p">...</span> <span class="n">of</span><span class="err">循环迭代</span><span class="n">generator</span><span class="err">对象，这种方式不需要我们自己判断</span><span class="n">done</span><span class="err">：</span>
+</pre></div>
+
+
+<p>for (var x of fib(5)) {
+    console.log(x); // 依次输出0, 1, 1, 2, 3
+}</p>
+<div class="hlcode"><pre><span class="err">在</span><span class="n">JavaScript</span><span class="err">的世界里，一切都是对象。</span>
+</pre></div>
+
+
+<p>typeof 123; // 'number'
+typeof NaN; // 'number'
+typeof 'str'; // 'string'
+typeof true; // 'boolean'
+typeof undefined; // 'undefined'
+typeof Math.abs; // 'function'
+typeof null; // 'object'
+typeof []; // 'object'
+typeof {}; // 'object'</p>
+<div class="hlcode"><pre><span class="err">可见，</span><span class="nx">number</span><span class="err">、</span><span class="nx">string</span><span class="err">、</span><span class="kr">boolean</span><span class="err">、</span><span class="nx">function</span><span class="err">和</span><span class="nx">undefined</span><span class="err">有别于其他类型。特别注意</span><span class="nx">null</span><span class="err">的类型是</span><span class="nx">object</span><span class="err">，</span><span class="nx">Array</span><span class="err">的类型也是</span><span class="nx">object</span><span class="err">，如果我们用</span><span class="nx">typeof</span><span class="err">将无法区分出</span><span class="kc">null</span><span class="err">、</span><span class="nx">Array</span><span class="err">和通常意义上的</span><span class="nx">object</span><span class="err">——</span><span class="p">{}</span><span class="err">。</span>
+
+<span class="err">除了这些类型外，</span><span class="nx">JavaScript</span><span class="err">还提供了包装对象，熟悉</span><span class="nx">Java</span><span class="err">的小伙伴肯定很清楚</span><span class="nx">int</span><span class="err">和</span><span class="nx">Integer</span><span class="err">这种暧昧关系。</span>
+
+<span class="nx">number</span><span class="err">、</span><span class="nx">boolean</span><span class="err">和</span><span class="nx">string</span><span class="err">都有包装对象。没错，在</span><span class="nx">JavaScript</span><span class="err">中，字符串也区分</span><span class="nx">string</span><span class="err">类型和它的包装类型。包装对象用</span><span class="nx">new</span><span class="err">创建</span><span class="p">.</span>
+
+<span class="err">包装对象和原始值用</span><span class="o">===</span><span class="err">比较会返回</span><span class="kc">false</span>
+
+<span class="o">+</span> <span class="err">不要使用</span><span class="k">new</span> <span class="nb">Number</span><span class="p">()</span><span class="err">、</span><span class="k">new</span> <span class="nb">Boolean</span><span class="p">()</span><span class="err">、</span><span class="k">new</span> <span class="nb">String</span><span class="p">()</span><span class="err">创建包装对象；</span>
+
+<span class="o">+</span> <span class="err">用</span><span class="nb">parseInt</span><span class="p">()</span><span class="err">或</span><span class="nb">parseFloat</span><span class="p">()</span><span class="err">来转换任意类型到</span><span class="nx">number</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">用</span><span class="nb">String</span><span class="p">()</span><span class="err">来转换任意类型到</span><span class="nx">string</span><span class="err">，或者直接调用某个对象的</span><span class="nx">toString</span><span class="p">()</span><span class="err">方法；</span>
+
+<span class="o">+</span> <span class="err">通常不必把任意类型转换为</span><span class="nx">boolean</span><span class="err">再判断，因为可以直接写</span><span class="k">if</span> <span class="p">(</span><span class="nx">myVar</span><span class="p">)</span> <span class="p">{...}</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="nx">typeof</span><span class="err">操作符可以判断出</span><span class="nx">number</span><span class="err">、</span><span class="kr">boolean</span><span class="err">、</span><span class="nx">string</span><span class="err">、</span><span class="nx">function</span><span class="err">和</span><span class="kc">undefined</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">判断</span><span class="nx">Array</span><span class="err">要使用</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">判断</span><span class="nx">null</span><span class="err">请使用</span><span class="nx">myVar</span> <span class="o">===</span> <span class="kc">null</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">判断某个全局变量是否存在用</span><span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">myVar</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">函数内部判断某个变量是否存在用</span><span class="k">typeof</span> <span class="nx">myVar</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="err">。</span>
+
+<span class="err">任何对象都有</span><span class="nx">toString</span><span class="p">()</span><span class="err">方法吗？</span><span class="nx">null</span><span class="err">和</span><span class="nx">undefined</span><span class="err">就没有！确实如此，这两个特殊值要除外，虽然</span><span class="nx">null</span><span class="err">还伪装成了</span><span class="nx">object</span><span class="err">类型。</span>
+
+<span class="nx">number</span><span class="err">对象调用</span><span class="nx">toString</span><span class="p">()</span><span class="err">报</span><span class="nx">SyntaxError</span><span class="err">：</span>
+</pre></div>
+
+
+<p>123.toString(); // SyntaxError</p>
+<div class="hlcode"><pre><span class="err">遇到这种情况，要特殊处理一下：</span>
+</pre></div>
+
+
+<p>123..toString(); // '123', 注意是两个点！
+(123).toString(); // '123'</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">的月份范围用整数表示是</span><span class="mi">0</span><span class="o">~</span><span class="mi">11</span><span class="err">，</span><span class="mi">0</span><span class="err">表示一月，</span><span class="mi">1</span><span class="err">表示二月……，所以要表示</span><span class="mi">6</span><span class="err">月，我们传入的是</span><span class="mi">5</span><span class="err">！</span>
+
+<span class="err">用\</span><span class="n">d</span><span class="err">可以匹配一个数字，\</span><span class="n">w</span><span class="err">可以匹配一个字母或数字</span><span class="p">,</span><span class="err">\</span><span class="n">s</span><span class="err">可以匹配一个空格（也包括</span><span class="n">Tab</span><span class="err">等空白符）</span>
+
+<span class="n">JavaScript</span><span class="err">有两种方式创建一个正则表达式：</span>
+
+<span class="err">第一种方式是直接通过</span><span class="o">/</span><span class="err">正则表达式</span><span class="o">/</span><span class="err">写出来，第二种方式是通过</span><span class="n">new</span> <span class="n">RegExp</span><span class="p">(</span><span class="err">&#39;正则表达式&#39;</span><span class="p">)</span><span class="err">创建一个</span><span class="n">RegExp</span><span class="err">对象。</span>
+</pre></div>
+
+
+<p>var re1 = /ABC-001/;
+var re2 = new RegExp('ABC\-001');</p>
+<p>re1; // /ABC-001/
+re2; // /ABC-001/</p>
+<div class="hlcode"><pre><span class="err">除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。用</span><span class="p">()</span><span class="err">表示的就是要提取的分组（</span><span class="n">Group</span><span class="err">）。比如：</span>
+
+<span class="err">``</span><span class="o">^</span><span class="p">(</span><span class="err">\</span><span class="n">d</span><span class="p">{</span><span class="mi">3</span><span class="p">})</span><span class="o">-</span><span class="p">(</span><span class="err">\</span><span class="n">d</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">})</span><span class="err">$``分别定义了两个组，可以直接从匹配的字符串中提取出区号和本地号码：</span>
+</pre></div>
+
+
+<p>var re = /^(\d{3})-(\d{3,8})$/;
+re.exec('010-12345'); // ['010-12345', '010', '12345']
+re.exec('010 12345'); // null</p>
+<div class="hlcode"><pre><span class="err">如果正则表达式中定义了组，就可以在</span><span class="n">RegExp</span><span class="err">对象上用</span><span class="n">exec</span><span class="p">()</span><span class="err">方法提取出子串来。</span>
+
+<span class="n">exec</span><span class="p">()</span><span class="err">方法在匹配成功后，会返回一个</span><span class="n">Array</span><span class="err">，第一个元素是正则表达式匹配到的整个字符串，后面的字符串表示匹配成功的子串。</span>
+
+<span class="n">exec</span><span class="p">()</span><span class="err">方法在匹配失败时返回</span><span class="n">null</span><span class="err">。</span>
+
+<span class="err">需要特别指出的是，正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。</span>
+</pre></div>
+
+
+<p>var re = /^(\d+)(0*)$/;
+re.exec('102300'); // ['102300', '102300', '']</p>
+<div class="hlcode"><pre><span class="err">由于\</span><span class="n">d</span><span class="o">+</span><span class="err">采用贪婪匹配，直接把后面的</span><span class="mi">0</span><span class="err">全部匹配了，结果</span><span class="mi">0</span><span class="o">*</span><span class="err">只能匹配空字符串了。</span>
+
+<span class="err">必须让\</span><span class="n">d</span><span class="o">+</span><span class="err">采用非贪婪匹配（也就是尽可能少匹配），才能把后面的</span><span class="mi">0</span><span class="err">匹配出来，加个</span><span class="o">?</span><span class="err">就可以让\</span><span class="n">d</span><span class="o">+</span><span class="err">采用非贪婪匹配：</span>
+</pre></div>
+
+
+<p>var re = /^(\d+?)(0*)$/;
+re.exec('102300'); // ['102300', '1023', '00']</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">的正则表达式还有几个特殊的标志，最常用的是</span><span class="n">g</span><span class="err">，表示全局匹配：</span>
+</pre></div>
+
+
+<p>var r1 = /test/g;
+// 等价于:
+var r2 = new RegExp('test', 'g');</p>
+<div class="hlcode"><pre><span class="err">全局匹配可以多次执行</span><span class="n">exec</span><span class="p">()</span><span class="err">方法来搜索一个匹配的字符串。当我们指定</span><span class="n">g</span><span class="err">标志后，每次运行</span><span class="n">exec</span><span class="p">()</span><span class="err">，正则表达式本身会更新</span><span class="n">lastIndex</span><span class="err">属性，表示上次匹配到的最后索引：</span>
+</pre></div>
+
+
+<p>var s = 'JavaScript, VBScript, JScript and ECMAScript';
+var re=/[a-zA-Z]+Script/g;</p>
+<p>// 使用全局匹配:
+re.exec(s); // ['JavaScript']
+re.lastIndex; // 10</p>
+<p>re.exec(s); // ['VBScript']
+re.lastIndex; // 20</p>
+<p>re.exec(s); // ['JScript']
+re.lastIndex; // 29</p>
+<p>re.exec(s); // ['ECMAScript']
+re.lastIndex; // 44</p>
+<p>re.exec(s); // null，直到结束仍没有匹配到</p>
+<div class="hlcode"><pre><span class="err">全局匹配类似搜索，因此不能使用``</span><span class="o">/^</span><span class="p">...</span><span class="err">$</span><span class="o">/</span><span class="err">``，那样只会最多匹配一次。</span>
+
+<span class="err">正则表达式还可以指定</span><span class="n">i</span><span class="err">标志，表示忽略大小写，</span><span class="n">m</span><span class="err">标志，表示执行多行匹配。</span>
+</pre></div>
+
+
+<p>var xiaoming = {
+    name: '小明',
+    age: 14,
+    gender: true,
+    height: 1.65,
+    grade: null,
+    'middle-school': '\"W3C\" Middle School',
+    skills: ['JavaScript', 'Java', 'Python', 'Lisp']
+};</p>
+<p>JSON.stringify(xiaoming); // '{"name":"小明","age":14,"gender":true,"height":1.65,"grade":null,"middle-school":"\"W3C\" Middle School","skills":["JavaScript","Java","Python","Lisp"]}'</p>
+<div class="hlcode"><pre><span class="err">要输出得好看一些，可以加上参数，按缩进输出：</span>
+</pre></div>
+
+
+<p>JSON.stringify(xiaoming, null, '  ');</p>
+<div class="hlcode"><pre><span class="err">结果：</span>
+</pre></div>
+
+
+<p>{
+  "name": "小明",
+  "age": 14,
+  "gender": true,
+  "height": 1.65,
+  "grade": null,
+  "middle-school": "\"W3C\" Middle School",
+  "skills": [
+    "JavaScript",
+    "Java",
+    "Python",
+    "Lisp"
+  ]
+}</p>
+<div class="hlcode"><pre><span class="err">第二个参数用于控制如何筛选对象的键值，如果我们只想输出指定的属性，可以传入</span><span class="n">Array</span><span class="err">：</span>
+</pre></div>
+
+
+<p>JSON.stringify(xiaoming, ['name', 'skills'], '  ');</p>
+<div class="hlcode"><pre><span class="err">结果：</span>
+</pre></div>
+
+
+<p>{
+  "name": "小明",
+  "skills": [
+    "JavaScript",
+    "Java",
+    "Python",
+    "Lisp"
+  ]
+}</p>
+<div class="hlcode"><pre><span class="err">还可以传入一个函数，这样对象的每个键值对都会被函数先处理：</span>
+</pre></div>
+
+
+<p>function convert(key, value) {
+    if (typeof value === 'string') {
+        return value.toUpperCase();
+    }
+    return value;
+}</p>
+<p>JSON.stringify(xiaoming, convert, '  ');</p>
+<div class="hlcode"><pre><span class="err">上面的代码把所有属性值都变成大写：</span>
+</pre></div>
+
+
+<p>{
+  "name": "小明",
+  "age": 14,
+  "gender": true,
+  "height": 1.65,
+  "grade": null,
+  "middle-school": "\"W3C\" MIDDLE SCHOOL",
+  "skills": [
+    "JAVASCRIPT",
+    "JAVA",
+    "PYTHON",
+    "LISP"
+  ]
+}</p>
+<div class="hlcode"><pre><span class="err">如果我们还想要精确控制如何序列化小明，可以给</span><span class="n">xiaoming</span><span class="err">定义一个</span><span class="n">toJSON</span><span class="p">()</span><span class="err">的方法，直接返回</span><span class="n">JSON</span><span class="err">应该序列化的数据：</span>
+</pre></div>
+
+
+<p>var xiaoming = {
+    name: '小明',
+    age: 14,
+    gender: true,
+    height: 1.65,
+    grade: null,
+    'middle-school': '\"W3C\" Middle School',
+    skills: ['JavaScript', 'Java', 'Python', 'Lisp'],
+    toJSON: function () {
+        return { // 只输出name和age，并且改变了key：
+            'Name': this.name,
+            'Age': this.age
+        };
+    }
+};</p>
+<p>JSON.stringify(xiaoming); // '{"Name":"小明","Age":14}'</p>
+<div class="hlcode"><pre><span class="err">拿到一个</span><span class="n">JSON</span><span class="err">格式的字符串，我们直接用</span><span class="n">JSON</span><span class="p">.</span><span class="n">parse</span><span class="p">()</span><span class="err">把它变成一个</span><span class="n">JavaScript</span><span class="err">对象：</span>
+</pre></div>
+
+
+<p>JSON.parse('[1,2,3,true]'); // [1, 2, 3, true]
+JSON.parse('{"name":"小明","age":14}'); // Object {name: '小明', age: 14}
+JSON.parse('true'); // true
+JSON.parse('123.45'); // 123.45
+JSON.parse()还可以接收一个函数，用来转换解析出的属性：</p>
+<p>JSON.parse('{"name":"小明","age":14}', function (key, value) {
+    // 把number * 2:
+    if (key === 'name') {
+        return value + '同学';
+    }
+    return value;
+}); // Object {name: '小明同学', age: 14}</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">不区分类和实例的概念，而是通过原型（</span><span class="n">prototype</span><span class="err">）来实现面向对象编程。</span>
+</pre></div>
+
+
+<p>var Student = {
+    name: 'Robot',
+    height: 1.2,
+    run: function () {
+        console.log(this.name + ' is running...');
+    }
+};</p>
+<p>var xiaoming = {
+    name: '小明'
+};</p>
+<p>xiaoming.<strong>proto</strong> = Student;</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">的原型链和</span><span class="n">Java</span><span class="err">的</span><span class="n">Class</span><span class="err">区别就在，它没有“</span><span class="n">Class</span><span class="err">”的概念，所有对象都是实例，所谓继承关系不过是把一个对象的原型指向另一个对象而已。</span>
+
+<span class="err">``</span><span class="n">Object</span><span class="p">.</span><span class="n">create</span><span class="p">()</span><span class="err">``方法可以传入一个原型对象，并创建一个基于该原型的新对象，但是新对象什么属性都没有，因此，我们可以编写一个函数来创建</span><span class="n">xiaoming</span><span class="err">：</span>
+</pre></div>
+
+
+<p>// 原型对象:
+var Student = {
+    name: 'Robot',
+    height: 1.2,
+    run: function () {
+        console.log(this.name + ' is running...');
+    }
+};</p>
+<p>function createStudent(name) {
+    // 基于Student原型创建一个新对象:
+    var s = Object.create(Student);
+    // 初始化新对象:
+    s.name = name;
+    return s;
+}</p>
+<p>var xiaoming = createStudent('小明');
+xiaoming.run(); // 小明 is running...
+xiaoming.<strong>proto</strong> === Student; // true</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">对每个创建的对象都会设置一个原型，指向它的原型对象。</span>
+
+<span class="err">当我们用</span><span class="n">obj</span><span class="p">.</span><span class="n">xxx</span><span class="err">访问一个对象的属性时，</span><span class="n">JavaScript</span><span class="err">引擎先在当前对象上查找该属性，如果没有找到，就到其原型对象上找，如果还没有找到，就一直上溯到</span><span class="n">Object</span><span class="p">.</span><span class="n">prototype</span><span class="err">对象，最后，如果还没有找到，就只能返回</span><span class="n">undefined</span><span class="err">。</span>
+</pre></div>
+
+
+<p>var arr = [1, 2, 3]; </p>
+<div class="hlcode"><pre><span class="err">其原型链是：</span>
+
+<span class="n">arr</span> <span class="o">----&gt;</span> <span class="n">Array</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">Object</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">null</span>
+
+<span class="err">当我们创建一个函数时：</span>
+</pre></div>
+
+
+<p>function foo() {
+    return 0;
+}</p>
+<div class="hlcode"><pre><span class="err">函数也是一个对象，它的原型链是：</span>
+
+<span class="n">foo</span> <span class="o">----&gt;</span> <span class="n">Function</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">Object</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">null</span>
+<span class="err">由于</span><span class="n">Function</span><span class="p">.</span><span class="n">prototype</span><span class="err">定义了</span><span class="n">apply</span><span class="p">()</span><span class="err">等方法，因此，所有函数都可以调用</span><span class="n">apply</span><span class="p">()</span><span class="err">方法。</span>
+
+<span class="err">除了直接用</span><span class="p">{</span> <span class="p">...</span> <span class="p">}</span><span class="err">创建一个对象外，</span><span class="n">JavaScript</span><span class="err">还可以用一种构造函数的方法来创建对象。它的用法是，先定义一个构造函数：</span>
+</pre></div>
+
+
+<p>function Student(name) {
+    this.name = name;
+    this.hello = function () {
+        alert('Hello, ' + this.name + '!');
+    }
+}</p>
+<div class="hlcode"><pre><span class="err">这确实是一个普通函数，但是在</span><span class="n">JavaScript</span><span class="err">中，可以用关键字</span><span class="n">new</span><span class="err">来调用这个函数，并返回一个对象：</span>
+
+<span class="n">var</span> <span class="n">xiaoming</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Student</span><span class="p">(</span><span class="err">&#39;小明&#39;</span><span class="p">);</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">name</span><span class="p">;</span> <span class="c1">// &#39;小明&#39;</span>
+<span class="n">xiaoming</span><span class="p">.</span><span class="n">hello</span><span class="p">();</span> <span class="c1">// Hello, 小明!</span>
+<span class="err">注意，如果不写</span><span class="n">new</span><span class="err">，这就是一个普通函数，它返回</span><span class="n">undefined</span><span class="err">。但是，如果写了</span><span class="n">new</span><span class="err">，它就变成了一个构造函数，它绑定的</span><span class="n">this</span><span class="err">指向新创建的对象，并默认返回</span><span class="n">this</span><span class="err">，也就是说，不需要在最后写</span><span class="k">return</span> <span class="n">this</span><span class="p">;</span><span class="err">。</span>
+
+<span class="err">新创建的</span><span class="n">xiaoming</span><span class="err">的原型链是：</span>
+
+<span class="n">xiaoming</span> <span class="o">----&gt;</span> <span class="n">Student</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">Object</span><span class="p">.</span><span class="n">prototype</span> <span class="o">----&gt;</span> <span class="n">null</span>
+
+<span class="err">用</span><span class="n">new</span> <span class="n">Student</span><span class="p">()</span><span class="err">创建的对象还从原型上获得了一个</span><span class="n">constructor</span><span class="err">属性，它指向函数</span><span class="n">Student</span><span class="err">本身：</span>
+</pre></div>
+
+
+<p>xiaoming.constructor === Student.prototype.constructor; // true
+Student.prototype.constructor === Student; // true</p>
+<p>Object.getPrototypeOf(xiaoming) === Student.prototype; // true</p>
+<p>xiaoming instanceof Student; // true</p>
+<div class="hlcode"><pre><span class="err">在</span><span class="n">strict</span><span class="err">模式下，</span><span class="n">this</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="err">将报错，因为</span><span class="n">this</span><span class="err">绑定为</span><span class="n">undefined</span><span class="err">，在非</span><span class="n">strict</span><span class="err">模式下，</span><span class="n">this</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="err">不报错，因为</span><span class="n">this</span><span class="err">绑定为</span><span class="n">window</span><span class="err">，于是无意间创建了全局变量</span><span class="n">name</span><span class="err">，并且返回</span><span class="n">undefined</span><span class="err">，这个结果更糟糕。</span>
+
+<span class="err">所以，调用构造函数千万不要忘记写</span><span class="n">new</span><span class="err">。为了区分普通函数和构造函数，按照约定，构造函数首字母应当大写，而普通函数首字母应当小写，这样，一些语法检查工具如</span><span class="n">jslint</span><span class="err">将可以帮你检测到漏写的</span><span class="n">new</span><span class="err">。</span>
+</pre></div>
+
+
+<p>// PrimaryStudent构造函数:
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}</p>
+<p>// 空函数F:
+function F() {
+}</p>
+<p>// 把F的原型指向Student.prototype:
+F.prototype = Student.prototype;</p>
+<p>// 把PrimaryStudent的原型指向一个新的F对象，F对象的原型正好指向Student.prototype:
+PrimaryStudent.prototype = new F();</p>
+<p>// 把PrimaryStudent原型的构造函数修复为PrimaryStudent:
+PrimaryStudent.prototype.constructor = PrimaryStudent;</p>
+<p>// 继续在PrimaryStudent原型（就是new F()对象）上定义方法：
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};</p>
+<p>// 创建xiaoming:
+var xiaoming = new PrimaryStudent({
+    name: '小明',
+    grade: 2
+});
+xiaoming.name; // '小明'
+xiaoming.grade; // 2</p>
+<p>// 验证原型:
+xiaoming.<strong>proto</strong> === PrimaryStudent.prototype; // true
+xiaoming.<strong>proto</strong>.<strong>proto</strong> === Student.prototype; // true</p>
+<p>// 验证继承关系:
+xiaoming instanceof PrimaryStudent; // true
+xiaoming instanceof Student; // true</p>
+<div class="hlcode"><pre><span class="n">JavaScript</span><span class="err">的原型继承实现方式就是：</span>
+
+<span class="o">+</span> <span class="err">定义新的构造函数，并在内部用</span><span class="n">call</span><span class="p">()</span><span class="err">调用希望“继承”的构造函数，并绑定</span><span class="n">this</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="err">借助中间函数</span><span class="n">F</span><span class="err">实现原型链继承，最好通过封装的</span><span class="n">inherits</span><span class="err">函数完成；</span>
+
+<span class="o">+</span> <span class="err">继续在新的构造函数的原型上定义新方法。</span>
+</pre></div>
+
+
+<p>class PrimaryStudent extends Student {
+    constructor(name, grade) {
+        super(name); // 记得用super调用父类的构造方法!
+        this.grade = grade;
+    }</p>
+<div class="hlcode"><pre><span class="n">myGrade</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">alert</span><span class="p">(</span><span class="err">&#39;</span><span class="n">I</span> <span class="n">am</span> <span class="n">at</span> <span class="n">grade</span> <span class="err">&#39;</span> <span class="o">+</span> <span class="n">this</span><span class="p">.</span><span class="n">grade</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>}</p>
+<div class="hlcode"><pre><span class="nx">由于JavaScript能读取到页面的Cookie</span><span class="err">，</span><span class="nx">而用户的登录信息通常也存在Cookie中</span><span class="err">，</span><span class="nx">这就造成了巨大的安全隐患</span><span class="err">，</span><span class="nx">这是因为在HTML页面中引入第三方的JavaScript代码是允许的.如果引入的第三方的JavaScript中存在恶意代码</span><span class="err">，</span><span class="nx">则www.foo.com网站将直接获取到www.example.com网站的用户登录信息</span><span class="err">。</span><span class="nx">为了解决这个问题</span><span class="err">，</span><span class="nx">服务器在设置Cookie时可以使用httpOnly</span><span class="err">，</span><span class="nx">设定了httpOnly的Cookie将不能被JavaScript读取</span><span class="err">。</span><span class="nx">这个行为由浏览器实现</span><span class="err">，</span><span class="nx">主流浏览器均支持httpOnly选项</span><span class="err">，</span><span class="nx">IE从IE6</span> <span class="nx">SP1开始支持</span><span class="err">。</span><span class="nx">s为了确保安全</span><span class="err">，</span><span class="nx">服务器端在设置Cookie时</span><span class="err">，</span><span class="nx">应该始终坚持使用httpOnly</span><span class="err">。</span>
+
+<span class="nx">在操作一个DOM节点前</span><span class="err">，</span><span class="nx">我们需要通过各种方式先拿到这个DOM节点</span><span class="err">。</span><span class="nx">最常用的方法是</span><span class="sb">``</span><span class="nx">document.getElementById</span><span class="p">()</span><span class="sb">``</span><span class="nx">和</span><span class="sb">``</span><span class="nx">document.getElementsByTagName</span><span class="p">()</span><span class="sb">``</span><span class="err">，</span><span class="nx">以及CSS选择器</span><span class="sb">``</span><span class="nx">document.getElementsByClassName</span><span class="p">()</span><span class="sb">``</span><span class="err">。</span>
+
+<span class="nx">第二种方法是使用</span><span class="sb">``</span><span class="nx">querySelector</span><span class="p">()</span><span class="sb">``</span><span class="nx">和</span><span class="sb">``</span><span class="nx">querySelectorAll</span><span class="p">()</span><span class="sb">``</span><span class="nx">.</span>
+
+<span class="nx">拿到一个DOM节点后</span><span class="err">，</span><span class="nx">我们可以对它进行更新</span><span class="err">。</span>
+
+<span class="nx">可以直接修改节点的文本</span><span class="err">，</span><span class="nx">方法有两种</span><span class="err">：</span>
+
+<span class="o">+</span> <span class="nx">一种是修改innerHTML属性</span><span class="err">，</span><span class="nx">这个方式非常强大</span><span class="err">，</span><span class="nx">不但可以修改一个DOM节点的文本内容</span><span class="err">，</span><span class="nx">还可以直接通过HTML片段修改DOM节点内部的子树.</span>
+
+<span class="o">+</span> <span class="nx">用innerHTML时要注意</span><span class="err">，</span><span class="nx">是否需要写入HTML</span><span class="err">。</span><span class="nx">如果写入的字符串是通过网络拿到了</span><span class="err">，</span><span class="nx">要注意对字符编码来避免XSS攻击</span><span class="err">。</span>
+
+<span class="o">+</span> <span class="nx">第二种是修改innerText或textContent属性</span><span class="err">，</span><span class="nx">这样可以自动对字符串进行HTML编码</span><span class="err">，</span><span class="nx">保证无法设置任何HTML标签</span>
+
+<span class="nx">有两个办法可以插入新的节点</span><span class="err">。</span><span class="nx">一个是使用appendChild</span><span class="err">，</span><span class="nx">把一个子节点添加到父节点的最后一个子节点</span><span class="err">。</span>
+
+<span class="nx">如果我们要把子节点插入到指定的位置怎么办</span><span class="err">？</span><span class="nx">可以使用parentElement.insertBefore</span><span class="p">(</span><span class="nx">newElement</span><span class="p">,</span> <span class="nx">referenceElement</span><span class="p">);</span><span class="err">，</span><span class="nx">子节点会插入到referenceElement之前</span><span class="err">。</span>
+
+<span class="nx">要删除一个节点</span><span class="err">，</span><span class="nx">首先要获得该节点本身以及它的父节点</span><span class="err">，</span><span class="nx">然后</span><span class="err">，</span><span class="nx">调用父节点的removeChild把自己删掉</span>
+
+<span class="nx">JavaScript可以以两种方式来处理表单的提交</span>
+
+<span class="o">+</span> <span class="nx">方式一是通过</span><span class="o">&lt;</span><span class="nb">form</span><span class="o">&gt;</span><span class="nx">元素的submit</span><span class="p">()</span><span class="nx">方法提交一个表单</span>
+<span class="o">+</span> <span class="nx">这种方式的缺点是扰乱了浏览器对form的正常提交</span><span class="err">。</span><span class="nx">浏览器默认点击</span><span class="o">&lt;</span><span class="nx">button</span> <span class="k">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span><span class="o">&gt;</span><span class="nx">时提交表单</span><span class="err">，</span><span class="nx">或者用户在最后一个输入框按回车键</span><span class="err">。</span><span class="nx">因此</span><span class="err">，</span><span class="nx">第二种方式是响应</span><span class="o">&lt;</span><span class="nb">form</span><span class="o">&gt;</span><span class="nx">本身的onsubmit事件</span><span class="err">，</span><span class="nx">在提交form时作修改</span>
+</pre></div>
+
+
+<!-- HTML -->
+
+<form id="test-form" onsubmit="return checkForm()">
+    <input type="text" name="test">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+function checkForm() {
+    var form = document.getElementById('test-form');
+    // 可以在此修改form的input...
+    // 继续下一步:
+    return true;
+}
+</script>
+
+<div class="hlcode"><pre><span class="err">注意要</span><span class="k">return</span> <span class="n">true</span><span class="err">来告诉浏览器继续提交，如果</span><span class="k">return</span> <span class="nb">false</span><span class="err">，浏览器将不会继续提交</span><span class="n">form</span><span class="err">，这种情况通常对应用户输入有误，提示用户错误信息后终止提交</span><span class="n">form</span><span class="err">。</span>
+
+<span class="err">在</span><span class="n">HTML</span><span class="err">表单中，可以上传文件的唯一控件就是</span><span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="o">&gt;</span><span class="err">。</span>
+
+<span class="err">注意：当一个表单包含</span><span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="o">&gt;</span><span class="err">时，表单的</span><span class="n">enctype</span><span class="err">必须指定为</span><span class="n">multipart</span><span class="o">/</span><span class="n">form</span><span class="o">-</span><span class="n">data</span><span class="err">，</span><span class="n">method</span><span class="err">必须指定为</span><span class="n">post</span><span class="err">，浏览器才能正确编码并以</span><span class="n">multipart</span><span class="o">/</span><span class="n">form</span><span class="o">-</span><span class="n">data</span><span class="err">格式发送表单的数据。</span>
+
+<span class="err">出于安全考虑，浏览器只允许用户点击</span><span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="o">&gt;</span><span class="err">来选择本地文件，用</span><span class="n">JavaScript</span><span class="err">对</span><span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="o">&gt;</span><span class="err">的</span><span class="n">value</span><span class="err">赋值是没有任何效果的。当用户选择了上传某个文件后，</span><span class="n">JavaScript</span><span class="err">也无法获得该文件的真实路径</span><span class="p">.</span>
+
+<span class="err">随着</span><span class="n">HTML5</span><span class="err">的普及，新增的</span><span class="n">File</span> <span class="n">API</span><span class="err">允许</span><span class="n">JavaScript</span><span class="err">读取文件内容，获得更多的文件信息。</span>
+
+<span class="n">HTML5</span><span class="err">的</span><span class="n">File</span> <span class="n">API</span><span class="err">提供了</span><span class="n">File</span><span class="err">和</span><span class="n">FileReader</span><span class="err">两个主要对象，可以获得文件信息并读取文件。</span>
+</pre></div>
+
+
+<p>var
+    fileInput = document.getElementById('test-image-file'),
+    info = document.getElementById('test-file-info'),
+    preview = document.getElementById('test-image-preview');
+// 监听change事件:
+fileInput.addEventListener('change', function () {
+    // 清除背景图片:
+    preview.style.backgroundImage = '';
+    // 检查文件是否选择:
+    if (!fileInput.value) {
+        info.innerHTML = '没有选择文件';
+        return;
+    }
+    // 获取File引用:
+    var file = fileInput.files[0];
+    // 获取File信息:
+    info.innerHTML = '文件: ' + file.name + '<br>' +
+                     '大小: ' + file.size + '<br>' +
+                     '修改: ' + file.lastModifiedDate;
+    if (file.type !== 'image/jpeg' &amp;&amp; file.type !== 'image/png' &amp;&amp; file.type !== 'image/gif') {
+        alert('不是有效的图片文件!');
+        return;
+    }
+    // 读取文件:
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var
+            data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'          <br />
+        preview.style.backgroundImage = 'url(' + data + ')';
+    };
+    // 以DataURL的形式读取文件:
+    reader.readAsDataURL(file);
+});</p>
+<div class="hlcode"><pre><span class="err">在现代浏览器上写</span><span class="n">AJAX</span><span class="err">主要依靠</span><span class="n">XMLHttpRequest</span><span class="err">对象</span>
+</pre></div>
+
+
+<p>function success(text) {
+    var textarea = document.getElementById('test-response-text');
+    textarea.value = text;
+}</p>
+<p>function fail(code) {
+    var textarea = document.getElementById('test-response-text');
+    textarea.value = 'Error code: ' + code;
+}</p>
+<p>var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象</p>
+<p>request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+    if (request.readyState === 4) { // 成功完成
+        // 判断响应结果:
+        if (request.status === 200) {
+            // 成功，通过responseText拿到响应的文本:
+            return success(request.responseText);
+        } else {
+            // 失败，根据响应码判断失败原因:
+            return fail(request.status);
+        }
+    } else {
+        // HTTP请求还在继续...
+    }
+}</p>
+<p>// 发送请求:
+request.open('GET', '/api/categories');
+request.send();</p>
+<p>alert('请求已发送，请等待响应...');</p>
+<div class="hlcode"><pre><span class="err">对于低版本的</span><span class="n">IE</span><span class="err">，需要换一个</span><span class="n">ActiveXObject</span><span class="err">对象</span>
+
+<span class="err">如果你想把标准写法和</span><span class="n">IE</span><span class="err">写法混在一起，可以这么写：</span>
+</pre></div>
+
+
+<p>var request;
+if (window.XMLHttpRequest) {
+    request = new XMLHttpRequest();
+} else {
+    request = new ActiveXObject('Microsoft.XMLHTTP');
+}</p>
+<div class="hlcode"><pre><span class="err">默认情况下，</span><span class="n">JavaScript</span><span class="err">在发送</span><span class="n">AJAX</span><span class="err">请求时，</span><span class="n">URL</span><span class="err">的域名必须和当前页面完全一致。</span>
+
+<span class="err">完全一致的意思是，域名要相同（</span><span class="n">www</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="err">和</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="err">不同），协议要相同（</span><span class="n">http</span><span class="err">和</span><span class="n">https</span><span class="err">不同），端口号要相同（默认是</span><span class="o">:</span><span class="mi">80</span><span class="err">端口，它和</span><span class="o">:</span><span class="mi">8080</span><span class="err">就不同）。有的浏览器口子松一点，允许端口不同，大多数浏览器都会严格遵守这个限制。</span>
+
+<span class="err">那是不是用</span><span class="n">JavaScript</span><span class="err">无法请求外域（就是其他网站）的</span><span class="n">URL</span><span class="err">了呢？方法还是有的，大概有这么几种：</span>
+
+<span class="err">一是通过</span><span class="n">Flash</span><span class="err">插件发送</span><span class="n">HTTP</span><span class="err">请求，这种方式可以绕过浏览器的安全限制，但必须安装</span><span class="n">Flash</span><span class="err">，并且跟</span><span class="n">Flash</span><span class="err">交互。不过</span><span class="n">Flash</span><span class="err">用起来麻烦，而且现在用得也越来越少了。</span>
+
+<span class="err">二是通过在同源域名下架设一个代理服务器来转发，</span><span class="n">JavaScript</span><span class="err">负责把请求发送到代理服务器：</span>
+
+<span class="err">&#39;</span><span class="o">/</span><span class="n">proxy</span><span class="o">?</span><span class="n">url</span><span class="o">=</span><span class="n">http</span><span class="o">:</span><span class="c1">//www.sina.com.cn&#39;</span>
+<span class="err">代理服务器再把结果返回，这样就遵守了浏览器的同源策略。这种方式麻烦之处在于需要服务器端额外做开发。</span>
+
+<span class="err">第三种方式称为</span><span class="n">JSONP</span><span class="err">，它有个限制，只能用</span><span class="n">GET</span><span class="err">请求，并且要求返回</span><span class="n">JavaScript</span><span class="err">。这种方式跨域实际上是利用了浏览器允许跨域引用</span><span class="n">JavaScript</span><span class="err">资源：</span>
+</pre></div>
+
+
+<p><html>
+<head>
+    <script src="http://example.com/abc.js"></script>
+    ...
+</head>
+<body>
+...
+</body>
+</html></p>
+<div class="hlcode"><pre><span class="nx">这样一来</span><span class="err">，</span><span class="nx">我们如果在页面中先准备好foo</span><span class="p">()</span><span class="nx">函数</span><span class="err">，</span><span class="nx">然后给页面动态加一个</span><span class="o">&lt;</span><span class="nb">script</span><span class="o">&gt;</span><span class="nx">节点</span><span class="err">，</span><span class="nx">相当于动态读取外域的JavaScript资源</span><span class="err">，</span><span class="nx">最后就等着接收回调了</span><span class="err">。</span>
+
+<span class="nx">以163的股票查询URL为例</span><span class="err">，</span><span class="nx">对于URL</span><span class="err">：</span><span class="nx">http</span><span class="p">:</span><span class="c1">//api.money.126.net/data/feed/0000001,1399001?callback=solarex，你将得到如下返回：</span>
+</pre></div>
+
+
+<p>solarex({"0000001":{"code": "0000001", ... });</p>
+<div class="hlcode"><pre><span class="err">因此我们需要首先在页面中准备好回调函数：</span>
+</pre></div>
+
+
+<p>function solarex(data) {
+    var p = document.getElementById('test-jsonp');
+    p.innerHTML = '当前价格：' +
+        data['0000001'].name +': ' + 
+        data['0000001'].price + '；' +
+        data['1399001'].name + ': ' +
+        data['1399001'].price;
+}</p>
+<div class="hlcode"><pre><span class="err">最后用</span><span class="n">getPrice</span><span class="p">()</span><span class="err">函数触发：</span>
+</pre></div>
+
+
+<p>function getPrice() {
+    var
+        js = document.createElement('script'),
+        head = document.getElementsByTagName('head')[0];
+    js.src = 'http://api.money.126.net/data/feed/0000001,1399001?callback=solarex';
+    head.appendChild(js);
+}</p>
+<div class="hlcode"><pre><span class="err">如果浏览器支持</span><span class="n">HTML5</span><span class="err">，那么就可以一劳永逸地使用新的跨域策略：</span><span class="n">CORS</span><span class="err">了。</span>
+
+<span class="n">CORS</span><span class="err">全称</span><span class="n">Cross</span><span class="o">-</span><span class="n">Origin</span> <span class="n">Resource</span> <span class="n">Sharing</span><span class="err">，是</span><span class="n">HTML5</span><span class="err">规范定义的如何跨域访问资源。</span>
+
+<span class="err">了解</span><span class="n">CORS</span><span class="err">前，我们先搞明白概念：</span>
+
+<span class="n">Origin</span><span class="err">表示本域，也就是浏览器当前页面的域。当</span><span class="n">JavaScript</span><span class="err">向外域（如</span><span class="n">sina</span><span class="p">.</span><span class="n">com</span><span class="err">）发起请求后，浏览器收到响应后，首先检查</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="err">是否包含本域，如果是，则此次跨域请求成功，如果不是，则请求失败，</span><span class="n">JavaScript</span><span class="err">将无法获取到响应的任何数据。</span>
+
+<span class="err">假设本域是</span><span class="n">my</span><span class="p">.</span><span class="n">com</span><span class="err">，外域是</span><span class="n">sina</span><span class="p">.</span><span class="n">com</span><span class="err">，只要响应头</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="err">为</span><span class="n">http</span><span class="o">:</span><span class="c1">//my.com，或者是*，本次请求就可以成功。</span>
+
+<span class="err">可见，跨域能否成功，取决于对方服务器是否愿意给你设置一个正确的</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="err">，决定权始终在对方手中。</span>
+
+<span class="err">上面这种跨域请求，称之为“简单请求”。简单请求包括</span><span class="n">GET</span><span class="err">、</span><span class="n">HEAD</span><span class="err">和</span><span class="n">POST</span><span class="err">（</span><span class="n">POST</span><span class="err">的</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="err">类型</span>
+<span class="err">仅限</span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span><span class="err">、</span><span class="n">multipart</span><span class="o">/</span><span class="n">form</span><span class="o">-</span><span class="n">data</span><span class="err">和</span><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="err">），并且不能出现任何自定义头（例如，</span><span class="n">X</span><span class="o">-</span><span class="n">Custom</span><span class="o">:</span> <span class="mi">12345</span><span class="err">），通常能满足</span><span class="mi">90</span><span class="o">%</span><span class="err">的需求。</span>
+
+<span class="err">对于</span><span class="n">PUT</span><span class="err">、</span><span class="n">DELETE</span><span class="err">以及其他类型如</span><span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="err">的</span><span class="n">POST</span><span class="err">请求，在发送</span><span class="n">AJAX</span><span class="err">请求之前，浏览器会先发送一个</span><span class="n">OPTIONS</span><span class="err">请求（称为</span><span class="n">preflighted</span><span class="err">请求）到这个</span><span class="n">URL</span><span class="err">上，询问目标服务器是否接受：</span>
+</pre></div>
+
+
+<p>OPTIONS /path/to/resource HTTP/1.1
+Host: bar.com
+Origin: http://my.com
+Access-Control-Request-Method: POST</p>
+<div class="hlcode"><pre><span class="err">服务器必须响应并明确指出允许的</span><span class="n">Method</span><span class="err">：</span>
+</pre></div>
+
+
+<p>HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://my.com
+Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS
+Access-Control-Max-Age: 86400</p>
+<div class="hlcode"><pre><span class="err">浏览器确认服务器响应的</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Methods</span><span class="err">头确实包含将要发送的</span><span class="n">AJAX</span><span class="err">请求的</span><span class="n">Method</span><span class="err">，才会继续发送</span><span class="n">AJAX</span><span class="err">，否则，抛出一个错误。</span>
+
+<span class="err">由于以</span><span class="n">POST</span><span class="err">、</span><span class="n">PUT</span><span class="err">方式传送</span><span class="n">JSON</span><span class="err">格式的数据在</span><span class="n">REST</span><span class="err">中很常见，所以要跨域正确处理</span><span class="n">POST</span><span class="err">和</span><span class="n">PUT</span><span class="err">请求，服务器端必须正确响应</span><span class="n">OPTIONS</span><span class="err">请求。</span>
+
+<span class="err">在</span><span class="n">JavaScript</span><span class="err">的世界中，所有代码都是单线程执行的。</span>
+
+<span class="err">由于这个“缺陷”，导致</span><span class="n">JavaScript</span><span class="err">的所有网络操作，浏览器事件，都必须是异步执行。异步执行可以用回调函数实现</span>
+</pre></div>
+
+
+<p>function test(resolve, reject) {
+    var timeOut = Math.random() * 2;
+    log('set timeout to: ' + timeOut + ' seconds.');
+    setTimeout(function () {
+        if (timeOut &lt; 1) {
+            log('call resolve()...');
+            resolve('200 OK');
+        }
+        else {
+            log('call reject()...');
+            reject('timeout in ' + timeOut + ' seconds.');
+        }
+    }, timeOut * 1000);
+}</p>
+<div class="hlcode"><pre><span class="err">有了执行函数，我们就可以用一个</span><span class="nx">Promise</span><span class="err">对象来执行它，并在将来某个时刻获得成功或失败的结果：</span>
+
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="nx">test</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;成功：&#39;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">p3</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;失败：&#39;</span> <span class="o">+</span> <span class="nx">reason</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="err">变量</span><span class="nx">p1</span><span class="err">是一个</span><span class="nx">Promise</span><span class="err">对象，它负责执行</span><span class="nx">test</span><span class="err">函数。由于</span><span class="nx">test</span><span class="err">函数在内部是异步执行的，当</span><span class="nx">test</span><span class="err">函数执行成功时，我们告诉</span><span class="nx">Promise</span><span class="err">对象：</span>
+</pre></div>
+
+
+<p>// 如果成功，执行这个函数：
+p1.then(function (result) {
+    console.log('成功：' + result);
+});</p>
+<div class="hlcode"><pre><span class="err">当</span><span class="n">test</span><span class="err">函数执行失败时，我们告诉</span><span class="n">Promise</span><span class="err">对象：</span>
+</pre></div>
+
+
+<p>p2.catch(function (reason) {
+    console.log('失败：' + reason);
+});</p>
+<div class="hlcode"><pre><span class="n">Promise</span><span class="err">对象可以串联起来，所以上述代码可以简化为：</span>
+</pre></div>
+
+
+<p>new Promise(test).then(function (result) {
+    console.log('成功：' + result);
+}).catch(function (reason) {
+    console.log('失败：' + reason);
+});</p>
+<div class="hlcode"><pre><span class="err">除了串行执行若干异步任务外，</span><span class="n">Promise</span><span class="err">还可以并行执行异步任务。</span>
+
+<span class="err">试想一个页面聊天系统，我们需要从两个不同的</span><span class="n">URL</span><span class="err">分别获得用户的个人信息和好友列表，这两个任务是可以并行执行的，用</span><span class="n">Promise</span><span class="p">.</span><span class="n">all</span><span class="p">()</span><span class="err">实现如下：</span>
+</pre></div>
+
+
+<p>var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});</p>
+<div class="hlcode"><pre><span class="c1">// 同时执行p1和p2，并在它们都完成后执行then:</span>
+</pre></div>
+
+
+<p>Promise.all([p1, p2]).then(function (results) {
+    console.log(results); // 获得一个Array: ['P1', 'P2']
+});</p>
+<div class="hlcode"><pre><span class="err">有些时候，多个异步任务是为了容错。比如，同时向两个</span><span class="n">URL</span><span class="err">读取用户的个人信息，只需要获得先返回的结果即可。这种情况下，用</span><span class="n">Promise</span><span class="p">.</span><span class="n">race</span><span class="p">()</span><span class="err">实现：</span>
+</pre></div>
+
+
+<p>var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+Promise.race([p1, p2]).then(function (result) {
+    console.log(result); // 'P1'
+});</p>
+<div class="hlcode"><pre><span class="err">由于</span><span class="n">p1</span><span class="err">执行较快，</span><span class="n">Promise</span><span class="err">的</span><span class="n">then</span><span class="p">()</span><span class="err">将获得结果&#39;</span><span class="n">P1</span><span class="err">&#39;。</span><span class="n">p2</span><span class="err">仍在继续执行，但执行结果将被丢弃。</span>
+
+<span class="n">canvas</span><span class="p">.</span><span class="n">getContext</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">2</span><span class="n">d</span><span class="err">&#39;</span><span class="p">)</span><span class="err">方法让我们拿到一个</span><span class="n">CanvasRenderingContext2D</span><span class="err">对象，所有的绘图操作都需要通过这个对象完成。</span>
+</pre></div>
+
+
+<p>var ctx = canvas.getContext('2d');</p>
+<div class="hlcode"><pre><span class="err">如果需要绘制</span><span class="mi">3</span><span class="n">D</span><span class="err">怎么办？</span><span class="n">HTML5</span><span class="err">还有一个</span><span class="n">WebGL</span><span class="err">规范，允许在</span><span class="n">Canvas</span><span class="err">中绘制</span><span class="mi">3</span><span class="n">D</span><span class="err">图形：</span>
+</pre></div>
+
+
+<p>gl = canvas.getContext("webgl");</p>
+<div class="hlcode"><pre><span class="err">$是著名的</span><span class="n">jQuery</span><span class="err">符号。实际上，</span><span class="n">jQuery</span><span class="err">把所有功能全部封装在一个全局变量</span><span class="n">jQuery</span><span class="err">中，而$也是一个合法的变量名，它是变量</span><span class="n">jQuery</span><span class="err">的别名</span>
+
+<span class="err">绝大多数时候，我们都直接用$（因为写起来更简单嘛）。但是，如果$这个变量不幸地被占用了，而且还不能改，那我们就只能让</span><span class="n">jQuery</span><span class="err">把$变量交出来，然后就只能使用</span><span class="n">jQuery</span><span class="err">这个变量：</span>
+</pre></div>
+
+
+<p>$; // jQuery(selector, context)
+jQuery.noConflict();
+$; // undefined
+jQuery; // jQuery(selector, context)</p>
+<div class="hlcode"><pre><span class="err">这种黑魔法的原理是</span><span class="n">jQuery</span><span class="err">在占用$之前，先在内部保存了原来的$</span><span class="p">,</span><span class="err">调用</span><span class="n">jQuery</span><span class="p">.</span><span class="n">noConflict</span><span class="p">()</span><span class="err">时会把原来保存的变量还原。</span>
+
+<span class="err">选择器是</span><span class="n">jQuery</span><span class="err">的核心。一个选择器写出来类似$</span><span class="p">(</span><span class="err">&#39;#</span><span class="n">dom</span><span class="o">-</span><span class="n">id</span><span class="err">&#39;</span><span class="p">)</span><span class="err">。</span>
+
+<span class="err">如果某个</span><span class="n">DOM</span><span class="err">节点有</span><span class="n">id</span><span class="err">属性，利用</span><span class="n">jQuery</span><span class="err">查找如下：</span>
+</pre></div>
+
+
+<p>// 查找<div id="abc">:
+var div = $('#abc');</p>
+<div class="hlcode"><pre><span class="err">按</span><span class="n">tag</span><span class="err">查找只需要写上</span><span class="n">tag</span><span class="err">名称就可以了：</span>
+</pre></div>
+
+
+<p>var ps = $('p'); // 返回所有<p>节点
+ps.length; // 数一数页面有多少个<p>节点</p>
+<div class="hlcode"><pre><span class="err">按</span><span class="n">class</span><span class="err">查找注意在</span><span class="n">class</span><span class="err">名称前加一个</span><span class="p">.</span><span class="err">：</span>
+</pre></div>
+
+
+<p>var a = $('.red'); // 所有节点包含<code>class="red"</code>都将返回
+// 例如:
+// <div class="red">...</div>
+// <p class="green red">...</p></p>
+<div class="hlcode"><pre><span class="err">通常很多节点有多个</span><span class="n">class</span><span class="err">，我们可以查找同时包含</span><span class="n">red</span><span class="err">和</span><span class="n">green</span><span class="err">的节点：</span>
+</pre></div>
+
+
+<p>var a = $('.red.green'); // 注意没有空格！
+// 符合条件的节点：
+// <div class="red green">...</div>
+// <div class="blue green red">...</div></p>
+<div class="hlcode"><pre><span class="err">一个</span><span class="n">DOM</span><span class="err">节点除了</span><span class="n">id</span><span class="err">和</span><span class="n">class</span><span class="err">外还可以有很多属性，很多时候按属性查找会非常方便，比如在一个表单中按属性来查找：</span>
+</pre></div>
+
+
+<p>var email = $('[name=email]'); // 找出&lt;??? name="email"&gt;
+var passwordInput = $('[type=password]'); // 找出&lt;??? type="password"&gt;
+var a = $('[items="A B"]'); // 找出&lt;??? items="A B"&gt;</p>
+<div class="hlcode"><pre><span class="err">当属性的值包含空格等特殊字符时，需要用双引号括起来。</span>
+
+<span class="err">按属性查找还可以使用前缀查找或者后缀查找：</span>
+</pre></div>
+
+
+<p>var icons = $('[name^=icon]'); // 找出所有name属性值以icon开头的DOM
+// 例如: name="icon-1", name="icon-2"
+var names = $('[name$=with]'); // 找出所有name属性值以with结尾的DOM
+// 例如: name="startswith", name="endswith"</p>
+<div class="hlcode"><pre><span class="err">这个方法尤其适合通过</span><span class="n">class</span><span class="err">属性查找，且不受</span><span class="n">class</span><span class="err">包含多个名称的影响：</span>
+</pre></div>
+
+
+<p>var icons = $('[class^="icon-"]'); // 找出所有class包含至少一个以<code>icon-</code>开头的DOM
+// 例如: class="icon-clock", class="abc icon-home"</p>
+<div class="hlcode"><pre><span class="nx">组合查找就是把上述简单选择器组合起来使用</span><span class="err">。</span><span class="nx">如果我们查找</span><span class="err">$</span><span class="p">(</span><span class="s1">&#39;[name=email]&#39;</span><span class="p">)</span><span class="err">，</span><span class="nx">很可能把表单外的</span><span class="o">&lt;</span><span class="nb">div</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="o">&gt;</span><span class="nx">也找出来</span><span class="err">，</span><span class="nx">但我们只希望查找</span><span class="o">&lt;</span><span class="nb">input</span><span class="o">&gt;</span><span class="err">，</span><span class="nx">就可以这么写</span><span class="err">：</span>
+</pre></div>
+
+
+<p>var emailInput = $('input[name=email]'); // 不会找出<div name="email"></p>
+<div class="hlcode"><pre><span class="err">同样的，根据</span><span class="n">tag</span><span class="err">和</span><span class="n">class</span><span class="err">来组合查找也很常见：</span>
+</pre></div>
+
+
+<p>var tr = $('tr.red'); // 找出<tr class="red ...">...</tr></p>
+<div class="hlcode"><pre><span class="err">多项选择器就是把多个选择器用</span><span class="p">,</span><span class="err">组合起来一块选：</span>
+</pre></div>
+
+
+<p>$('p,div'); // 把<p>和<div>都选出来
+$('p.red,p.green'); // 把<p class="red">和<p class="green">都选出来</p>
+<div class="hlcode"><pre><span class="err">如果两个</span><span class="n">DOM</span><span class="err">元素具有层级关系，就可以用$</span><span class="p">(</span><span class="err">&#39;</span><span class="n">ancestor</span> <span class="n">descendant</span><span class="err">&#39;</span><span class="p">)</span><span class="err">来选择，层级之间用空格隔开。例如：</span>
+</pre></div>
+
+
+<!-- HTML结构 -->
+
+<div class="testing">
+    <ul class="lang">
+        <li class="lang-javascript">JavaScript</li>
+        <li class="lang-python">Python</li>
+        <li class="lang-lua">Lua</li>
+    </ul>
+</div>
+
+<div class="hlcode"><pre><span class="err">要选出</span><span class="n">JavaScript</span><span class="err">，可以用层级选择器：</span>
+</pre></div>
+
+
+<p>$('ul.lang li.lang-javascript'); // [<li class="lang-javascript">JavaScript</li>]
+$('div.testing li.lang-javascript'); // [<li class="lang-javascript">JavaScript</li>]</p>
+<div class="hlcode"><pre><span class="nx">子选择器</span><span class="err">$</span><span class="p">(</span><span class="s1">&#39;parent&gt;child&#39;</span><span class="p">)</span><span class="nx">类似层级选择器</span><span class="err">，</span><span class="nx">但是限定了层级关系必须是父子关系</span><span class="err">，</span><span class="nx">就是</span><span class="o">&lt;</span><span class="nx">child</span><span class="o">&gt;</span><span class="nx">节点必须是</span><span class="o">&lt;</span><span class="k">parent</span><span class="o">&gt;</span><span class="nx">节点的直属子节点</span><span class="err">。</span><span class="nx">还是以上面的例子</span><span class="err">：</span>
+</pre></div>
+
+
+<p>$('ul.lang&gt;li.lang-javascript'); // 可以选出[<li class="lang-javascript">JavaScript</li>]
+$('div.testing&gt;li.lang-javascript'); // [], 无法选出，因为<div>和<li>不构成父子关系</p>
+<div class="hlcode"><pre><span class="err">过滤器一般不单独使用，它通常附加在选择器上，帮助我们更精确地定位元素。观察过滤器的效果：</span>
+</pre></div>
+
+
+<p>$('ul.lang li'); // 选出JavaScript、Python和Lua 3个节点</p>
+<p>$('ul.lang li:first-child'); // 仅选出JavaScript
+$('ul.lang li:last-child'); // 仅选出Lua
+$('ul.lang li:nth-child(2)'); // 选出第N个元素，N从1开始
+$('ul.lang li:nth-child(even)'); // 选出序号为偶数的元素
+$('ul.lang li:nth-child(odd)'); // 选出序号为奇数的元素</p>
+<div class="hlcode"><pre>
+</pre></div>
+
+
+<p>// 获取超链接的jQuery对象:
+var a = $('#test-link');
+a.on('click', function () {
+    alert('Hello!');
+});</p>
+<div class="hlcode"><pre><span class="n">on</span><span class="err">方法用来绑定一个事件，我们需要传入事件名称和对应的处理函数。</span>
+
+<span class="err">另一种更简化的写法是直接调用</span><span class="n">click</span><span class="p">()</span><span class="err">方法：</span>
+</pre></div>
+
+
+<p>a.click(function () {
+    alert('Hello!');
+});</p>
+<div class="hlcode"><pre><span class="err">由于</span><span class="n">ready</span><span class="err">事件使用非常普遍，所以可以这样简化：</span>
+</pre></div>
+
+
+<p>$(document).ready(function () {
+    // on('submit', function)也可以简化:
+    $('#testForm).submit(function () {
+        alert('submit!');
+    });
+});</p>
+<div class="hlcode"><pre><span class="err">甚至还可以再简化为：</span>
+</pre></div>
+
+
+<p>$(function () {
+    // init...
+});</p>
+<div class="hlcode"><pre><span class="err">上面的这种写法最为常见。如果你遇到</span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{...})</span><span class="err">的形式，牢记这是</span><span class="nx">document</span><span class="err">对象的</span><span class="nx">ready</span><span class="err">事件处理函数。</span>
+</pre></div>
+
+
+<p>// 绑定事件:
+a.click(function () {
+    alert('hello!');
+});</p>
+<p>// 解除绑定:
+a.off('click', function () {
+    alert('hello!');
+});</p>
+<div class="hlcode"><pre><span class="err">直接以无参数形式调用</span><span class="n">show</span><span class="p">()</span><span class="err">和</span><span class="n">hide</span><span class="p">()</span><span class="err">，会显示和隐藏</span><span class="n">DOM</span><span class="err">元素。但是，只要传递一个时间参数进去，就变成了动画：</span>
+</pre></div>
+
+
+<p>var div = $('#test-show-hide');
+div.hide(3000); // 在3秒钟内逐渐消失</p>
+<div class="hlcode"><pre><span class="err">时间以毫秒为单位，但也可以是&#39;</span><span class="n">slow</span><span class="sc">&#39;，&#39;</span><span class="n">fast</span><span class="err">&#39;这些字符串：</span>
+</pre></div>
+
+
+<p>var div = $('#test-show-hide');
+div.show('slow'); // 在0.6秒钟内逐渐显示
+toggle()方法则根据当前状态决定是show()还是hide()。</p>
+<div class="hlcode"><pre><span class="n">slideUp</span><span class="p">()</span><span class="err">把一个可见的</span><span class="n">DOM</span><span class="err">元素收起来，效果跟拉上窗帘似的，</span><span class="n">slideDown</span><span class="p">()</span><span class="err">相反，而</span><span class="n">slideToggle</span><span class="p">()</span><span class="err">则根据元素是否可见来决定下一步动作</span>
+
+<span class="n">fadeIn</span><span class="p">()</span><span class="err">和</span><span class="n">fadeOut</span><span class="p">()</span><span class="err">的动画效果是淡入淡出，也就是通过不断设置</span><span class="n">DOM</span><span class="err">元素的</span><span class="n">opacity</span><span class="err">属性来实现，而</span><span class="n">fadeToggle</span><span class="p">()</span><span class="err">则根据元素是否可见来决定下一步动作</span>
+</pre></div>
+
+
+<p>var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000); // 在3秒钟内CSS过渡到设定值</p>
+<div class="hlcode"><pre><span class="n">animate</span><span class="p">()</span><span class="err">还可以再传入一个函数，当动画结束时，该函数将被调用：</span>
+</pre></div>
+
+
+<p>var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000, function () {
+    console.log('动画已结束');
+    // 恢复至初始状态:
+    $(this).css('opacity', '1.0').css('width', '128px').css('height', '128px');
+});</p>
+<div class="hlcode"><pre><span class="err">你可能会遇到，有的动画如</span><span class="n">slideUp</span><span class="p">()</span><span class="err">根本没有效果。这是因为</span><span class="n">jQuery</span><span class="err">动画的原理是逐渐改变</span><span class="n">CSS</span><span class="err">的值，如</span><span class="n">height</span><span class="err">从</span><span class="mi">100</span><span class="n">px</span><span class="err">逐渐变为</span><span class="mi">0</span><span class="err">。但是很多不是</span><span class="n">block</span><span class="err">性质的</span><span class="n">DOM</span><span class="err">元素，对它们设置</span><span class="n">height</span><span class="err">根本就不起作用，所以动画也就没有效果。</span>
+
+<span class="err">此外，</span><span class="n">jQuery</span><span class="err">也没有实现对</span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="err">的动画效果，用</span><span class="n">animate</span><span class="p">()</span><span class="err">设置</span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="err">也没有效果。这种情况下可以使用</span><span class="n">CSS3</span><span class="err">的</span><span class="n">transition</span><span class="err">实现动画效果。</span>
+
+<span class="n">AJAX</span>
+
+<span class="err">阅读</span><span class="o">:</span> <span class="mi">48909</span>
+<span class="err">用</span><span class="n">JavaScript</span><span class="err">写</span><span class="n">AJAX</span><span class="err">前面已经介绍过了，主要问题就是不同浏览器需要写不同代码，并且状态和错误处理写起来很麻烦。</span>
+
+<span class="err">用</span><span class="n">jQuery</span><span class="err">的相关对象来处理</span><span class="n">AJAX</span><span class="err">，不但不需要考虑浏览器问题，代码也能大大简化。</span>
+
+<span class="n">ajax</span>
+
+<span class="n">jQuery</span><span class="err">在全局对象</span><span class="n">jQuery</span><span class="err">（也就是$）绑定了</span><span class="n">ajax</span><span class="p">()</span><span class="err">函数，可以处理</span><span class="n">AJAX</span><span class="err">请求。</span><span class="n">ajax</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span><span class="err">函数需要接收一个</span><span class="n">URL</span><span class="err">和一个可选的</span><span class="n">settings</span><span class="err">对象，常用的选项如下：</span>
+
+<span class="o">+</span> <span class="n">async</span><span class="err">：是否异步执行</span><span class="n">AJAX</span><span class="err">请求，默认为</span><span class="nb">true</span><span class="err">，千万不要指定为</span><span class="nb">false</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="n">method</span><span class="err">：发送的</span><span class="n">Method</span><span class="err">，缺省为&#39;</span><span class="n">GET</span><span class="err">&#39;，可指定为&#39;</span><span class="n">POST</span><span class="sc">&#39;、&#39;</span><span class="n">PUT</span><span class="err">&#39;等；</span>
+
+<span class="o">+</span> <span class="n">contentType</span><span class="err">：发送</span><span class="n">POST</span><span class="err">请求的格式，默认值为&#39;</span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span><span class="p">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="err">&#39;，也可以指定为</span><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="err">、</span><span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="n">data</span><span class="err">：发送的数据，可以是字符串、数组或</span><span class="n">object</span><span class="err">。如果是</span><span class="n">GET</span><span class="err">请求，</span><span class="n">data</span><span class="err">将被转换成</span><span class="n">query</span><span class="err">附加到</span><span class="n">URL</span><span class="err">上，如果是</span><span class="n">POST</span><span class="err">请求，根据</span><span class="n">contentType</span><span class="err">把</span><span class="n">data</span><span class="err">序列化成合适的格式；</span>
+
+<span class="o">+</span> <span class="n">headers</span><span class="err">：发送的额外的</span><span class="n">HTTP</span><span class="err">头，必须是一个</span><span class="n">object</span><span class="err">；</span>
+
+<span class="o">+</span> <span class="n">dataType</span><span class="err">：接收的数据格式，可以指定为&#39;</span><span class="n">html</span><span class="sc">&#39;、&#39;</span><span class="n">xml</span><span class="sc">&#39;、&#39;</span><span class="n">json</span><span class="sc">&#39;、&#39;</span><span class="n">text</span><span class="err">&#39;等，缺省情况下根据响应的</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="err">猜测。</span>
+
+<span class="err">对常用的</span><span class="n">AJAX</span><span class="err">操作，</span><span class="n">jQuery</span><span class="err">提供了一些辅助方法。由于</span><span class="n">GET</span><span class="err">请求最常见，所以</span><span class="n">jQuery</span><span class="err">提供了</span><span class="n">get</span><span class="p">()</span><span class="err">方法，可以这么写：</span>
+</pre></div>
+
+
+<p>var jqxhr = $.get('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+});</p>
+<div class="hlcode"><pre><span class="err">第二个参数如果是</span><span class="n">object</span><span class="err">，</span><span class="n">jQuery</span><span class="err">自动把它变成</span><span class="n">query</span> <span class="n">string</span><span class="err">然后加到</span><span class="n">URL</span><span class="err">后面，实际的</span><span class="n">URL</span><span class="err">是：</span>
+</pre></div>
+
+
+<p>/path/to/resource?name=Bob%20Lee&amp;check=1</p>
+<div class="hlcode"><pre><span class="err">这样我们就不用关心如何用</span><span class="n">URL</span><span class="err">编码并构造一个</span><span class="n">query</span> <span class="n">string</span><span class="err">了。</span>
+
+
+<span class="n">post</span><span class="p">()</span><span class="err">和</span><span class="n">get</span><span class="p">()</span><span class="err">类似，但是传入的第二个参数默认被序列化为</span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span><span class="err">：</span>
+</pre></div>
+
+
+<p>var jqxhr = $.post('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+});</p>
+<div class="hlcode"><pre><span class="err">实际构造的数据</span><span class="n">name</span><span class="o">=</span><span class="n">Bob</span><span class="o">%</span><span class="mi">20L</span><span class="n">ee</span><span class="o">&amp;</span><span class="n">check</span><span class="o">=</span><span class="mi">1</span><span class="err">作为</span><span class="n">POST</span><span class="err">的</span><span class="n">body</span><span class="err">被发送。</span>
+
+<span class="err">由于</span><span class="n">JSON</span><span class="err">用得越来越普遍，所以</span><span class="n">jQuery</span><span class="err">也提供了</span><span class="n">getJSON</span><span class="p">()</span><span class="err">方法来快速通过</span><span class="n">GET</span><span class="err">获取一个</span><span class="n">JSON</span><span class="err">对象：</span>
+</pre></div>
+
+
+<p>var jqxhr = $.getJSON('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+}).done(function (data) {
+    // data已经被解析为JSON对象了
+});</p>
+<div class="hlcode"><pre><span class="err">给</span><span class="n">jQuery</span><span class="err">对象绑定一个新方法是通过扩展$</span><span class="p">.</span><span class="n">fn</span><span class="err">对象实现的。让我们来编写第一个扩展——</span><span class="n">highlight1</span><span class="p">()</span><span class="err">：</span>
+</pre></div>
+
+
+<p>$.fn.highlight1 = function () {
+    // this已绑定为当前jQuery对象:
+    this.css('backgroundColor', '#fffceb').css('color', '#d85030');
+    return this;
+}
+```</p>
+    </div>
+
+        </div>
+        <div id="footer">
+              <p>
+                Copyright © 2012-2017 Solarex.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+              </p>
+                <p>Last Update 2017-10-22 09:56:16</p>
+        </div>
+    </body>
+</html>

@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="../static/css/reset_typo.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/tango.css">
         <link rel="Stylesheet" type="text/css" href="../static/css/style.css">
-        <title>virtualenv - Wiki·Solarex</title>
+        <title>JNI - Wiki·Solarex</title>
         <meta name="keywords" content="android,linux,python,mac"/>
         <meta name="description" content="Solarex's personal wiki,powered by simiki.Focus on Android, Python, Linux, Mac and so on."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,59 +34,16 @@
         <div id="post-nav">
             <div id="toggle-button">宽版</div>
             
-            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Python">Python</a> » virtualenv
+            <a href="https://solarex.github.io/wiki/">Home</a> » <a href="https://solarex.github.io/wiki/#Android">Android</a> » JNI
             
         </div>
     </div>
     <div class="clearfix"></div>
-    <h1><center>virtualenv</center></h1>
+    <h1><center>JNI</center></h1>
     <hr>
     <div id="content">
-        <h2 id="virtualenv-virtualenvwrapper">virtualenv &amp; virtualenvwrapper</h2>
-<h3 id="set-up-virtualenv">set up virtualenv</h3>
-<ul>
-<li>
-<p><code>virtualenv</code>用于创建独立的Python环境，多个Python相互独立，互不影响</p>
-</li>
-<li>
-<p><code>virtualenvwrapper</code>是<code>virtualenv</code>的扩展包，方便管理虚拟环境</p>
-</li>
-<li>
-<p><code>sudo apt-get install python-virtualenv</code></p>
-</li>
-</ul>
-<h3 id="virtualenv">virtualenv</h3>
-<ul>
-<li>
-<p><code>virtualenv [--no-site-packages]  env_name</code></p>
-</li>
-<li>
-<p><code>cd env_name &amp;&amp; source ./bin/activate</code></p>
-</li>
-<li>
-<p><code>deactivate</code></p>
-</li>
-</ul>
-<h3 id="virtualenvwrapper">virtualenvwrapper</h3>
-<ul>
-<li>
-<p><code>mkdir $HOME/.virtualenvs &amp;&amp; echo 'export WORKON_HOME=$HOME/.virtualenvs' &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc</code></p>
-</li>
-<li>
-<p><code>lsvirtualenv</code></p>
-</li>
-<li>
-<p><code>mkvirtualenv env_name</code></p>
-</li>
-<li>
-<p><code>workon env_name</code></p>
-</li>
-<li>
-<p><code>rmvirtualenv env_name</code></p>
-</li>
-<li>
-<p><code>deactivate</code></p>
-</li>
+        <ul>
+<li>获取一个类的方法签名，<code>javap -s -p HelloJni</code>，<code>-s</code>输出内部类型签名，<code>-p</code>显示所有类和成员。</li>
 </ul>
     </div>
 
