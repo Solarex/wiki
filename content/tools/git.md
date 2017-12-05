@@ -122,3 +122,7 @@ git submodule update --init --recursive
 # git rebase <basebranch> <topicbranch>
 $ git rebase master experimentBranch
 ```
+
++ ``Git: fatal: The current branch master has multiple upstream branches, refusing to push``,``git config remote.origin.push HEAD``
+
++ ``git stash save``,``git stash drop``,``git stash clear``
